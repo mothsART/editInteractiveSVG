@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" type="text/css" href="./static/bootstrap_3.3.7.min.css" />
+    <link rel="stylesheet" type="text/css" href="./static/bootstrap-slider.9.4.1.min.css" />
+    <link rel="stylesheet" type="text/css" href="./static/trumbowyg.2.4.0.min.css" />
+    <link rel="stylesheet" type="text/css" href="./static/spectrum.1.8.min.css" />
+    <link rel="stylesheet" type="text/css" href="./static/style.css" />
+  </head>
+  <body>
+    <header id="edit-menu" class="container-fluid hidden bs-docs-nav navbar navbar-static-top">
+      <div class="navbar-header">
+        <button aria-controls="bs-navbar" aria-expanded="false" class="collapsed navbar-toggle" data-target="#bs-navbar" data-toggle="collapse" type="button">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <nav class="collapse navbar-collapse" id="bs-navbar">
+        <ul class="nav navbar-nav">
+          <li>
+            <form class="save" id="save-form">
+              <button type="submit" class="btn btn-default btn-xs">
+                <span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span> Save
+              </button>
+            </form>
+          </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li>
+            <button onclick="display_result();" type="button" class="btn btn-default btn-xs">
+              <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Show
+            </button>
+          </li>
+        </ul>
+        <div class="container">
+        <ul class="nav navbar-nav">
+          <li>
+            <button type="button" class="btn btn-default btn-xs disabled">
+              <span class="glyphicon glyphicon-undo" aria-hidden="true"></span> Undo
+            </button>
+          </li>
+          <li>
+           <button type="button" class="btn btn-default btn-xs disabled">
+            <span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span> Redo
+          </button>
+          </li>
+        </ul>
+        </div>
+      </nav>
+    </header>
+    <div id="upload-zone" class="container">
+      <form method="post" action="." enctype="multipart/form-data" novalidate="" class="box has-advanced-upload">
+        <div class="box__input">
+          <div id="download-pic" class="glyphicon glyphicon-download-alt" aria-hidden="true"></div>
+          <input type="file" name="files[]" id="file" class="box__file" data-multiple-caption="{count} files selected" multiple="">
+          <label id="choose-file" for="file"><strong>Choose a file</strong><span class="box__dragndrop"> or drag it here</span>.</label>
+          <label id="upload-text" class="hidden" for="file"></label>
+          <button type="submit" class="box__button">Upload</button>
+        </div>
+        <div class="box__error">Error! Try again!</div>
+      </form>
+    </div>
+    <div id="edit-zone" class="hidden">
+      <div id="svg" class="content">
+        <section id="indices">
+          <article id="template-indice">
+            <span onclick="show_indice_editor(this);" class="indice hidden" id="indice-1">1</span>
+          </article>
+        </section>
+        <section id="descriptions">
+          <article class="hidden">
+          </article>
+        </section>
+      </div>
+      <div id="sidebar">
+        <field id="legend">
+          <legend>Legend</legend>
+            <div id="legend-container" class="container-fluid">
+              <div id="add-and-delete-legend">
+                <button type="button" id="add-legend-button" onclick="add_legend();" class="btn btn-success btn-xs">
+                  Add <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                </button>
+                <button type="button" id="delete-legend-button" class="btn btn-danger btn-xs disabled" data-toggle="modal" data-target=".bs-delete-legend-modal-sm">
+                  <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span> Delete
+                </button>
+              </div>
+              <div id="legend-list-container" class="container-fluid">
+                <table id="list-of-legend" class="table table-bordered hidden">
+                  <thead>
+                    <tr>
+                      <th><input type="checkbox" id="show-all-legend" onclick="show_all_legend();"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr id="template-legend" class="hidden">
+                      <td>
+                        <input type="checkbox" onchange="show_legend(this);" class="checkbox">
+                      </td>
+                      <td>
+                        <span class="indice">1</span><em>-- no title --</em>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+        </field>
+        <div id="indice-editor" class="hidden container-fluid">
+          <div>
+            <input id="zoom-slider" data-slider-id="zoom-slider" type="text" data-slider-min="0" data-slider-max="50" data-slider-step="1" data-slider-value="10" data-slider-enabled="false" />
+            <input id="zoom-slider-enabled" type="checkbox"/> Enabled
+          </div>
+          <div>
+            <input id='color-indice-picker' />
+            <button type="button" class="related-target-editor btn btn-success btn-xs" data-toggle="modal" data-target=".bs-edit-legend-modal-lg">
+              <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Edit description
+            </button>
+          </div>
+        </div>
+      </div>
+      <div id="delete-content" class="container-fluid">
+          <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target=".bs-delete-picture-modal-sm">
+            <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span> Delete
+          </button>
+      </div>
+    </div>
+    <div id="show-menu" class="container-fluid hidden">
+      <nav class="collapse navbar-collapse" id="bs-navbar">
+        <ul class="nav navbar-nav navbar-right">
+          <li>
+            <button id="return-to-edit" onclick="return_to_edit();" type="button" class="btn btn-default btn-xs">
+              <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Edit
+            </button>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <div id="edit-legend-modal" class="modal fade bs-edit-legend-modal-lg" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Edit legend</h4>
+          </div>
+          <div class="modal-body">
+            <div class="form-horizontal">
+              <div class="form-group">
+                <label class="col-lg-1 control-label">Title</label>
+                <div class="col-lg-11">
+                  <input id="modal-legend-id" type="hidden" />
+                  <input id="legend-title" type="text" name="indice-text" class="form-control" />
+                </div>
+              </div>
+            </div>
+            <div id="indice-description"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="delete-legend-modal" class="modal fade bs-delete-legend-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+      <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Would you delete the selected legends ?</h4>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default btn-xs" data-dismiss="modal">No</button>
+            <button type="button" onclick="delete_legend();" class="btn btn-primary btn-xs">Yes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="delete-picture-modal" class="modal fade bs-delete-picture-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+      <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Would you delete this picture ?</h4>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default btn-xs" data-dismiss="modal">No</button>
+            <button type="button" onclick="delete_pic();" class="btn btn-primary btn-xs">Yes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="./static/jquery.min.js"></script>
+    <script src="./static/bootstrap_3.3.7.min.js"></script>
+    <script src="./static/bootstrap-slider.9.4.1.min.js"></script>
+    <script src="./static/FileSaver.min.js"></script>
+    <script src="./static/dragula_3.7.2.min.js"></script>
+    <script src="./static/trumbowyg.2.4.0.min.js"></script>
+    <script src="./static/spectrum.1.8.0.min.js"></script>
+    <script src="./static/drag_and_drop_file.js"></script>
+  </body>
+</html>
