@@ -1,3 +1,32 @@
+var SVG = {
+    width:         0,
+    height:        0,
+    ratio:         0,
+    content_ratio: 0,
+    indice_left:   0,
+    indice_top:    0,
+    indice_height: 0,
+    indice_width:  0,
+    init: function() {
+        this.width = parseInt($("#svg svg").attr("width").replace(/[^0-9]+/, ''));
+        this.height = parseInt($("#svg svg").attr("height").replace(/[^0-9]+/, ''));
+        this.ratio = this.width / this.height;
+        this.content_ratio = $("#svg").width() / $("#svg").height();
+        if (this.ratio > this.content_ratio) {
+            this.indice_left = 0;
+            this.indice_top = parseInt(($("#svg").height() - $("#svg").width() / this.ratio) / 2);
+            this.indice_height = 5 + parseInt($("#svg").width() / this.ratio);
+            this.indice_width = $("#svg").width();
+        }
+        else {
+            this.indice_left = parseInt(($("#svg").width() - $("#svg").height() * this.ratio) / 2);
+            this.indice_top = 0;
+            this.indice_width = 5 + parseInt($("#svg").height() * this.ratio);
+            this.indice_height = $("#svg").height();
+        }
+    }
+};
+
 var dragAndDrop = {
     init: function () {
         this.dragula();
@@ -28,14 +57,65 @@ function reorder_legend() {
     });
 }
 
-function add_legend() {
+function add_legend(element) {
     "use strict";
     $("#template-legend").clone().removeAttr("id").removeClass("hidden").prependTo("#list-of-legend tbody");
-
     $("#show-all-legend").removeClass('hidden');
     $("#list-of-legend").removeClass('hidden');
     $("#template-indice").clone().removeAttr("id").removeClass("hidden").prependTo('#indices');
     reorder_legend();
+    $("#indices article .indice").mousedown(function() {
+        var self = this;
+        $(self).addClass("is-draggable");
+        document.onmousemove = function(e) {
+            SVG.init();
+            $(self).addClass("is-draggable");
+            var left = e.pageX - $("#sidebar #legend-container").width()
+                - ((5 + $("#svg").width() - SVG.indice_width) / 2)
+                - $(self).width()
+            ;
+            var top = e.pageY - $("#edit-menu").height()
+                - ((5 + $("#svg").height() - SVG.indice_height) / 2)
+                - $(self).height()
+            ;
+            var margin_left = 100 * left / SVG.indice_width;
+            var margin_top = 100 * top / SVG.indice_height;
+            if (margin_left < (50 * $(self).outerWidth() / SVG.indice_width))
+            {
+                margin_left = (50 * $(self).outerWidth() / SVG.indice_width);
+            }
+            if (margin_left > 100 - (25 * ($(self).outerWidth() * 2 - $(self).width()) / SVG.indice_width))
+            {
+                margin_left = 100 - (25 * ($(self).outerWidth() * 2 - $(self).width()) / SVG.indice_width);
+            }
+            if (margin_top < (50 * $(self).height() / SVG.indice_height))
+            {
+                margin_top = 50 * $(self).height() / SVG.indice_height;
+            }
+            if (margin_top > 100 - (50 * $(self).outerHeight() / SVG.indice_height))
+            {
+                margin_top = 100 - (50 * $(self).outerHeight() / SVG.indice_height);
+            }
+            $(self).closest('article').css(
+                "left", margin_left + "%"
+            );
+            $(self).closest('article').css(
+                "top", margin_top + "%"
+            );
+        }
+        this.onmouseup = function() {
+            document.onmousemove = null;
+            $(self).removeClass("is-draggable");
+        }
+    });
+    if ($("#indices .indice").length > 99) {
+        $(element).attr("disabled", "disabled").attr("title", "Too lot indices.");
+    }
+}
+
+function indice_out(element) {
+    "use strict";
+    $(element).removeClass("is-draggable");
 }
 
 function delete_legend() {
@@ -49,6 +129,7 @@ function delete_legend() {
     else {
         reorder_legend();
     }
+    $("#add-legend-button").removeAttr('disabled').removeAttr("title");
 }
 
 function display_result() {
@@ -107,27 +188,26 @@ function show_all_legend() {
     $("#template-legend .checkbox").prop('checked', false);
 }
 
+function zoom(element) {
+    "use strict";
+    $("#svg svg").css("transform", "scale(" + $(element).val() / 100 + ")");
+}
+
+function active_zoom(element) {
+    "use strict";
+    if($(element).prop('checked')) {
+        $("#zoom-input").attr("disabled", false);
+    }
+    else {
+        $("#zoom-input").attr("disabled", true);
+    }
+}
+
 function show_indice_editor(element) {
     "use strict";
+    $(element).addClass("is-draggable");
     $("#legend-container").addClass("edit-legend");
     $("#indice-editor").removeClass('hidden');
-
-    var slider = new Slider("#zoom-slider");
-    slider.enable();
-    $("#zoom-slider-enabled").prop('checked', true);
-    $("#zoom-slider-enabled").click(function() {
-        if(this.checked) {
-            slider.enable();
-        }
-        else {
-            slider.disable();
-        }
-    });
-
-    $("#zoom-slider").on("slide", function(slideEvt) {
-        var zoom_value = slideEvt.value;
-        $("#svg").css("height", "").css("width", "");
-    });
     var indice = $(element);
     $("#indice-editor .related-target-editor").data("indiceNb", indice.attr("id").substring(7));
     $("#color-indice-picker").spectrum({
@@ -155,29 +235,17 @@ function show_indice_editor(element) {
     });
 }
 
-var svg_ratio;
-var content_ratio;
-
 $(window).resize(function() {
     resize_indices();
 });
 
 function resize_indices() {
     "use strict";
-    svg_ratio = parseInt($("#svg svg").attr("width").replace(/[^0-9]+/, '')) / parseInt($("#svg svg").attr("height").replace(/[^0-9]+/, ''));
-    content_ratio = $("#svg").width() / $("#svg").height();
-    if (svg_ratio > content_ratio) {
-        $("#indices").css("margin-left", 0);
-        $("#indices").css("margin-top", parseInt(($("#svg").height() - $("#svg").width() / svg_ratio) / 2));
-        $("#indices").css("height", 5 + parseInt($("#svg").width() / svg_ratio));
-        $("#indices").css("width", $("#svg").width());
-    }
-    else {
-        $("#indices").css("margin-top", 0);
-        $("#indices").css("margin-left", parseInt(($("#svg").width() - $("#svg").height() * svg_ratio) / 2));
-        $("#indices").css("width", 5 + parseInt($("#svg").height() * svg_ratio));
-        $("#indices").css("height", $("#svg").height());
-    }
+    SVG.init();
+    $("#indices").css("margin-left", SVG.indice_left);
+    $("#indices").css("margin-top", SVG.indice_top);
+    $("#indices").css("height", SVG.indice_height);
+    $("#indices").css("width", SVG.indice_width);
 }
 
 $('#edit-legend-modal').on('show.bs.modal', function (e) {
@@ -322,7 +390,7 @@ $('#edit-legend-modal').on('hidden.bs.modal', function (e) {
                         reader.readAsText(file);
                         reader.onload = function(e) {
                             "using strict";
-                            $(".content").append(reader.result);
+                            $("#content").append(reader.result);
                             $("#upload-zone").addClass('hidden');
                             $("#edit-menu, #edit-zone").removeClass('hidden');
                             resize_indices();

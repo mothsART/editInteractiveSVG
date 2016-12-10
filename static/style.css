@@ -24,6 +24,11 @@ table > tbody > tr > td:first-child {
     text-align: center;
     margin: 0 auto;
 }
+
+.form-group {
+    margin-bottom: 5px;
+}
+
 /* <UPLOAD> */
 #upload-zone {
     margin-top: 10vh;
@@ -100,6 +105,7 @@ table > tbody > tr > td:first-child {
     height: calc(-4rem + 100vh);
     width: 30rem;
     position: absolute;
+    background: white;
     border-right: solid 1px #ddd;
 }
 
@@ -201,10 +207,20 @@ table > tbody > tr > td:first-child {
     background-color: #f5f5f5;
 }
 
+#frame {
+    height: 100%;
+    overflow: hidden;
+}
+
+#content {
+    height: 100%;
+}
+
 #indices {
     position: absolute;
     width: calc(-10px + 100%);
     height: calc(-10px + 100%);
+    z-index: 1000;
 }
 
 #indice-editor {
@@ -250,6 +266,16 @@ table > tbody > tr > td:first-child {
     cursor: pointer;
 }
 
+#indices article .indice.is-draggable:after {
+    content: "\e068";
+    font-family: 'Glyphicons Halflings';
+    font-size: 30px;
+    position: absolute;
+    top: -30px;
+    right: -30px;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+
 #zoom-slider .slider-selection {
     background: #BABABA;
 }
@@ -276,6 +302,10 @@ table > tbody > tr > td:first-child {
     outline-offset: -10px;
     -webkit-transition: outline-offset .15s ease-in-out, background-color .15s linear;
     transition: outline-offset .15s ease-in-out, background-color .15s linear;
+}
+
+.box.is-dragover {
+    outline: 2px solid #92b0b3;
 }
 
 .box.has-advanced-upload .box__icon {
