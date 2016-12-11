@@ -3,12 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="stylesheet" type="text/css" href="./static/bootstrap_3.3.7.min.css" />
-    <link rel="stylesheet" type="text/css" href="./static/bootstrap-slider.9.4.1.min.css" />
     <link rel="stylesheet" type="text/css" href="./static/trumbowyg.2.4.0.min.css" />
     <link rel="stylesheet" type="text/css" href="./static/spectrum.1.8.min.css" />
     <link rel="stylesheet" type="text/css" href="./static/style.css" />
   </head>
   <body>
+    <div id="mask-on-drag" class="hidden"></div>
     <header id="edit-menu" class="container-fluid hidden bs-docs-nav navbar navbar-static-top">
       <div class="navbar-header">
         <button aria-controls="bs-navbar" aria-expanded="false" class="collapsed navbar-toggle" data-target="#bs-navbar" data-toggle="collapse" type="button">
@@ -63,8 +63,16 @@
         <div class="box__error">Error! Try again!</div>
       </form>
     </div>
+    <section class="show-legend hidden">
+      <label>
+        <article class="show-template-indice">
+          <span>1</span>
+          <<em></em>
+        </article>
+      </label>
+    </section>
     <div id="edit-zone" class="hidden">
-      <div id="svg">
+      <div id="svg" class="edit-mode">
         <section id="indices">
           <article id="template-indice">
             <div onclick="show_indice_editor(this);" onmouseout="indice_out(this);" class="indice hidden" id="indice-1">
@@ -196,11 +204,11 @@
     </div>
     <script src="./static/jquery.min.js"></script>
     <script src="./static/bootstrap_3.3.7.min.js"></script>
-    <script src="./static/bootstrap-slider.9.4.1.min.js"></script>
     <script src="./static/FileSaver.min.js"></script>
     <script src="./static/dragula_3.7.2.min.js"></script>
     <script src="./static/trumbowyg.2.4.0.min.js"></script>
     <script src="./static/spectrum.1.8.0.min.js"></script>
     <script src="./static/drag_and_drop_file.js"></script>
+    <script src="./static/export.js"></script>
   </body>
 </html>

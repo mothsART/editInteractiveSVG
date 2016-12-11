@@ -94,13 +94,14 @@ table > tbody > tr > td:first-child {
     position: absolute;
     width: 100%;
     padding: 5px;
+    z-index: 1000;
 }
 
 #delete-content .btn {
     float: right!important;
 }
 
-/* <SIDEBAR */
+/* <SIDEBAR> */
 #sidebar {
     height: calc(-4rem + 100vh);
     width: 30rem;
@@ -183,6 +184,14 @@ table > tbody > tr > td:first-child {
 /* </SIDEBAR> */
 
 /* <CONTENT> */
+#mask-on-drag {
+    background: rgba(0, 0, 0, .5);
+    position: absolute;
+    z-index: 1000;
+    width: 100%;
+    height: 100%;
+}
+
 #svg {
     height: calc(-34px + 100vh);
     margin-left: 30rem;
@@ -228,7 +237,7 @@ table > tbody > tr > td:first-child {
     bottom: 5px;
 }
 
-.slider.slider-horizontal .slider-selection {
+/*.slider.slider-horizontal .slider-selection {
     background: #777;
     border-radius: 0;
 }
@@ -242,7 +251,7 @@ table > tbody > tr > td:first-child {
     border-radius: 0;
     width: 5px;
     margin-left: 0;
-}
+}*/
 
 #indices article {
     position: absolute;

@@ -64,11 +64,23 @@ function add_legend(element) {
     $("#list-of-legend").removeClass('hidden');
     $("#template-indice").clone().removeAttr("id").removeClass("hidden").prependTo('#indices');
     reorder_legend();
-    $("#indices article .indice").mousedown(function() {
+    if ($("#indices .indice").length > 99) {
+        $(element).attr("disabled", "disabled").attr("title", "Too lot indices.");
+    }
+    $("#svg.edit-mode #indices article .indice").mousedown(function() {
+        if (!$("#svg").hasClass("edit-mode"))
+        {
+            return;
+        }
         var self = this;
         $(self).addClass("is-draggable");
         document.onmousemove = function(e) {
+            if (!$("#svg").hasClass("edit-mode"))
+            {
+                return;
+            }
             SVG.init();
+            $("#mask-on-drag").removeClass("hidden");
             $(self).addClass("is-draggable");
             var left = e.pageX - $("#sidebar #legend-container").width()
                 - ((5 + $("#svg").width() - SVG.indice_width) / 2)
@@ -105,12 +117,11 @@ function add_legend(element) {
         }
         this.onmouseup = function() {
             document.onmousemove = null;
+            $("#mask-on-drag").addClass("hidden");
             $(self).removeClass("is-draggable");
         }
     });
-    if ($("#indices .indice").length > 99) {
-        $(element).attr("disabled", "disabled").attr("title", "Too lot indices.");
-    }
+
 }
 
 function indice_out(element) {
@@ -135,7 +146,7 @@ function delete_legend() {
 function display_result() {
     "use strict";
     $("#edit-menu, #sidebar, #delete-content").addClass("hidden");
-    $("#svg").addClass("show");
+    $("#svg").removeClass("edit-mode").addClass("show");
     $("#show-menu").removeClass("hidden");
     resize_indices();
 }
@@ -143,14 +154,14 @@ function display_result() {
 function return_to_edit() {
     "use strict";
     $("#edit-menu, #sidebar, #delete-content").removeClass("hidden");
-    $("#svg").removeClass("show");
+    $("#svg").removeClass("show").addClass("edit-mode");
     $("#show-menu").addClass("hidden");
     resize_indices();
 }
 
 function delete_pic() {
     "use strict";
-    $("#svg").html("");
+    $("#svg svg").remove();
     $("#edit-menu, #edit-zone, #upload-text").addClass("hidden");
     $("#upload-zone, #choose-file").removeClass("hidden");
     $("#delete-picture-modal").modal('hide');
@@ -205,6 +216,10 @@ function active_zoom(element) {
 
 function show_indice_editor(element) {
     "use strict";
+    if (!$("#svg").hasClass("edit-mode"))
+    {
+        return;
+    }
     $(element).addClass("is-draggable");
     $("#legend-container").addClass("edit-legend");
     $("#indice-editor").removeClass('hidden');
@@ -272,27 +287,6 @@ $('#edit-legend-modal').on('hidden.bs.modal', function (e) {
     }
     console.log($("#indice-description").trumbowyg('html'));
 });
-
-(function(view) {
-    "use strict";
-    var get_blob = function() {
-        return view.Blob;
-    }
-    document.getElementById("save-form").addEventListener("submit", function(event) {
-        event.preventDefault();
-        var BB = get_blob();
-        saveAs(
-              new BB(
-                  ["<div>essai</div>"]
-                , {type: "application/xhtml+xml;charset=UTF-8"}
-            )
-            , "interactive_illustration.xhtml"
-        );
-    });
-    dragula($("#list-of-legend"));
-
-    $('#indice-description').trumbowyg();
-}(self));
 
 ;(function(document, window, index)
 {
