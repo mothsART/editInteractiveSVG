@@ -55,14 +55,20 @@ function reorder_legend() {
         $(el).text(index + 1);
         $(el).attr("id", "indice-" + (index + 1));
     });
+    $("#real-legend .indice").each(function(index, el) {
+        $(el).find("span").text(index + 1);
+        $(el).attr("id", "real-indice-" + (index + 1));
+    });
 }
 
 function add_legend(element) {
     "use strict";
+    $("#show-all-legend").prop('checked', false);
     $("#template-legend").clone().removeAttr("id").removeClass("hidden").prependTo("#list-of-legend tbody");
     $("#show-all-legend").removeClass('hidden');
     $("#list-of-legend").removeClass('hidden');
     $("#template-indice").clone().removeAttr("id").removeClass("hidden").prependTo('#indices');
+    $("#real-template-indice").clone().removeAttr("id").removeClass("hidden").prependTo('#real-legend');
     reorder_legend();
     if ($("#indices .indice").length > 99) {
         $(element).attr("disabled", "disabled").attr("title", "Too lot indices.");
@@ -147,7 +153,7 @@ function display_result() {
     "use strict";
     $("#edit-menu, #sidebar, #delete-content").addClass("hidden");
     $("#svg").removeClass("edit-mode").addClass("show");
-    $("#show-menu").removeClass("hidden");
+    $("#show-menu, #real-legend").removeClass("hidden");
     resize_indices();
 }
 
@@ -155,7 +161,7 @@ function return_to_edit() {
     "use strict";
     $("#edit-menu, #sidebar, #delete-content").removeClass("hidden");
     $("#svg").removeClass("show").addClass("edit-mode");
-    $("#show-menu").addClass("hidden");
+    $("#show-menu, #real-legend").addClass("hidden");
     resize_indices();
 }
 
@@ -193,8 +199,10 @@ function show_all_legend() {
     var value = $("#show-all-legend").prop('checked');
     $("#list-of-legend tbody tr .checkbox").prop('checked', value);
     $("#delete-legend-button").addClass('disabled');
+    $("#indices .indice").addClass("hidden");
     if (value) {
         $("#delete-legend-button").removeClass('disabled');
+        $("#indices .indice").removeClass("hidden");
     }
     $("#template-legend .checkbox").prop('checked', false);
 }
@@ -246,6 +254,9 @@ function show_indice_editor(element) {
             $("#legend-indice-" + indice.attr("id").substring(7)).css(
                 "background-color", color.toHexString()
             );
+            $("#real-indice-" + indice.attr("id").substring(7)).css(
+                "background-color", color.toHexString()
+            );
         }
     });
 }
@@ -278,12 +289,15 @@ $('#edit-legend-modal').on('show.bs.modal', function (e) {
 $('#edit-legend-modal').on('hidden.bs.modal', function (e) {
     var text = $("#legend-title").val();
     var indice = $("#legend-indice-" + $("#modal-legend-id").val());
+    var real_indice = $("#real-indice-" + $("#modal-legend-id").val());
     indice.next().remove();
     if (text == '' || text == '-- no title --') {
         indice.after("<em>-- no title --</em>");
+        real_indice.find("em").text("");
     }
     else {
         indice.after("<span>" + text + "</span>");
+        real_indice.find("em").text(text);
     }
     console.log($("#indice-description").trumbowyg('html'));
 });

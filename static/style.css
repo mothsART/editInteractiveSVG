@@ -103,7 +103,7 @@ table > tbody > tr > td:first-child {
 
 /* <SIDEBAR> */
 #sidebar {
-    height: calc(-4rem + 100vh);
+    height: 100%;
     width: 30rem;
     position: absolute;
     background: white;
@@ -121,7 +121,8 @@ table > tbody > tr > td:first-child {
 }
 
 #sidebar #legend-container.edit-legend {
-    height: calc(-150px + 100%);
+    height: calc(-185px + 100%);
+    margin-bottom: 44px;
 }
 
 #legend-list-container {
@@ -233,25 +234,9 @@ table > tbody > tr > td:first-child {
 }
 
 #indice-editor {
-    position: absolute;
-    bottom: 5px;
+    border: 1px solid #ddd;
+    padding: 5px;
 }
-
-/*.slider.slider-horizontal .slider-selection {
-    background: #777;
-    border-radius: 0;
-}
-.slider.slider-horizontal .slider-track-high {
-    background: #ddd;
-    border-radius: 0;
-}
-
-.slider.slider-horizontal .slider-handle {
-    -webkit-border-radius: 0;
-    border-radius: 0;
-    width: 5px;
-    margin-left: 0;
-}*/
 
 #indices article {
     position: absolute;
@@ -260,6 +245,11 @@ table > tbody > tr > td:first-child {
     left: 50%;
 }
 
+#real-legend {
+    height: 4.1vh;
+}
+
+#real-legend label span,
 #indices article .indice {
     width: 4vh;
     height: 4vh;
@@ -273,6 +263,10 @@ table > tbody > tr > td:first-child {
     border-radius: .5vh;
     display: block;
     cursor: pointer;
+}
+
+#real-legend label span {
+    display: inline-block;
 }
 
 #indices article .indice.is-draggable:after {
@@ -290,7 +284,7 @@ table > tbody > tr > td:first-child {
 }
 
 #svg.show {
-    height: 100vh;
+    height: 95.9vh;
     margin-left: 0;
     width: 100vw;
     padding: 0;
