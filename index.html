@@ -75,7 +75,7 @@
       </form>
     </div>
     <section id="real-legend" class="hidden">
-      <label id="real-template-indice" class="indice hidden">
+      <label id="real-template-indice" class="indice hidden" onclick="real_zoom(this);">
           <span>1</span>
           <em></em>
       </label>
@@ -84,7 +84,7 @@
       <div id="svg" class="edit-mode">
         <section id="indices">
           <article id="template-indice">
-            <div onclick="show_indice_editor(this);" onmouseout="indice_out(this);" class="indice hidden" id="indice-1">
+            <div onclick="show_indice_editor(this);" onmouseout="indice_out(this);" class="indice hidden" id="indice-1" data-zoom="100">
               1
             </div>
           </article>
@@ -203,13 +203,13 @@
         </div>
       </div>
     </div>
-    <script src="./static/jquery.min.js"></script>
-    <script src="./static/bootstrap_3.3.7.min.js"></script>
-    <script src="./static/FileSaver.min.js"></script>
-    <script src="./static/dragula_3.7.2.min.js"></script>
-    <script src="./static/trumbowyg.2.4.0.min.js"></script>
-    <script src="./static/spectrum.1.8.0.min.js"></script>
-    <script src="./static/drag_and_drop_file.js"></script>
+    <script src="./static/jquery.min.js" type="application/javascript"></script>
+    <script src="./static/bootstrap_3.3.7.min.js" type="application/javascript"></script>
+    <script src="./static/FileSaver.min.js" type="application/javascript"></script>
+    <script src="./static/dragula_3.7.2.min.js" type="application/javascript"></script>
+    <script src="./static/trumbowyg.2.4.0.min.js" type="application/javascript"></script>
+    <script src="./static/spectrum.1.8.0.min.js" type="application/javascript"></script>
+    <script src="./static/drag_and_drop_file.js" type="application/javascript"></script>
     <script src="./static/export.js"></script>
   </body>
 </html>

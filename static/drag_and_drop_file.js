@@ -56,8 +56,10 @@ function reorder_legend() {
         $(el).attr("id", "indice-" + (index + 1));
     });
     $("#real-legend .indice").each(function(index, el) {
-        $(el).find("span").text(index + 1);
-        $(el).attr("id", "real-indice-" + (index + 1));
+        if ($(el).attr("id") != "real-template-indice") {
+            $(el).find("span").text(index + 1);
+            $(el).attr("id", "real-indice-" + (index + 1));
+        }
     });
 }
 
@@ -127,7 +129,6 @@ function add_legend(element) {
             $(self).removeClass("is-draggable");
         }
     });
-
 }
 
 function indice_out(element) {
@@ -151,18 +152,44 @@ function delete_legend() {
 
 function display_result() {
     "use strict";
+    $("#indices .indice").attr("onclick", "real_zoom(this);");
     $("#edit-menu, #sidebar, #delete-content").addClass("hidden");
     $("#svg").removeClass("edit-mode").addClass("show");
     $("#show-menu, #real-legend").removeClass("hidden");
+    $("#svg svg").css("transform", "scale(1)");
     resize_indices();
+    $("#indices .indice").each(function(index, el) {
+        if ($(el).hasClass('hidden')) {
+            $(el).data("hidden", true);
+        }
+        else {
+            $(el).data("hidden", false);
+        }
+        if ($(el).parent().attr("id") != "template-indice") {
+            $(el).removeClass('hidden');
+        }
+    });
 }
 
 function return_to_edit() {
     "use strict";
+    $("#indices .indice").attr("onclick", "show_indice_editor(this);");
     $("#edit-menu, #sidebar, #delete-content").removeClass("hidden");
     $("#svg").removeClass("show").addClass("edit-mode");
     $("#show-menu, #real-legend").addClass("hidden");
+    $("#svg svg").css("transform", "scale(1)").removeClass("duration");
     resize_indices();
+    $("#indices .indice").each(function(index, el) {
+        if ($(el).data('hidden') == true) {
+            $(el).addClass('hidden');
+        }
+        else {
+            $(el).removeClass('hidden');
+        }
+    });
+    if ($("#zoom-enabled").prop('checked')) {
+        $("#svg svg").css("transform", "scale(" + $("#zoom-input").val() / 100 + ")");
+    }
 }
 
 function delete_pic() {
@@ -204,6 +231,7 @@ function show_all_legend() {
         $("#delete-legend-button").removeClass('disabled');
         $("#indices .indice").removeClass("hidden");
     }
+    $("#template-indice .indice").addClass("hidden");
     $("#template-legend .checkbox").prop('checked', false);
 }
 
@@ -216,9 +244,28 @@ function active_zoom(element) {
     "use strict";
     if($(element).prop('checked')) {
         $("#zoom-input").attr("disabled", false);
+        $("#svg svg").css("transform", "scale(" + $("#zoom-input").val() / 100 + ")");
     }
     else {
         $("#zoom-input").attr("disabled", true);
+        var indice = $("#" + $("#indice-editor").data("indice-id"));
+        indice.data("zoom", $("#zoom-input").val());
+        $("#svg svg").css("transform", "scale(1)");
+    }
+}
+
+function real_zoom(element) {
+    "use strict";
+    $("#svg.show").addClass("duration");
+    var indice = $("#indice-" + $(element).text().trim());
+    if (indice.data("zoom-active") == true)
+    {
+        $("#svg.show svg").css("transform", "scale(1)");
+        indice.data("zoom-active", false);
+    }
+    else {
+        $("#svg.show svg").css("transform", "scale(" + indice.data("zoom") / 100 + ")");
+        indice.data("zoom-active", true);
     }
 }
 
@@ -233,6 +280,8 @@ function show_indice_editor(element) {
     $("#indice-editor").removeClass('hidden');
     var indice = $(element);
     $("#indice-editor .related-target-editor").data("indiceNb", indice.attr("id").substring(7));
+    $("#indice-editor").data("indice-id", indice.attr("id"));
+    $("#zoom-input").val(indice.data("zoom"));
     $("#color-indice-picker").spectrum({
         showPaletteOnly: true,
         togglePaletteOnly: true,
@@ -254,7 +303,7 @@ function show_indice_editor(element) {
             $("#legend-indice-" + indice.attr("id").substring(7)).css(
                 "background-color", color.toHexString()
             );
-            $("#real-indice-" + indice.attr("id").substring(7)).css(
+            $("#real-indice-" + indice.attr("id").substring(7)).find("span").css(
                 "background-color", color.toHexString()
             );
         }
@@ -335,7 +384,7 @@ $('#edit-legend-modal').on('hidden.bs.modal', function (e) {
             triggerFormSubmit = function()
             {
                 var event = document.createEvent('HTMLEvents');
-                event.initEvent('submit', true, false );
+                event.initEvent('submit', true, false);
                 form.dispatchEvent(event);
             };
 
@@ -343,12 +392,11 @@ $('#edit-legend-modal').on('hidden.bs.modal', function (e) {
         input.addEventListener('change', function(e)
         {
             showFiles(e.target.files);
-
             triggerFormSubmit();
         });
 
         // drag&drop files if the feature is available
-        if( isAdvancedUpload )
+        if(isAdvancedUpload)
         {
             form.classList.add('has-advanced-upload'); // letting the CSS part to know drag&drop is supported by the browser
 
@@ -379,15 +427,14 @@ $('#edit-legend-modal').on('hidden.bs.modal', function (e) {
             {
                 droppedFiles = e.dataTransfer.files; // the files that were dropped
                 showFiles( droppedFiles );
-
                 triggerFormSubmit();
             });
         }
-
         // if the form was submitted
         form.addEventListener('submit', function(e)
         {
-            form.classList.remove('is-error');
+            if ($(form).hasClass('is-uploading')) return false;
+            form.classList.add('is-uploading').remove('is-error');
             if(window.FileReader)
             {
                 if(droppedFiles)
@@ -401,13 +448,18 @@ $('#edit-legend-modal').on('hidden.bs.modal', function (e) {
                             $("#content").append(reader.result);
                             $("#upload-zone").addClass('hidden');
                             $("#edit-menu, #edit-zone").removeClass('hidden');
+                            debugger;
                             resize_indices();
+                            debugger;
                         }
                     });
                 }
             }
+            // Must use an preventDefault : otherwise firefox will trigger a 501 error
+            e.preventDefault();
+            debugger;
         });
-
+        /*
         // restart the form if has a state of error/success
         Array.prototype.forEach.call( restart, function(entry)
         {
@@ -422,6 +474,6 @@ $('#edit-legend-modal').on('hidden.bs.modal', function (e) {
         // Firefox focus bug fix for file input
         input.addEventListener('focus', function(){ input.classList.add('has-focus'); });
         input.addEventListener('blur', function(){ input.classList.remove('has-focus'); });
-
+        */
     });
 }( document, window, 0 ));
