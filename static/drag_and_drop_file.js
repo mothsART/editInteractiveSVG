@@ -384,7 +384,7 @@ $('#edit-legend-modal').on('hidden.bs.modal', function (e) {
             triggerFormSubmit = function()
             {
                 var event = document.createEvent('HTMLEvents');
-                event.initEvent('submit', true, false);
+                event.initEvent('submit', true, true);
                 form.dispatchEvent(event);
             };
 
@@ -434,7 +434,8 @@ $('#edit-legend-modal').on('hidden.bs.modal', function (e) {
         form.addEventListener('submit', function(e)
         {
             if ($(form).hasClass('is-uploading')) return false;
-            form.classList.add('is-uploading').remove('is-error');
+            form.classList.add('is-uploading');
+            form.classList.remove('is-error');
             if(window.FileReader)
             {
                 if(droppedFiles)
@@ -448,16 +449,12 @@ $('#edit-legend-modal').on('hidden.bs.modal', function (e) {
                             $("#content").append(reader.result);
                             $("#upload-zone").addClass('hidden');
                             $("#edit-menu, #edit-zone").removeClass('hidden');
-                            debugger;
                             resize_indices();
-                            debugger;
                         }
                     });
                 }
             }
-            // Must use an preventDefault : otherwise firefox will trigger a 501 error
             e.preventDefault();
-            debugger;
         });
         /*
         // restart the form if has a state of error/success
