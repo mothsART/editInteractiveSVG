@@ -149,7 +149,7 @@ table > tbody > tr > td:first-child {
 }
 
 #sidebar td span {
-    margin-left: 5px;
+    margin-left: 0;
 }
 
 #sidebar .indice,
@@ -166,6 +166,7 @@ table > tbody > tr > td:first-child {
     margin: 0;
     padding: .1rem .5rem;
     display: inline-block;
+    vertical-align: middle;
 }
 
 .gu-mirror .indice {
@@ -181,6 +182,18 @@ table > tbody > tr > td:first-child {
     border-bottom: none;
 }
 
+#list-of-legend {
+    border-top: none;
+}
+
+#list-of-legend th {
+    border-top: solid 1px #ddd;
+}
+
+#list-of-legend th.no-visible {
+    border-top: none;
+}
+
 #list-of-legend tbody tr {
     cursor: move;
 }
@@ -188,6 +201,46 @@ table > tbody > tr > td:first-child {
 #list-of-legend tbody td em {
     margin-left: 5px;
     color: #ddd;
+    vertical-align: middle;
+}
+
+#list-of-legend td.selection {
+    width: 10px;
+}
+
+.display-indice {
+    cursor: default;
+}
+
+.display-indice:before {
+    font-family: 'Glyphicons Halflings';
+    content: "\e106";
+    color: lightgray;
+}
+
+.display-indice.show:before {
+    content: "\e105";
+    color: #333;
+}
+
+.open-detail {
+    cursor: pointer;
+    width: 20px;
+    height: 22px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.open-detail:before {
+    content: "◥";
+    transform: rotate(45deg);
+    position: absolute;
+    transition-duration: .3s;
+}
+
+.open-detail.unfolded:before {
+    transform: rotate(135deg);
+    margin-left: 3px;
 }
 /* </SIDEBAR> */
 
@@ -396,7 +449,7 @@ table > tbody > tr > td:first-child {
     box-shadow: none;
 }
 
-.description .show {
+.description {
     z-index: 1;
     width: 35vw;
     margin: 11vh 2vw;
@@ -405,7 +458,6 @@ table > tbody > tr > td:first-child {
     background: white;
     padding: .5rem;
     border-radius: .5rem;
-    display: none;
     border: 1px solid rgba(0,0,0,.15);
     -webkit-box-shadow: 0 1rem 2rem rgba(0,0,0,.6);
     box-shadow: 0 1rem 2rem rgba(0,0,0,.6);
