@@ -134,7 +134,7 @@ table > tbody > tr > td:first-child {
 
 #legend-list-container {
     overflow: auto;
-    height: 100%;
+    height: calc(100% - 33px);
     width: calc(5px + 100%);
     padding-left: 0;
     padding-right: 5px;
@@ -164,6 +164,7 @@ table > tbody > tr > td:first-child {
     height: auto;
     font-size: 1.2rem;
     margin: 0;
+    margin-right: 5px;
     padding: .1rem .5rem;
     display: inline-block;
     vertical-align: middle;
@@ -229,11 +230,13 @@ table > tbody > tr > td:first-child {
     height: 22px;
     display: inline-block;
     vertical-align: middle;
+    position: relative;
 }
 
 .open-detail:before {
     content: "◥";
     transform: rotate(45deg);
+    transform-origin: center center;
     position: absolute;
     transition-duration: .3s;
 }
@@ -241,6 +244,14 @@ table > tbody > tr > td:first-child {
 .open-detail.unfolded:before {
     transform: rotate(135deg);
     margin-left: 3px;
+}
+
+.detail .form-group.first {
+    margin-top: 5px;
+}
+
+.detail .form-group.last {
+    margin: 0;
 }
 /* </SIDEBAR> */
 

@@ -51,6 +51,11 @@ function reorder_legend() {
     for (var i = 0, len = tr_list.length; i < len; i++) {
         tr_list[i].getElementsByClassName("indice")[0].setAttribute("id", "legend-indice-" + (i + 1));
         tr_list[i].getElementsByClassName("indice")[0].childNodes[0].nodeValue = i + 1;
+        if($("#legend-indice-" + (i + 1)).parent().find(".open-detail").hasClass('unfolded')) {
+             document.getElementById("last-folded-indice").setAttribute(
+                "value", "legend-indice-" + (i + 1)
+            );
+        }
     };
     $("#indices .indice").each(function(index, el) {
         $(el).text(index + 1);
@@ -181,6 +186,9 @@ function open_detail(element) {
                 $("#" + indice.attr("id").substring(7)).css(
                     "background-color", color.toHexString()
                 );
+                $("#description-" + indice.attr("id").substring(14)).find(".indice").css(
+                    "background-color", color.toHexString()
+                );
                 $("#real-" + indice.attr("id").substring(7)).find("span").css(
                     "background-color", color.toHexString()
                 );
@@ -235,6 +243,7 @@ function display_result() {
 
 function return_to_edit() {
     "use strict";
+    $("#indices .indice").removeAttr("onclick");
     $("#edit-menu, #sidebar, #delete-content").removeClass("hidden");
     $("#svg").removeClass("show").addClass("edit-mode");
     $("#show-menu, #real-legend").addClass("hidden");
@@ -358,24 +367,15 @@ function real_zoom(element) {
     {
         $("#svg.show svg").css("transform", "scale(1)");
         indice.data("zoom-active", false);
+        description.addClass("hidden");
     }
     else {
         $("#svg.show svg").css("transform", "scale(" + indice.data("zoom") / 100 + ")");
         indice.data("zoom-active", true);
-        description.removeClass("hidden");
+        if (description.find(".description-content").html().trim() != "") {
+            description.removeClass("hidden");
+        }
     }
-}
-
-function show_indice_editor(element) {
-    "use strict";
-    /*$(element).addClass("is-draggable");
-    $("#legend-container").addClass("edit-legend");
-    $("#indice-editor").removeClass('hidden');
-    var indice = $(element);
-    $("#indice-editor .related-target-editor").data("indiceNb", indice.attr("id").substring(7));
-    $("#indice-editor").data("indice-id", indice.attr("id"));
-    $("#zoom-input").val(indice.data("zoom"));
-    */
 }
 
 $(window).resize(function() {
@@ -392,8 +392,8 @@ function resize_indices() {
 }
 
 $('#edit-legend-modal').on('show.bs.modal', function (e) {
-    var nb = $(e.relatedTarget).data("indiceNb");
-    var text = $("#legend-indice-" + nb).next().text();
+    var nb = parseInt($("#last-folded-indice").val().substring(14));
+    var text = $("#" + $("#last-folded-indice").val()).next().text();
     $("#modal-legend-id").val(nb);
     if (text == '-- no title --') {
         $("#legend-title").attr("placeholder", "-- no title --");

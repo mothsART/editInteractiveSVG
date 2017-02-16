@@ -138,14 +138,14 @@
                         <span class="open-detail" onclick="open_detail(this);"></span>
                         <span class="indice">1</span><em>-- no title --</em>
                         <div class="detail hidden">
-                          <div class="form-group">
+                          <div class="form-group first">
                             Zoom <input id="zoom-input"
                             disabled="disabled" type="number"
                             step="10" value="100"
                             min="10" max="1000" onchange="zoom(this);"> %
                             <input id="zoom-enabled" type="checkbox" onchange="active_zoom(this);" /> Enabled
                           </div>
-                          <div class="form-group">
+                          <div class="form-group last">
                             <input class='color-indice-picker' />
                             <button type="button" class="related-target-editor btn btn-success btn-xs" data-toggle="modal" data-target=".bs-edit-legend-modal-lg">
                               <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Edit title and description
