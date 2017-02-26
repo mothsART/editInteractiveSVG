@@ -30,6 +30,18 @@ table > tbody > tr > td:first-child {
 }
 
 /* <UPLOAD> */
+#choose-file-zone {
+    height: 100%;
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+}
+
+#choose-file-zone div {
+    margin-top: 65%;
+}
+
 #upload-zone {
     margin-top: 10vh;
 }
@@ -101,30 +113,28 @@ table > tbody > tr > td:first-child {
     position: absolute;
     width: 100%;
     padding: 5px;
-    z-index: 1000;
 }
 
 #delete-content .btn {
     float: right!important;
+    z-index: 1000;
+    position: relative;
 }
 
 /* <SIDEBAR> */
 #sidebar {
-    height: 100%;
+    padding: 5px;
+    padding-bottom: 25px;
+    height: calc(-35px + 100%);
     width: 30rem;
     position: absolute;
     background: white;
     border-right: solid 1px #ddd;
 }
 
-#sidebar legend {
-    padding-left: 5px;
-    margin-bottom: 5px;
-}
-
 #sidebar #legend-container {
-    padding: 0 5px;
-    height: calc(-70px + 100%);
+    padding: 0;
+    height: 100%;
 }
 
 #sidebar #legend-container.edit-legend {
@@ -252,6 +262,11 @@ table > tbody > tr > td:first-child {
 
 .detail .form-group.last {
     margin: 0;
+}
+
+#source-file-zone {
+    border-top: solid 1px #ddd;
+    color: #333;
 }
 /* </SIDEBAR> */
 
@@ -411,6 +426,7 @@ table > tbody > tr > td:first-child {
 }
 
 .box__file + label {
+    margin-top: 20px;
     max-width: 80%;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -494,6 +510,13 @@ table > tbody > tr > td:first-child {
     padding: .8rem;
 }
 
+#about, #help  {
+    padding: 5px;
+}
+
+#about summary {
+    outline: none;
+}
 /* DRAGULA.CSS */
 .gu-mirror {
   position: fixed !important;

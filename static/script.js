@@ -49,28 +49,28 @@ function reorder_legend() {
     "use strict";
     var tr_list = document.getElementById("list-of-legend").getElementsByTagName("tbody")[0].getElementsByTagName("tr");
     for (var i = 0, len = tr_list.length; i < len; i++) {
-        tr_list[i].getElementsByClassName("indice")[0].setAttribute("id", "legend-indice-" + (i + 1));
-        tr_list[i].getElementsByClassName("indice")[0].childNodes[0].nodeValue = i + 1;
+        tr_list[i].getElementsByClassName("indice")[0].setAttribute("id", "legend-indice-" + i);
+        tr_list[i].getElementsByClassName("indice")[0].childNodes[0].nodeValue = i;
         if($("#legend-indice-" + (i + 1)).parent().find(".open-detail").hasClass('unfolded')) {
              document.getElementById("last-folded-indice").setAttribute(
-                "value", "legend-indice-" + (i + 1)
+                "value", "legend-indice-" + i
             );
         }
     };
     $("#indices .indice").each(function(index, el) {
-        $(el).text(index + 1);
-        $(el).attr("id", "indice-" + (index + 1));
+        $(el).text(index);
+        $(el).attr("id", "indice-" + index);
     });
     $("#descriptions .description").each(function(index, el) {
         if ($(el).attr("id") != "template-description") {
-            $(el).find("indice").text(index + 1);
+            $(el).find(".indice").text(index + 1);
             $(el).attr("id", "description-" + (index + 1));
         }
     });
     $("#real-legend .indice").each(function(index, el) {
         if ($(el).attr("id") != "real-template-indice") {
-            $(el).find("span").text(index + 1);
-            $(el).attr("id", "real-indice-" + (index + 1));
+            $(el).find("span").text(index);
+            $(el).attr("id", "real-indice-" + index);
         }
     });
 }
@@ -78,16 +78,16 @@ function reorder_legend() {
 function add_legend(element) {
     "use strict";
     $("#show-all-legend").prop('checked', false);
-    $("#template-legend").clone().removeAttr("id").removeClass("hidden").prependTo("#list-of-legend tbody");
+    $("#template-legend").clone().removeAttr("id").removeClass("hidden").appendTo("#list-of-legend tbody");
     $("#show-all-legend").removeClass('hidden');
     $("#list-of-legend").removeClass('hidden');
-    $("#template-indice").clone().removeAttr("id").removeClass("hidden").prependTo('#indices');
-    $("#real-template-indice").clone().removeAttr("id").removeClass("hidden").prependTo('#real-legend');
+    $("#template-indice").clone().removeAttr("id").removeClass("hidden").appendTo('#indices');
+    $("#real-template-indice").clone().removeAttr("id").removeClass("hidden").appendTo('#real-legend');
     $("#template-description").clone().removeAttr("id").prependTo('#descriptions');
     var index = parseInt(document.getElementById("nb-indices").getAttribute("value")) + 1;
     document.getElementById("nb-indices").setAttribute("value", index);
     reorder_legend();
-    if (index > 99) {
+    if (index > 98) {
         $(element).attr("disabled", "disabled").attr("title", "Too lot indices.");
     }
     $("#svg.edit-mode #indices article .indice").mousedown(function() {
@@ -139,10 +139,11 @@ function add_legend(element) {
             );
         }
         this.onmouseup = function() {
+            "use strict";
             document.onmousemove = null;
             $("#mask-on-drag").addClass("hidden");
             $(self).removeClass("is-draggable");
-        }
+        };
     });
 }
 
@@ -204,12 +205,19 @@ function indice_out(element) {
 
 function delete_legend() {
     "use strict";
-    $("#list-of-legend tbody tr .checkbox:checked").closest("tr").remove();
+    var tr_list = $("#list-of-legend tbody tr .select:checked").closest("tr");
+    var nb_tr = tr_list.length;
+    $("#nb-indices").val(parseInt($("#nb-indices").val()) - nb_tr);
+    $("#count-nb-selected").val(0);
+    $("#select-all-legend").prop('checked', false);
+    tr_list.each(function(index, el) {
+        var index = $(el).find(".indice").attr("id").substring(14);
+        $("#indice-" + index).remove();
+        $("#description-" + index).remove();
+        $("#real-indice-" + index).remove();
+    });
+    tr_list.remove();
     $("#delete-legend-modal").modal('hide');
-    /*document.getElementById("count-nb-display").setAttribute(
-        "value",
-        document.getElementById("nb-indices").getAttribute("value") -
-    );*/
     if ($("#list-of-legend tbody tr").length == 1) {
         $("#list-of-legend").addClass('hidden');
         $("#show-all-legend").addClass('hidden').prop('checked', false);
@@ -274,28 +282,40 @@ function delete_pic() {
 function show_legend(element) {
     "use strict";
     var index = $(element).parent().parent().find(".indice").text();
+    var nbDisplay = $("#count-nb-display");
     if($(element).hasClass('show')) {
         $("#indice-" + index).addClass("hidden");
         $(element).removeClass('show');
+        nbDisplay.val(parseInt(nbDisplay.val()) - 1);
     }
     else {
         $("#indice-" + index).removeClass("hidden");
         $(element).addClass('show');
+        nbDisplay.val(parseInt(nbDisplay.val()) + 1);
     }
-    if ($("#list-of-legend tbody tr .checkbox:not(:checked)").length == 1) {
-        $("#show-all-legend").prop('checked', true);
-    }
-    else {
-        $("#show-all-legend").prop('checked', false);
+    $("#show-all-legend").removeClass('show');
+    if ($("#nb-indices").val() === nbDisplay.val()) {
+        $("#show-all-legend").addClass('show');
     }
 }
 
 function select_legend(element) {
     "use strict";
-    $("#delete-legend-button").removeClass('disabled');
-    if ($("#list-of-legend tbody tr .checkbox:checked").length == 0) {
-        $("#delete-legend-button").addClass('disabled');
+    var nbSelected = $("#count-nb-selected");
+    if($(element).is(':checked')) {
+        nbSelected.val(parseInt(nbSelected.val()) + 1);
     }
+    else {
+        nbSelected.val(parseInt(nbSelected.val()) - 1);
+    }
+    $("#delete-legend-button").addClass('disabled');
+    if (nbSelected.val() > 0) {
+        $("#delete-legend-button").removeClass('disabled');
+    }
+    $("#select-all-legend").prop(
+        "checked",
+        $("#nb-indices").val() == nbSelected.val()
+    );
 }
 
 function show_all_legend() {
@@ -305,16 +325,16 @@ function show_all_legend() {
         $("#show-all-legend").removeClass("show");
         $("#list-of-legend .display-indice").removeClass("show");
         $("#indices .indice").addClass("hidden");
-        document.getElementById("count-nb-display").setAttribute(
-            "value",
-            document.getElementById("nb-indices").getAttribute("value")
-        );
+        document.getElementById("count-nb-display").setAttribute("value", 0);
     }
     else {
         $("#show-all-legend").addClass("show");
         $("#list-of-legend .display-indice").addClass("show");
         $("#indices .indice").removeClass("hidden");
-        document.getElementById("count-nb-display").setAttribute("value", 0);
+        document.getElementById("count-nb-display").setAttribute(
+            "value",
+            document.getElementById("nb-indices").getAttribute("value")
+        );
     }
     $("#template-indice .indice").addClass("hidden");
 }
@@ -325,7 +345,7 @@ function select_all_legend() {
     if (value) {
         $("#delete-legend-button").removeClass('disabled');
         $("#list-of-legend tbody tr .selection > input").prop('checked', value);
-        document.getElementById("count-nb-display").setAttribute(
+        document.getElementById("count-nb-selected").setAttribute(
             "value",
             document.getElementById("nb-indices").getAttribute("value")
         );
@@ -333,7 +353,7 @@ function select_all_legend() {
     else {
         $("#list-of-legend tbody tr .selection > input").prop('checked', value);
         $("#delete-legend-button").addClass('disabled');
-        document.getElementById("count-nb-display").setAttribute("value", 0);
+        document.getElementById("count-nb-selected").setAttribute("value", 0);
     }
     $("#template-legend input").prop('checked', false);
 }
@@ -345,14 +365,15 @@ function zoom(element) {
 
 function active_zoom(element) {
     "use strict";
+    var zoom_input = $(element).parent().find(".zoom-input");
     if($(element).prop('checked')) {
-        $("#zoom-input").attr("disabled", false);
-        $("#svg svg").css("transform", "scale(" + $("#zoom-input").val() / 100 + ")");
+        zoom_input.attr("disabled", false);
+        $("#svg svg").css("transform", "scale(" + zoom_input.val() / 100 + ")");
     }
     else {
-        $("#zoom-input").attr("disabled", true);
-        var indice = $("#" + $("#indice-editor").data("indice-id"));
-        indice.data("zoom", $("#zoom-input").val());
+        zoom_input.attr("disabled", true);
+        var indice = $("#" + zoom_input.data("indice-id"));
+        indice.data("zoom", zoom_input.val());
         $("#svg svg").css("transform", "scale(1)");
     }
 }
@@ -360,7 +381,13 @@ function active_zoom(element) {
 function real_zoom(element) {
     "use strict";
     $("#svg.show").addClass("duration");
-    var index = $(element).text().trim();
+    var id = $(element).attr("id");
+    if (id.startsWith("indice")) {
+        var index = id.substring(7);
+    }
+    else {
+        var index = id.substring(12);
+    }
     var indice = $("#indice-" + index);
     var description = $("#description-" + index);
     if (indice.data("zoom-active") == true)
@@ -392,23 +419,29 @@ function resize_indices() {
 }
 
 $('#edit-legend-modal').on('show.bs.modal', function (e) {
-    var nb = parseInt($("#last-folded-indice").val().substring(14));
+    var index = parseInt($("#last-folded-indice").val().substring(14));
     var text = $("#" + $("#last-folded-indice").val()).next().text();
-    $("#modal-legend-id").val(nb);
+    var description =  $("#description-" + index + " .description-content").html();
+    if (!description) {
+        description = '';
+    }
+    $("#indice-description").html(description);
+    $("#modal-legend-id").val(index);
     if (text == '-- no title --') {
         $("#legend-title").attr("placeholder", "-- no title --");
+        $("#legend-title").val('');
     }
     else {
-         $("#legend-title").text(text);
+         $("#legend-title").val(text);
     }
 });
 
 // Save title and description
 $('#edit-legend-modal').on('hidden.bs.modal', function (e) {
     var text = $("#legend-title").val();
-    var inc = $("#modal-legend-id").val();
-    var indice = $("#legend-indice-" + inc);
-    var real_indice = $("#real-indice-" + inc);
+    var index = $("#modal-legend-id").val();
+    var indice = $("#legend-indice-" + index);
+    var real_indice = $("#real-indice-" + index);
     indice.next().remove();
     if (text == '' || text == '-- no title --') {
         indice.after("<em>-- no title --</em>");
@@ -417,9 +450,9 @@ $('#edit-legend-modal').on('hidden.bs.modal', function (e) {
     else {
         indice.after("<span>" + text + "</span>");
         real_indice.find("em").text(text);
-        $("#description-" + inc + " .title").text(text);
+        $("#description-" + index + " .title").text(text);
     }
-    $("#description-" + inc + " .description-content").html(
+    $("#description-" + index + " .description-content").html(
         $("#indice-description").trumbowyg('html')
     );
 });
