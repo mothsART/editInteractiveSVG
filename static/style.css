@@ -1,3 +1,11 @@
+::selection {
+  background: transparent;
+}
+
+::-moz-selection {
+  background: transparent;
+}
+
 body {
     overflow : hidden;
     font-family: sans-serif;
@@ -54,6 +62,14 @@ table > tbody > tr > td:first-child {
 /* </UPLOAD> */
 
 /* <MENU> */
+.dropdown-menu {
+    padding: 5px;
+}
+
+.dropdown-menu li {
+    cursor: pointer;
+}
+
 #edit-menu {
     padding: 5px;
     min-height: 34px;
@@ -73,7 +89,7 @@ table > tbody > tr > td:first-child {
     position: absolute;
     width: 100%;
     z-index: 1;
-    background: white;
+    background: none;
 }
 
 #return-to-edit {
@@ -109,16 +125,10 @@ table > tbody > tr > td:first-child {
 }
 /* </MENU> */
 
-#delete-content {
+#delete-svg {
+    z-index: 1;
+    right: 5px;
     position: absolute;
-    width: 100%;
-    padding: 5px;
-}
-
-#delete-content .btn {
-    float: right!important;
-    z-index: 1000;
-    position: relative;
 }
 
 /* <SIDEBAR> */
@@ -316,14 +326,27 @@ table > tbody > tr > td:first-child {
 }
 
 #indices article {
-    position: absolute;
-    margin: -1.75vh -2.25vh;
+    position: fixed;
+    /*margin: -1.75vh -2.25vh;*/
     top: 50%;
     left: 50%;
 }
 
+#sidebar td span.indice-title {
+    white-space: nowrap;
+    width: 21rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+    position: absolute;
+    margin-top: -21px;
+    padding: 0 0 0 2.6rem;
+    margin-left: 22px;
+}
+
 #real-legend {
-    height: 4.1vh;
+    /*height: 4.1vh;*/
+    height: 0;
 }
 
 #real-legend label {
@@ -332,7 +355,7 @@ table > tbody > tr > td:first-child {
 }
 
 #real-legend label span,
-#indices article .indice {
+#indices article.indice > div {
     width: 4vh;
     height: 4vh;
     font-size: 2vh;
@@ -351,13 +374,23 @@ table > tbody > tr > td:first-child {
     display: inline-block;
 }
 
-#indices article .indice.is-draggable:after {
+#indices article.is-draggable {
+    z-index: 1000;
+}
+
+#indices article .cross {
+    position: absolute;
+    z-index: 100000;
+}
+
+#indices article .cross:after {
     content: "\e068";
     font-family: 'Glyphicons Halflings';
+    color: white;
     font-size: 30px;
     position: absolute;
-    top: -30px;
-    right: -30px;
+    right: -25px;
+    top: -63px;
     text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
 
@@ -366,6 +399,7 @@ table > tbody > tr > td:first-child {
 }
 
 #svg.show {
+    position: absolute;
     height: 95.9vh;
     margin-left: 0;
     width: 100vw;
@@ -377,9 +411,35 @@ table > tbody > tr > td:first-child {
     transition-duration: 1s;
 }
 
+.show #frame,
+.show #content {
+    height: 100vh;
+}
+
+#indices-test {
+    opacity: .7;
+    z-index: 10;
+}
+
 #svg svg {
     width: 100%;
     height: 100%;
+}
+
+#svg .indice {
+    cursor: pointer;
+}
+
+#svg.show .indice {
+    cursor: auto;
+}
+
+#svg .indice text {
+    font-size: 8px;
+}
+
+#svg .indice .mask {
+    fill: transparent;
 }
 
 .container .save {
@@ -469,11 +529,24 @@ table > tbody > tr > td:first-child {
 
 .form-horizontal .form-group {
     margin-bottom: 5px;
+    margin-left: 0;
+}
+
+#indice-title {
+    padding: 7px 0;
+    width: 2rem;
 }
 
 .form-control {
     border-radius: 0;
     box-shadow: none;
+}
+
+#legend-title {
+    padding: 5px;
+    font-family: monospace;
+    font-size: 1.5rem;
+    width: 46.5rem;
 }
 
 .description {

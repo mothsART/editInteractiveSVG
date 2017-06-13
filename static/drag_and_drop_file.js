@@ -34,7 +34,6 @@
                 event.initEvent('submit', true, true);
                 form.dispatchEvent(event);
             };
-
         // automatically submit the form on file select
         input.addEventListener('change', function(e)
         {
@@ -42,12 +41,10 @@
             showFiles(e.target.files);
             triggerFormSubmit();
         });
-
         // drag&drop files if the feature is available
         if(isAdvancedUpload)
         {
             form.classList.add('has-advanced-upload'); // letting the CSS part to know drag&drop is supported by the browser
-
             ['drag', 'dragstart', 'dragend', 'dragover', 'dragenter', 'dragleave', 'drop'].forEach( function( event )
             {
                 form.addEventListener(event, function(e)
@@ -96,8 +93,11 @@
                             "using strict";
                             $("#content").append(reader.result);
                             $("#upload-zone").addClass('hidden');
-                            $("#edit-menu, #edit-zone").removeClass('hidden');
+                            $("#edit-zone").removeClass('hidden');
+                            $("#save-form, #undo-button, #redo-button, #nav-right").removeClass('disabled');
                             resize_indices();
+                            form.classList.remove('is-uploading');
+                            $("#content").data('full', true);
                         }
                     });
                 }
@@ -105,4 +105,4 @@
             e.preventDefault();
         });
     });
-}( document, window, 0 ));
+}(document, window, 0));

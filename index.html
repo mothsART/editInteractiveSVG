@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
     <meta charset="UTF-8" />
@@ -9,7 +9,7 @@
   </head>
   <body>
     <div id="mask-on-drag" class="hidden"></div>
-    <div id="show-menu" class="container-fluid hidden">
+    <div id="show-menu" class="container-fluid">
       <nav class="collapse navbar-collapse" id="bs-navbar">
         <ul class="nav navbar-nav navbar-right">
           <li>
@@ -20,7 +20,7 @@
         </ul>
       </nav>
     </div>
-    <header id="edit-menu" class="container-fluid hidden bs-docs-nav navbar navbar-static-top">
+    <header id="edit-menu" class="container-fluid bs-docs-nav navbar navbar-static-top">
       <div class="navbar-header">
         <button aria-controls="bs-navbar" aria-expanded="false" class="collapsed navbar-toggle" data-target="#bs-navbar" data-toggle="collapse" type="button">
           <span class="sr-only">Toggle navigation</span>
@@ -32,8 +32,38 @@
       <nav class="collapse navbar-collapse" id="bs-navbar">
         <ul class="nav navbar-nav">
           <li>
-            <form class="save" id="save-form">
-              <button type="submit" class="btn btn-default btn-xs">
+            <div class="btn-group">
+              <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Load examples : <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu">
+                <li onclick="load_example('../examples/campement.min.svg', 'campement.min.svg (example)');">
+                  campement.min.svg
+                </li>
+                <li onclick="load_example('../examples/campement_with_cross.min.svg', 'campement_with_cross.min.svg (example)');">
+                  campement_with_cross.min.svg
+                </li>
+                <li onclick="load_example('../examples/organes.min.svg', 'organes.min.svg (example)');">
+                  organes.min.svg
+                </li>
+                <li onclick="load_example('../examples/landscape1.svg', 'landscape1.svg (example)');">
+                  landscape1.svg&nbsp;(300x200)
+                </li>
+                <li onclick="load_example('../examples/landscape2.svg', 'landscape2.svg (example)');">
+                  landscape2.svg&nbsp;(600x200)
+                </li>
+                <li onclick="load_example('../examples/portrait1.svg', 'portrait1.svg (example)');">
+                  portrait1.svg&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(200x300)
+                </li>
+                <li onclick="load_example('../examples/portrait2.svg', 'portrait2.svg (example)');">
+                  portrait2.svg&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(200x600)
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li>
+            <form class="save">
+              <button type="submit" id="save-form" class="btn btn-default btn-xs disabled">
                 <span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span> Save
               </button>
             </form>
@@ -51,7 +81,7 @@
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <li>
-            <button onclick="display_result();" type="button" class="btn btn-default btn-xs">
+            <button onclick="display_result();" id="nav-right" type="button" class="btn btn-default btn-xs disabled">
               <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Show
             </button>
           </li>
@@ -59,12 +89,12 @@
         <div class="container">
         <ul class="nav navbar-nav">
           <li>
-            <button type="button" class="btn btn-default btn-xs disabled">
+            <button id="undo-button" type="button" class="btn btn-default btn-xs disabled hidden">
               <span class="glyphicon glyphicon-undo" aria-hidden="true"></span> Undo
             </button>
           </li>
           <li>
-           <button type="button" class="btn btn-default btn-xs disabled">
+           <button id="redo-button" type="button" class="btn btn-default btn-xs disabled hidden">
             <span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span> Redo
           </button>
           </li>
@@ -99,13 +129,14 @@
     </section>
     <div id="edit-zone" class="hidden">
       <div id="svg" class="edit-mode">
-        <section id="indices">
+        <!--<section id="indices">
           <article id="template-indice">
             <div onmouseout="indice_out(this);" class="indice hidden" id="indice-1" data-zoom="100">
               0
             </div>
           </article>
         </section>
+        -->
         <section id="descriptions">
           <article id="template-description" class="description hidden">
             <h2>
@@ -117,14 +148,12 @@
           </article>
       </section>
         <div id="frame">
-          <div id="content">
-          </div>
-        </div>
-      </div>
-      <div id="delete-content" class="container-fluid">
-          <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target=".bs-delete-picture-modal-sm">
+          <button id="delete-svg" type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target=".bs-delete-picture-modal-sm">
             <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span> Delete
           </button>
+          <div id="content" data-full="false">
+          </div>
+        </div>
       </div>
       <div id="sidebar">
           <div id="legend-container" class="container-fluid">
@@ -182,7 +211,7 @@
             </div>
           </div>
           <div id="source-file-zone">
-            <span>Source file :</span><strong id="source-file"></strong>
+            <span>Source file : </span><strong id="source-file"></strong>
           </div>
       </div>
     </div>
@@ -196,10 +225,10 @@
           <div class="modal-body">
             <div class="form-horizontal">
               <div class="form-group">
-                <label class="col-lg-1 control-label">Title</label>
+                <label class="col-lg-1 control-label" id="indice-title">Title</label>
                 <div class="col-lg-11">
                   <input id="modal-legend-id" type="hidden" />
-                  <input id="legend-title" type="text" name="indice-text" class="form-control" />
+                  <input id="legend-title" type="text" name="indice-text" maxlength="50" class="form-control" />
                 </div>
               </div>
             </div>
@@ -222,9 +251,9 @@
               <p>In order to be the most relevant, it is possible to add zooms to focus on a particular element.</p>
             </details>
             <details>
-              <summary>Exemples</summary>
+              <summary>Examples</summary>
               <ul>
-                <li><a href="https://mothsart.github.io/labo/frontend/interactive_svg">Paléolithique</a></li>
+                <li><a href="https://mothsart.github.io/labo/frontend/interactive_svg" target="_blank">Paléolithique</a></li>
               </ul>
             </details>
             <details>
@@ -277,6 +306,23 @@
         </div>
       </div>
     </div>
+    <div id="load-picture-modal" class="modal fade bs-load-picture-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+      <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">
+              Loading a new image means that you will delete your current job.<br />
+              Are you ok with that ?
+            </h4>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default btn-xs" data-dismiss="modal">No</button>
+            <button type="button" onclick="replace_with_example();" class="btn btn-primary btn-xs">Yes</button>
+          </div>
+        </div>
+      </div>
+    </div>
     <script src="./static/jquery.min.js" type="application/javascript"></script>
     <script src="./static/bootstrap_3.3.7.min.js" type="application/javascript"></script>
     <script src="./static/FileSaver.min.js" type="application/javascript"></script>
@@ -285,6 +331,8 @@
     <script src="./static/spectrum.1.8.0.min.js" type="application/javascript"></script>
     <script src="./static/drag_and_drop_file.js" type="application/javascript"></script>
     <script src="./static/script.js" type="application/javascript"></script>
-    <script src="./static/export.js"></script>
+    <script src="./static/export.js" type="application/javascript"></script>
+    <script src="./static/populate.js" type="application/javascript"></script>
+    <script src="./static/load_examples.js" type="application/javascript"></script>
   </body>
 </html>
