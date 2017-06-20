@@ -13,7 +13,11 @@ var get_blob;
 function export_html() {
   "use strict";
   var BB = get_blob();
-  var svg = $("#svg").clone().html();
+  var svg = $("#svg").clone();
+  svg.find("svg").removeAttr("onmousedown").removeAttr("onmousemove").removeAttr("onmouseup");
+  svg.find("#delete-svg").remove();
+  svg.find("#real-legend").removeClass("hidden");
+  var str_svg = svg.html();
   $.when(
     $.ajax("static/export_style.css"),
     $.ajax("./static/jquery.min.js"),
@@ -28,8 +32,8 @@ function export_html() {
           + style[0]
           + "\n</style>\n"
           + "</head>\n<body>\n"
-          + '<div id="svg">\n'
-          + svg
+          + '<div id="svg" class="show">\n'
+          + str_svg
           + "</div>\n"
           + '<script type="text/javascript">\n'
           + jquery_file[0]

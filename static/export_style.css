@@ -1,12 +1,29 @@
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
 body {
     overflow : hidden;
-    font-family: sans-serif;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #333;
+    background-color: #fff;
     color: #0f3c4b;
     padding: 0;
 }
 
+label {
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: 5px;
+    font-weight: 700;
+}
+
 .hidden {
-    display: none;
+    display: none!important;
 }
 
 .container {
@@ -19,18 +36,21 @@ body {
 .form-group {
     margin-bottom: 5px;
 }
+body {
+    margin: 0;
+}
 
 #svg {
-    /*height: calc(-34px + 100vh);
-    margin-left: 30rem;
-    width: calc(-30rem + 100vw);
-    padding: 5px;*/
     position: absolute;
     height: 100vh;
     margin-left: 0;
     width: 100vw;
     padding: 0;
     background: white;
+}
+
+#svg.show.duration svg {
+    transition-duration: 1s;
 }
 
 #frame {
@@ -134,4 +154,38 @@ body {
 
 .container .save {
     display: inline-block;
+}
+
+.description {
+    z-index: 1;
+    width: 35vw;
+    margin: 11vh 2vw;
+    display: block;
+    position: absolute;
+    background: white;
+    padding: .5rem;
+    border-radius: .5rem;
+    border: 1px solid rgba(0,0,0,.15);
+    -webkit-box-shadow: 0 1rem 2rem rgba(0,0,0,.6);
+    box-shadow: 0 1rem 2rem rgba(0,0,0,.6);
+}
+
+.description h2 {
+    margin-top: 0;
+}
+
+.description .indice {
+    position: static;
+    display: inline-block;
+    font-size: 2rem;
+    width: 3.8rem;
+    height: 3.8rem;
+    color: #fff;
+    text-align: center;
+    vertical-align: middle;
+    background-color: #d9534f;
+    border: solid .2rem white;
+    border-radius: .5rem;
+    margin: .2rem;
+    padding: .8rem;
 }
