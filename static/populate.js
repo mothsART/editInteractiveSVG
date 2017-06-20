@@ -41,6 +41,16 @@ function launch(nb, callback) {
   return values;
 }
 
+function random_translate(indice) {
+  "use strict";
+  var x = Math.random() * 100;
+  var y = Math.random() * 100;
+  translate_indice(
+    document.getElementById("indice-" + (indice)),
+    x * SVG.width / 100, y * SVG.height / 100
+  );
+}
+
 function populate(nb) {
   "use strict";
   var values = launch(nb, add_legend, $("#add-legend-button"));
@@ -51,7 +61,7 @@ function populate(nb) {
     $("#legend-title").val(ipsum(50));
     $("#indice-description").html(html_ipsum(500));
     $(".modal-header > button").click();
-    //hide_dialog();
+    hide_dialog();
   }
 }
 
@@ -67,10 +77,7 @@ function populate_without_action(nb) {
     hide_dialog();
     // add an ipusm description
     $("#description-" + parseInt(i + 1) + " .description-content").html(html_ipsum(500));
-    translate_indice(
-      document.getElementById("indice-" + (i + 1)),
-      50 * SVG.width / 100, 50 * SVG.height / 100
-    );
+    random_translate(i + 1);
   }
   // show all indices
   $("#show-all-legend").click();

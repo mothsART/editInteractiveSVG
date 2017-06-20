@@ -29,7 +29,7 @@ function load_example(url, name) {
         $("#delete-legend-button").addClass('disabled');
         createForeignObject();
         //resize_indices();
-        populate_without_action(2);
+        populate_without_action(20);
       }
     }
     xmlhttp.send();
