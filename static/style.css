@@ -333,11 +333,11 @@ table > tbody > tr > td:first-child {
 
 #sidebar td span.indice-title {
     white-space: nowrap;
-    width: 21rem;
+    width: 19rem;
     overflow: hidden;
     text-overflow: ellipsis;
     display: block;
-    position: absolute;
+    position: relative;
     margin-top: -21px;
     padding: 0 0 0 2.6rem;
     margin-left: 22px;
