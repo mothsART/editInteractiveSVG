@@ -26,6 +26,7 @@ function load_example(url, name) {
         $("#upload-zone").addClass('hidden');
         $("#edit-zone").removeClass('hidden');
         $("#save-form, #undo-button, #redo-button, #nav-right").removeClass('disabled');
+        $("#delete-legend-button").addClass('disabled');
         createForeignObject();
         //resize_indices();
         populate_without_action(2);

@@ -327,7 +327,6 @@ table > tbody > tr > td:first-child {
 
 #indices article {
     position: fixed;
-    /*margin: -1.75vh -2.25vh;*/
     top: 50%;
     left: 50%;
 }
@@ -345,8 +344,9 @@ table > tbody > tr > td:first-child {
 }
 
 #real-legend {
-    /*height: 4.1vh;*/
-    height: 0;
+    min-height: 5vh;
+    max-height: 25vh;
+    overflow: auto;
 }
 
 #real-legend label {
@@ -400,7 +400,7 @@ table > tbody > tr > td:first-child {
 
 #svg.show {
     position: absolute;
-    height: 95.9vh;
+    height: 100vh;
     margin-left: 0;
     width: 100vw;
     padding: 0;
@@ -411,9 +411,17 @@ table > tbody > tr > td:first-child {
     transition-duration: 1s;
 }
 
-.show #frame,
 .show #content {
-    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    margin: 5px;
+    height: calc(100vh - 10px);
+}
+
+.show #content svg {
+    height: 100%;
+    min-height: calc(75vh - 10px);
+    width: calc(100vw - 10px);
 }
 
 #indices-test {
@@ -426,16 +434,32 @@ table > tbody > tr > td:first-child {
     height: 100%;
 }
 
-#svg .indice {
+#svg .indice .mask {
     cursor: pointer;
 }
 
-#svg.show .indice {
+#svg .indice .indice-cross {
+    cursor: default;
+}
+
+#svg .indice .indice-cross {
+    font-family: 'Glyphicons Halflings';
+    fill: white;
+    stroke: #444;
+    stroke-width: .3;
+}
+
+#svg .indice .indice-cross.hidden {
+    fill: transparent;
+    stroke: transparent;
+}
+
+#svg .mask {
     cursor: auto;
 }
 
 #svg .indice text {
-    font-size: 8px;
+    font-size: 7px;
 }
 
 #svg .indice .mask {

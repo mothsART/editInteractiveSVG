@@ -62,11 +62,9 @@
             </div>
           </li>
           <li>
-            <form class="save">
-              <button type="submit" id="save-form" class="btn btn-default btn-xs disabled">
-                <span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span> Save
-              </button>
-            </form>
+            <button onclick="export_html();" id="save-form" class="btn btn-default btn-xs disabled">
+              <span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span> Save
+            </button>
           </li>
           <li>
             <button class="btn btn-default btn-xs" data-toggle="modal" data-target=".bs-about-modal-sm">
@@ -121,12 +119,6 @@
         <div class="box__error">Error! Try again!</div>
       </form>
     </div>
-    <section id="real-legend" class="hidden">
-      <label id="real-template-indice" class="indice hidden" onclick="real_zoom(this);">
-          <span>0</span>
-          <em></em>
-      </label>
-    </section>
     <div id="edit-zone" class="hidden">
       <div id="svg" class="edit-mode">
         <!--<section id="indices">
@@ -152,6 +144,12 @@
             <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span> Delete
           </button>
           <div id="content" data-full="false">
+            <section id="real-legend" class="hidden">
+              <label id="real-template-indice" class="indice hidden" onclick="real_zoom(this);">
+                  <span>0</span>
+                  <em></em>
+              </label>
+            </section>
           </div>
         </div>
       </div>

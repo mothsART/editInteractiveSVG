@@ -49,40 +49,28 @@ function populate(nb) {
     open_detail(index);
     index.parent().find(".related-target-editor").click();
     $("#legend-title").val(ipsum(50));
-    $("#indice-description").html(html_ipsum());
+    $("#indice-description").html(html_ipsum(500));
     $(".modal-header > button").click();
+    //hide_dialog();
   }
 }
 
 function populate_without_action(nb) {
   "use strict";
   var values = launch(nb, add_legend, $("#add-legend-button"));
-  var colors = []
-  for (var i = 0; i < palette.length; i++) {
-    for (var j = 0; j < palette[i].length; j++) {
-      colors.push(palette[i][j]);
-    }
-  }
   for (var i = 0; i < nb; i++) {
     var index = values[i];
     open_detail(index);
     open_dialog();
     // add an ipsum title
     $("#legend-title").val(ipsum(50));
-    // add an ipusm description
-    $("#indice-description").html(html_ipsum());
     hide_dialog();
-    // give color to an indice
-    change_indice_color(
-      "legend-indice-" + (i + 1),
-      colors[parseInt(Math.random() * colors.length)]
+    // add an ipusm description
+    $("#description-" + parseInt(i + 1) + " .description-content").html(html_ipsum(500));
+    translate_indice(
+      document.getElementById("indice-" + (i + 1)),
+      50 * SVG.width / 100, 50 * SVG.height / 100
     );
-    // position indice : 5% >= x <= 95%
-    $("#indice-" + i).parent().css("left", (5 + Math.random() * 95) + "%");
-    // position indice : 5% >= y <= 95%
-    $("#indice-" + i).parent().css("top", (5 + Math.random() * 95) + "%");
-    // zoom indice : 100 >= value <= 1000
-    $("#indice-" + i).data("zoom", 100 + Math.random() * 900);
   }
   // show all indices
   $("#show-all-legend").click();
