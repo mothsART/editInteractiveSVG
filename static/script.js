@@ -656,9 +656,10 @@ function hide_dialog() {
     real_indice.find("em").text(text);
     $("#description-" + index + " .title").text(text);
   }
-  $("#description-" + index + " .description-content").html(
-    $("#indice-description").trumbowyg('html')
-  );
+  var html = $("#indice-description").trumbowyg('html');
+  if (html != "") {
+  $("#description-" + index + " .description-content").html(html);
+  }
 }
 
 $('#edit-legend-modal').on('show.bs.modal', function (e) {
