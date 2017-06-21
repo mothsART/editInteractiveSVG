@@ -78,6 +78,9 @@ function populate_without_action(nb) {
     // add an ipusm description
     $("#description-" + parseInt(i + 1) + " .description-content").html(html_ipsum(500));
     random_translate(i + 1);
+    // add a zoom value
+    var zoom_value = 100 + 10 * parseInt(Math.random() * 40);
+    zoom_on(i + 1, zoom_value, false);
   }
   // show all indices
   $("#show-all-legend").click();

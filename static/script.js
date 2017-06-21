@@ -1,4 +1,5 @@
 var DragTarget = null;
+var NS="http://www.w3.org/2000/svg";
 var palette = [
   ["#000"   , "#444"   , "#666"   , "#999"   , "#ccc"   , "#eee"   , "#f3f3f3", "#fff"],
   ["#f00"   , "#f90"   , "#ff0"   , "#0f0"   , "#0ff"   , "#00f"   , "#90f"   , "#f0f"],
@@ -161,11 +162,11 @@ function translate_indice(element, x, y) {
    if (y < 0) {
     y = 0;
   }
-  if (x > (SVG.width - indice_width)) {
-    x = SVG.width - indice_width;
+  if (x > (SVG.width - indice_width * 3/4)) {
+    x = SVG.width - indice_width * 3/4;
   }
-   if (y > (SVG.height - indice_width)) {
-    y = SVG.height - indice_width;
+   if (y > (SVG.height - indice_width * 3/4)) {
+    y = SVG.height - indice_width * 3/4;
   }
   element.setAttribute("data-translate-x", x);
   element.setAttribute("data-translate-y", y);
@@ -200,7 +201,6 @@ function Drag(evt) {
   translate_indice(DragTarget.parentNode, x, y);
 };
 
-
 function Drop(evt)
 {
   "use strict";
@@ -229,6 +229,11 @@ function createForeignObject() {
   switchE.appendChild(subsituteText);
   */
   var svg = $("#svg svg")[0];
+  var rootElement = document.createElementNS(NS, "g");
+  rootElement.setAttribute("id", "root-svg");
+  rootElement.innerHTML = svg.innerHTML;
+  svg.innerHTML   = '';
+  svg.append(rootElement);
   //svg.appendChild(switchE);
   SVG.init();
   svg.setAttribute("onmousedown", "Grab(evt)");
@@ -238,7 +243,6 @@ function createForeignObject() {
 
 function createEditIndice(index) {
   "use strict";
-  var NS="http://www.w3.org/2000/svg";
   var indice = document.createElementNS(NS, "g");
   indice.id = "indice-" + index;
   indice.setAttribute("class", "indice");
@@ -273,7 +277,7 @@ function createEditIndice(index) {
   indice.append(indice_t);
   indice.append(indice_cross);
   indice.append(mask);
-  $("#svg svg")[0].appendChild(indice);
+  $("#root-svg")[0].appendChild(indice);
 }
 
 function random_colors() {
@@ -303,7 +307,6 @@ function add_legend(element) {
   change_indice_color(
     "legend-indice-" + index,
     random_colors()
-    //colors[parseInt(Math.random() * colors.length)]
   );
   return $("#legend-" + index + " .open-detail");
 }
@@ -425,7 +428,7 @@ function return_to_edit() {
   $("#svg").removeClass("show").addClass("edit-mode");
   $("#show-menu, #real-legend").addClass("hidden");
   $(".description").addClass("hidden");
-  $("#svg svg").css("transform", "scale(1)").removeClass("duration");
+  $("#root-svg").css("transform", "scale(1)").removeClass("duration");
   //resize_indices();
   $("#indices .indice").each(function(index, el) {
     if ($(el).data('hidden') == true) {
@@ -538,56 +541,70 @@ function select_all_legend() {
   $("#template-legend input").prop('checked', false);
 }
 
-function scale_and_translate(scale, trans_x, trans_y) {
+function translate(trans_x, trans_y) {
   "use strict";
   var indice_len_x = 14 * SVG.width / 500;
   var indice_len_y = 14 * SVG.height / 500;
-  var svg_width = parseInt($("#svg svg").css("width").replace("px", ""));
-  var svg_height = parseInt($("#svg svg").css("height").replace("px", ""));
-  var x = 50 - 100 * trans_x / SVG.width  - indice_len_x;
-  var y = 50 - 100 * trans_y / SVG.height - indice_len_y;
+  var svg_width = parseInt($("#root-svg").css("width").replace("px", ""));
+  var svg_height = parseInt($("#root-svg").css("height").replace("px", ""));
+  var x = Math.abs(50 - 100 * trans_x / SVG.width); // - indice_len_x);
+  var y = Math.abs(50 - 100 * trans_y / SVG.height); // - indice_len_y);
   var x_signe = "";
   var y_signe = "";
-  if ((trans_x / SVG.width) > 50)
+  if ((100 * trans_x / SVG.width) > 50)
     x_signe = "-";
-  if ((trans_y / SVG.height) > 50)
+  if ((100 * trans_y / SVG.height) > 50)
     y_signe = "-";
-  return "scale(" + scale + ") translate(" + x_signe + x + "%," + y_signe + y + "%)";
+  return "translate(" + x_signe + x + "%," + y_signe + y + "%)";
 }
 
 function zoom_edit_mode(value, trans_x, trans_y) {
   "use strict";
   var scale = value / 100;
   document.getElementById("svg").setAttribute("data-scale", scale);
-  $("#svg svg").css("transform", scale_and_translate(scale, trans_x, trans_y));
+  $("#svg svg").css("transform", "scale(" + scale + ")");
+  $("#root-svg").css("transform", translate(trans_x, trans_y));
+}
+
+function zoom_on(index, value, zoom_svg) {
+  "use strict";
+  var svg_indice = document.getElementById('indice-' + index);
+  var trans_x = parseFloat(svg_indice.getAttribute("data-translate-x"));
+  var trans_y = parseFloat(svg_indice.getAttribute("data-translate-y"));
+  svg_indice.setAttribute("data-zoom", value);
+  $("#legend-" + index + " .zoom-input").val(value);
+  if (zoom_svg) {
+    zoom_edit_mode(value, trans_x, trans_y);
+  }
 }
 
 function zoom(element) {
   "use strict";
-  var index = $(element.parentNode.parentNode.parentNode).find(".indice").attr("id").replace("legend-", "");
-  var svg_indice = document.getElementById(index);
-  var trans_x = parseInt(svg_indice.getAttribute("data-translate-x"));
-  var trans_y = parseInt(svg_indice.getAttribute("data-translate-y"));
-  svg_indice.setAttribute("data-zoom", $(element).val());
-  zoom_edit_mode($(element).val(), trans_x, trans_y);
+  var index = parseInt(
+    $(element.parentNode.parentNode.parentNode).find(".indice").attr("id").replace("legend-indice-", "")
+  );
+  var value = parseInt($(element.parentNode.parentNode.parentNode).find(".zoom-input").val());
+  zoom_on(index, value, true);
 }
 
 function active_zoom(element) {
   "use strict";
-  var svg_width = parseInt($("#svg svg").css("width").replace("px", ""));
-  var svg_height = parseInt($("#svg svg").css("height").replace("px", ""));
+  var svg_width = parseInt($("#root-svg").css("width").replace("px", ""));
+  var svg_height = parseInt($("#root-svg").css("height").replace("px", ""));
   var zoom_input = $(element).parent().find(".zoom-input");
   var id = $(element.parentNode.parentNode.parentNode).find(".indice").attr("id").replace("legend-", "");
-  var indice_element = $("#svg svg #" + id);
+  var indice_element = $("#root-svg #" + id);
   if($(element).prop('checked')) {
     zoom_input.attr("disabled", false);
-    $("#svg svg").css("transform", "scale(" + zoom_input.val() / 100 + ")");
+    zoom(element);
   }
   else {
     zoom_input.attr("disabled", true);
     var indice = $("#" + zoom_input.data("indice-id"));
     indice.data("zoom", zoom_input.val());
+    document.getElementById("svg").setAttribute("data-scale", 1);
     $("#svg svg").css("transform", "scale(1)");
+    $("#root-svg").css("transform", "initial");
   }
 }
 
@@ -605,7 +622,8 @@ function real_zoom(element) {
   var description = $("#description-" + index);
   if (indice.getAttribute("data-zoom-active") == "true")
   {
-    $("#svg.show svg").css("transform", "scale(1)");
+    $("#svg svg").css("transform", "scale(1)");
+    $("#root-svg").css("transform", "initial");
     indice.setAttribute("data-zoom-active", false);
     description.addClass("hidden");
   }
@@ -613,7 +631,8 @@ function real_zoom(element) {
     var scale   = indice.getAttribute("data-zoom") / 100;
     var trans_x = parseFloat(indice.getAttribute("data-translate-x"));
     var trans_y = parseFloat(indice.getAttribute("data-translate-y"));
-    $("#svg.show svg").css("transform", scale_and_translate(scale, trans_x, trans_y));
+    $("#svg svg").css("transform", "scale(" + scale + ")");
+    $("#root-svg").css("transform", translate(trans_x, trans_y));
     indice.setAttribute("data-zoom-active", true);
     if (description.find(".description-content").html().trim() != "") {
       description.removeClass("hidden");
