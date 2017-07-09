@@ -123,8 +123,8 @@ function reorder_legend() {
   });
   $("#descriptions .description").each(function(index, el) {
     if ($(el).attr("id") != "template-description") {
-      $(el).find(".indice").text(index + 1);
-      $(el).attr("id", "description-" + (index + 1));
+      $(el).find(".indice").text(index);
+      $(el).attr("id", "description-" + (index));
     }
   });
   $("#real-legend .indice").each(function(index, el) {
@@ -304,7 +304,7 @@ function add_legend(element) {
   $("#list-of-legend").removeClass('hidden');
   createEditIndice(index);
   $("#real-template-indice").clone().removeAttr("id").removeClass("hidden").appendTo('#real-legend');
-  $("#template-description").clone().removeAttr("id").prependTo('#descriptions');
+  $("#template-description").clone().removeAttr("id").appendTo('#descriptions');
   document.getElementById("nb-indices").setAttribute("value", index);
   reorder_legend();
   if (index > 98) {
