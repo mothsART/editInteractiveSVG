@@ -113,7 +113,7 @@ function reorder_legend() {
     tr_list[i].getElementsByClassName("indice")[0].childNodes[0].nodeValue = i;
     if($("#legend-indice-" + (i + 1)).parent().find(".open-detail").hasClass('unfolded')) {
        document.getElementById("last-folded-indice").setAttribute(
-        "value", "legend-indice-" + i
+        "value", "legend-indice-" + (i + 1)
       );
     }
   };
@@ -355,13 +355,13 @@ function change_indice_color(indice_id, hex_color) {
 
 function open_detail(element) {
   "use strict";
-  if ($(element).hasClass("unfolded")) {
-    $(element).removeClass("unfolded");
+  if (element.classList.contains("unfolded")) {
+    element.classList.remove("unfolded");
     $(element).parent().find(".detail").addClass("hidden");
     document.getElementById("last-folded-indice").setAttribute("value", null);
   }
   else {
-    $(element).addClass("unfolded");
+    element.classList.add("unfolded");
     $(element).parent().find(".detail").removeClass("hidden");
     var id = document.getElementById("last-folded-indice").getAttribute("value");
     if (id) {
