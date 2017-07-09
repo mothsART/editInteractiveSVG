@@ -621,6 +621,8 @@ function real_zoom(element) {
     DragTarget = null;
     return;
   }
+  if (document.getElementById('svg').classList.contains('edit-mode'))
+    return;
   $("#svg.show").addClass("duration");
   var id = $(element).attr("id");
   if (id.startsWith("indice")) {
