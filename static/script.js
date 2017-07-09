@@ -95,7 +95,7 @@ function rgbToHsl(r, g, b) {
 
 dragAndDrop.init();
 
-function init() {
+$(document).ready(function() {
   "use strict";
   if (document.getElementsByTagName('body')[0].classList.contains('debug')) {
     document.getElementById('release-menu').classList.add('hidden');
@@ -103,7 +103,7 @@ function init() {
   else {
     document.getElementById('debug-menu').classList.add('hidden');
   }
-}
+});
 
 function reorder_legend() {
   "use strict";
