@@ -212,15 +212,6 @@ function Drag(evt) {
   translate_indice(DragTarget.parentNode, x, y);
 };
 
-function Drop(evt)
-{
-  "use strict";
-  if (DragTarget) {
-    $(DragTarget.parentNode).find(".indice-cross")[0].classList.add("hidden");
-    DragTarget = null;
-  }
-}
-
 function createForeignObject() {
   "use strict";
   /*var switchE = document.createElementNS("http://www.w3.org/2000/svg", "switch");
@@ -249,7 +240,6 @@ function createForeignObject() {
   SVG.init();
   svg.setAttribute("onmousedown", "Grab(evt)");
   svg.setAttribute("onmousemove", "Drag(evt)");
-  svg.setAttribute("onmouseup", "Drop(evt)");
 }
 
 function createEditIndice(index) {
@@ -258,6 +248,7 @@ function createEditIndice(index) {
   indice.id = "indice-" + index;
   indice.setAttribute("class", "indice");
   indice.setAttribute("data-zoom", 100);
+  indice.setAttribute("onclick", "real_zoom(this);");
   var rec = document.createElementNS(NS, "rect");
   rec.setAttribute("x", 0);
   rec.setAttribute("y", 0);
@@ -326,6 +317,7 @@ function change_indice_color(indice_id, hex_color) {
   "use strict";
   var indice = $("#" + indice_id);
   indice.css("background-color", hex_color);
+  //debugger;
   $("#description-" + indice.attr("id").substring(14)).find(".indice").css(
     "background-color", hex_color
   );
@@ -440,7 +432,6 @@ function return_to_edit() {
   $("#show-menu, #real-legend").addClass("hidden");
   $(".description").addClass("hidden");
   $("#root-svg").css("transform", "scale(1)").removeClass("duration");
-  //resize_indices();
   $("#indices .indice").each(function(index, el) {
     if ($(el).data('hidden') == true) {
       $(el).addClass('hidden');
@@ -621,6 +612,11 @@ function active_zoom(element) {
 
 function real_zoom(element) {
   "use strict";
+  if (DragTarget) {
+    $(DragTarget.parentNode).find(".indice-cross")[0].classList.add("hidden");
+    DragTarget = null;
+    return;
+  }
   $("#svg.show").addClass("duration");
   var id = $(element).attr("id");
   if (id.startsWith("indice")) {
@@ -631,7 +627,10 @@ function real_zoom(element) {
   }
   var indice = document.getElementById("indice-" + index);
   var description = $("#description-" + index);
-  if (indice.getAttribute("data-zoom-active") == "true")
+  if (
+    document.getElementById('content').getAttribute('data-real-zoom-indice') == index
+    && indice.getAttribute("data-zoom-active") == "true"
+  )
   {
     $("#svg svg").css("transform", "scale(1)");
     $("#root-svg").css("transform", "initial");
@@ -645,6 +644,7 @@ function real_zoom(element) {
     $("#svg svg").css("transform", "scale(" + scale + ")");
     $("#root-svg").css("transform", translate(trans_x, trans_y));
     indice.setAttribute("data-zoom-active", true);
+    document.getElementById('content').setAttribute('data-real-zoom-indice', index);
     if (description.find(".description-content").html().trim() != "") {
       description.removeClass("hidden");
     }
