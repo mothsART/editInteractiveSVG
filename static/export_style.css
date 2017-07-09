@@ -98,7 +98,9 @@ body {
 }
 
 #real-legend label span {
+    padding-top: 0.5vh;
     display: inline-block;
+    border-radius: 1.1vh;
 }
 
 #indices {
