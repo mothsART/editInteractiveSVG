@@ -437,6 +437,7 @@ table > tbody > tr > td:first-child {
 }
 
 #svg .indice .mask {
+     fill: transparent;
     cursor: pointer;
 }
 
@@ -462,10 +463,6 @@ table > tbody > tr > td:first-child {
 
 #svg .indice text {
     font-size: 7px;
-}
-
-#svg .indice .mask {
-    fill: transparent;
 }
 
 .container .save {

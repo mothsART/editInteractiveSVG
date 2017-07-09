@@ -151,7 +151,8 @@ body {
 }
 
 #svg .indice .mask {
-    fill: transparent;
+     fill: transparent;
+    cursor: pointer;
 }
 
 .container .save {

@@ -27,28 +27,35 @@ var SVG = {
     }
 };
 
+var DragTarget = false;
 
-function scale_and_translate(scale, trans_x, trans_y) {
+function translate(trans_x, trans_y) {
   "use strict";
   var indice_len_x = 14 * SVG.width / 500;
   var indice_len_y = 14 * SVG.height / 500;
-  var svg_width = parseInt($("#svg svg").css("width").replace("px", ""));
-  var svg_height = parseInt($("#svg svg").css("height").replace("px", ""));
-  var x = 50 - 100 * trans_x / SVG.width  - indice_len_x;
-  var y = 50 - 100 * trans_y / SVG.height - indice_len_y;
+  var svg_width = parseInt($("#root-svg").css("width").replace("px", ""));
+  var svg_height = parseInt($("#root-svg").css("height").replace("px", ""));
+  var x = Math.abs(50 - 100 * trans_x / SVG.width); // - indice_len_x);
+  var y = Math.abs(50 - 100 * trans_y / SVG.height); // - indice_len_y);
   var x_signe = "";
   var y_signe = "";
-  if ((trans_x / SVG.width) > 50)
+  if ((100 * trans_x / SVG.width) > 50)
     x_signe = "-";
-  if ((trans_y / SVG.height) > 50)
+  if ((100 * trans_y / SVG.height) > 50)
     y_signe = "-";
-  return "scale(" + scale + ") translate(" + x_signe + x + "%," + y_signe + y + "%)";
+  return "translate(" + x_signe + x + "%," + y_signe + y + "%)";
 }
 
 function real_zoom(element) {
   "use strict";
+  if (DragTarget) {
+    $(DragTarget.parentNode).find(".indice-cross")[0].classList.add("hidden");
+    DragTarget = null;
+    return;
+  }
+  if (document.getElementById('svg').classList.contains('edit-mode'))
+    return;
   $("#svg.show").addClass("duration");
-  debugger;
   var id = $(element).attr("id");
   if (id.startsWith("indice")) {
     var index = id.substring(7);
@@ -58,9 +65,13 @@ function real_zoom(element) {
   }
   var indice = document.getElementById("indice-" + index);
   var description = $("#description-" + index);
-  if (indice.getAttribute("data-zoom-active") == "true")
+  if (
+    document.getElementById('content').getAttribute('data-real-zoom-indice') == index
+    && indice.getAttribute("data-zoom-active") == "true"
+  )
   {
-    $("#svg.show svg").css("transform", "scale(1)");
+    $("#svg svg").css("transform", "scale(1)");
+    $("#root-svg").css("transform", "initial");
     indice.setAttribute("data-zoom-active", false);
     description.addClass("hidden");
   }
@@ -68,14 +79,16 @@ function real_zoom(element) {
     var scale   = indice.getAttribute("data-zoom") / 100;
     var trans_x = parseFloat(indice.getAttribute("data-translate-x"));
     var trans_y = parseFloat(indice.getAttribute("data-translate-y"));
-    $("#svg.show svg").css("transform", scale_and_translate(scale, trans_x, trans_y));
+    $("#svg svg").css("transform", "scale(" + scale + ")");
+    $("#root-svg").css("transform", translate(trans_x, trans_y));
     indice.setAttribute("data-zoom-active", true);
+    document.getElementById('content').setAttribute('data-real-zoom-indice', index);
     if (description.find(".description-content").html().trim() != "") {
       description.removeClass("hidden");
     }
   }
 }
 
-$( document ).ready(function() {
+$(document).ready(function() {
     SVG.init();
 });
