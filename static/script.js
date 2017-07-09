@@ -280,6 +280,10 @@ function createEditIndice(index) {
   indice.append(indice_cross);
   indice.append(mask);
   $("#root-svg")[0].appendChild(indice);
+  translate_indice(
+    indice,
+    .5 * SVG.width, .5 * SVG.height
+  );
 }
 
 function random_colors() {
