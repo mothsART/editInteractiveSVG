@@ -7,7 +7,7 @@
     <link rel="stylesheet" type="text/css" href="./static/spectrum.1.8.min.css" />
     <link rel="stylesheet" type="text/css" href="./static/style.css" />
   </head>
-  <body>
+  <body onload="init();">
     <div id="mask-on-drag" class="hidden"></div>
     <div id="show-menu" class="container-fluid">
       <nav class="collapse navbar-collapse" id="bs-navbar">
@@ -36,7 +36,15 @@
               <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Load examples : <span class="caret"></span>
               </button>
-              <ul class="dropdown-menu">
+              <ul class="dropdown-menu" id="release-menu">
+                <li onclick="load_example('./examples/campement.min.svg', 'campement.min.svg (example)');">
+                  Campement
+                </li>
+                <li onclick="load_example('./examples/organes.min.svg', 'organes.min.svg (example)');">
+                  Organes
+                </li>
+              </ul>
+              <ul class="dropdown-menu" id="debug-menu">
                 <li onclick="load_example('./examples/campement.min.svg', 'campement.min.svg (example)');">
                   campement.min.svg
                 </li>

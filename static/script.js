@@ -1,4 +1,5 @@
 var DragTarget = null;
+var DEBUG      = false;
 var NS="http://www.w3.org/2000/svg";
 var palette = [
   ["#000"   , "#444"   , "#666"   , "#999"   , "#ccc"   , "#eee"   , "#f3f3f3", "#fff"],
@@ -93,6 +94,16 @@ function rgbToHsl(r, g, b) {
 }
 
 dragAndDrop.init();
+
+function init() {
+  "use strict";
+  if (document.getElementsByTagName('body')[0].classList.contains('debug')) {
+    document.getElementById('release-menu').classList.add('hidden');
+  }
+  else {
+    document.getElementById('debug-menu').classList.add('hidden');
+  }
+}
 
 function reorder_legend() {
   "use strict";

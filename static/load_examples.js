@@ -28,8 +28,9 @@ function load_example(url, name) {
         $("#save-form, #undo-button, #redo-button, #nav-right").removeClass('disabled');
         $("#delete-legend-button").addClass('disabled');
         createForeignObject();
-        //resize_indices();
-        populate_without_action(10);
+        if (DEBUG) {
+          populate_without_action(10);
+        }
       }
     }
     xmlhttp.send();
