@@ -314,6 +314,10 @@ function add_legend(element) {
     "legend-indice-" + index,
     random_colors()
   );
+  show_legend(
+    document.getElementById("legend-indice-" + index)
+    .parentElement.parentElement.getElementsByClassName('display-indice')[0]
+  );
   return $("#legend-" + index + " .open-detail");
 }
 
