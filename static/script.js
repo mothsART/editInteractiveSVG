@@ -430,6 +430,7 @@ function display_result() {
 
 function return_to_edit() {
   "use strict";
+  document.getElementById('content').removeAttribute('data-real-zoom-indice');
   $("#indices .indice").removeAttr("onclick");
   $("#edit-menu, #sidebar, #delete-svg").removeClass("hidden");
   $("#svg").removeClass("show").addClass("edit-mode");
@@ -454,7 +455,7 @@ function delete_pic(replace) {
   checked_all();
   delete_legend();
   $("#svg svg").remove();
-  $("#content").data('full', false);
+  document.getElementById('content').setAttribute('full', false);
   if (!replace) {
     $("#edit-zone, #upload-text").addClass("hidden");
     $("#upload-zone, #choose-file").removeClass("hidden");
