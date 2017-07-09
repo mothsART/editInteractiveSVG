@@ -430,6 +430,9 @@ function display_result() {
 
 function return_to_edit() {
   "use strict";
+  var index      = parseInt($("#last-folded-indice").val().substring(14));
+  var indice     = document.getElementById('legend-indice-' + index);
+  var zoom_input = indice.parentElement.getElementsByClassName('zoom-enabled')[0];
   document.getElementById('content').removeAttribute('data-real-zoom-indice');
   $("#indices .indice").removeAttr("onclick");
   $("#edit-menu, #sidebar, #delete-svg").removeClass("hidden");
@@ -445,7 +448,9 @@ function return_to_edit() {
       $(el).removeClass('hidden');
     }
   });
-  if ($("#zoom-enabled").prop('checked')) {
+  $("#svg svg").css("transform", "scale(1)");
+  if (zoom_input.checked) {
+    active_zoom(zoom_input);
     $("#svg svg").css("transform", "scale(" + $("#zoom-input").val() / 100 + ")");
   }
 }
