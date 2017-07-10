@@ -376,6 +376,10 @@ table > tbody > tr > td:first-child {
     border-radius: 1.1vh;
 }
 
+#real-legend label em {
+    padding-right: 1rem;
+}
+
 #indices article.is-draggable {
     z-index: 1000;
 }

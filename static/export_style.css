@@ -103,6 +103,10 @@ body {
     border-radius: 1.1vh;
 }
 
+#real-legend label em {
+    padding-right: 1rem;
+}
+
 #indices {
     position: absolute;
     width: calc(-10px + 100%);
