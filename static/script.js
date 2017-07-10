@@ -460,7 +460,6 @@ function return_to_edit() {
   $("#svg svg").css("transform", "scale(1)");
   if (zoom_input && zoom_input.checked) {
     active_zoom(zoom_input);
-    $("#svg svg").css("transform", "scale(" + $("#zoom-input").val() / 100 + ")");
   }
 }
 
@@ -667,6 +666,7 @@ function real_zoom(element) {
     indice.setAttribute("data-zoom-active", true);
     document.getElementById('content').setAttribute('data-real-zoom-indice', index);
     if (description.find(".description-content").html().trim() != "") {
+      $('.description').addClass('hidden');
       description.removeClass("hidden");
     }
   }

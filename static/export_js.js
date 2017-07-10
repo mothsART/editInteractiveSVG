@@ -84,6 +84,7 @@ function real_zoom(element) {
     indice.setAttribute("data-zoom-active", true);
     document.getElementById('content').setAttribute('data-real-zoom-indice', index);
     if (description.find(".description-content").html().trim() != "") {
+      $('.description').addClass('hidden');
       description.removeClass("hidden");
     }
   }
