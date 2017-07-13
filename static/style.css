@@ -350,6 +350,7 @@ table > tbody > tr > td:first-child {
 }
 
 #real-legend label {
+    vertical-align: top;
     position: relative;
     z-index: 1;
 }
