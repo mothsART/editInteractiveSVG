@@ -15,6 +15,8 @@ function export_html() {
   var BB = get_blob();
   var svg = $("#svg").clone();
   svg.find("svg").removeAttr("onmousedown").removeAttr("onmousemove").removeAttr("onmouseup");
+  svg.find("svg").css("transform", "scale(1)");
+  svg.find("#root-svg").css("transform", "initial");
   svg.find("#delete-svg").remove();
   svg.find("#real-legend").removeClass("hidden");
   var str_svg = svg.html();
