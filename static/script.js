@@ -213,7 +213,7 @@ function Drag(evt) {
   if (DragTarget == null) {
     return;
   }
-  var e = window.event;
+  var e = evt;
   if (!$("#svg").hasClass("edit-mode") || (e.clientX == 0 && e.clientY == 0))
   {
     return;
