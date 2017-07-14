@@ -372,8 +372,8 @@ table > tbody > tr > td:first-child {
 }
 
 #real-legend label span {
-    padding-top: 0.5vh;
     display: inline-block;
+    border-color: black;
     border-radius: 1.1vh;
 }
 
@@ -605,10 +605,11 @@ table > tbody > tr > td:first-child {
     text-align: center;
     vertical-align: middle;
     background-color: #d9534f;
-    border: solid .2rem white;
+    border: solid .4vh black;
     border-radius: .5rem;
     margin: .2rem;
     padding: .8rem;
+    padding-top: .5rem;
 }
 
 #about, #help  {

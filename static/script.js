@@ -375,11 +375,10 @@ function change_indice_color(indice_id, hex_color) {
   $("#" + indice.attr("id").substring(7)).find(".indice-text").css(
     "fill", color
   );
-  $("#" + indice.attr("id").substring(7)).css("color", color).css("border-color", color);
+  $("#" + indice.attr("id").substring(7)).css("color", color);
   $("#description-" + indice.attr("id").substring(14)).find(".indice")
-  .css("color", color).css("border-color", color);
-  $("#real-" + indice.attr("id").substring(7)).find("span")
-  .css("color", color).css("border-color", color);
+  .css("color", color);
+  $("#real-" + indice.attr("id").substring(7)).find("span").css("color", color);
 }
 
 function open_detail(element) {

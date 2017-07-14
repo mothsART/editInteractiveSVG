@@ -4,15 +4,28 @@
     box-sizing: border-box;
 }
 
+html {
+    font-size: 10px;
+}
+
 body {
     overflow : hidden;
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-family: sans-serif;
     font-size: 14px;
     line-height: 1.42857143;
     color: #333;
     background-color: #fff;
     color: #0f3c4b;
     padding: 0;
+}
+
+h2 {
+    font-size: 30px;
+    font-family: inherit;
+    font-weight: 500;
+    line-height: 1.1;
+    color: inherit;
+    margin-bottom: 10px;
 }
 
 label {
@@ -99,8 +112,8 @@ body {
 }
 
 #real-legend label span {
-    padding-top: 0.5vh;
     display: inline-block;
+    border-color: black;
     border-radius: 1.1vh;
 }
 
@@ -192,8 +205,9 @@ body {
     text-align: center;
     vertical-align: middle;
     background-color: #d9534f;
-    border: solid .2rem white;
+    border: solid .4vh black;
     border-radius: .5rem;
     margin: .2rem;
     padding: .8rem;
+    padding-top: .5rem;
 }
