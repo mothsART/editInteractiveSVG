@@ -11,7 +11,7 @@ function load_file(stream) {
   var el = document.createElement('div');
   el.innerHTML = stream;
   $("#content").append($(el).find('svg'));
-  $("#content").data('full', true);
+  document.getElementById('content').setAttribute('data-full', true);
   $("#upload-zone").addClass('hidden');
   $("#edit-zone").removeClass('hidden');
   $("#save-form, #undo-button, #redo-button, #nav-right").removeClass('disabled');
@@ -49,7 +49,7 @@ function load_file(stream) {
 
 function load_example(url, name) {
   "use strict";
-  if ($("#content").data('full'))
+  if (document.getElementById('content').getAttribute('data-full') == 'true')
   {
     var modal = $('#load-picture-modal');
     modal.data('url', url);
@@ -64,7 +64,7 @@ function load_example(url, name) {
       if (xmlhttp.readyState==4 && xmlhttp.status==200) {
         if (DEBUG) {
           $("#content").append(xmlhttp.responseText);
-          $("#content").data('full', true);
+          document.getElementById('content').setAttribute('data-full', true);
           $("#upload-zone").addClass('hidden');
           $("#edit-zone").removeClass('hidden');
           $("#save-form, #undo-button, #redo-button, #nav-right").removeClass('disabled');

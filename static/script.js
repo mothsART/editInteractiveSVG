@@ -493,7 +493,7 @@ function delete_pic(replace) {
   checked_all();
   delete_legend();
   $("#svg svg").remove();
-  document.getElementById('content').setAttribute('full', false);
+  document.getElementById('content').setAttribute('data-full', false);
   if (!replace) {
     $("#edit-zone, #upload-text").addClass("hidden");
     $("#upload-zone, #choose-file").removeClass("hidden");
