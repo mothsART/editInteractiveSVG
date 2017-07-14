@@ -38,8 +38,12 @@ function load_file(stream) {
       );
       add_legend(el, hex_color);
       var title = $(el).find('em').text();
-      if (title.trim() != '')
-        $('#legend-' + index).find('em').text(title);
+      if (title.trim() != '') {
+        $('#legend-' + index).find('em').remove();
+        $("<span class='indice-title' title='"+ title + "'>" + title + "</span>").insertAfter(
+          '#legend-' + index + " .indice"
+        );
+      }
       $('#legend-' + index).find('.zoom-input').val(
         $('#indice-' + index).data('zoom')
       );
