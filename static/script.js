@@ -93,6 +93,14 @@ function rgbToHsl(r, g, b) {
   return l;
 }
 
+function componentToHex(c) {
+    var hex = c.toString(16);
+    return hex.length == 1 ? "0" + hex : hex;
+}
+
+function rgbToHex(r, g, b) {
+    return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+}
 dragAndDrop.init();
 
 $(document).ready(function() {
@@ -297,7 +305,7 @@ function random_colors() {
   return new_value;
 }
 
-function add_legend(element) {
+function add_legend(element, hex_color) {
   "use strict";
   var index = parseInt(document.getElementById("nb-indices").getAttribute("value")) + 1;
   $("#show-all-legend").prop('checked', false);
@@ -305,9 +313,12 @@ function add_legend(element) {
     .appendTo("#list-of-legend tbody").attr("id", "legend-" + index);
   $("#show-all-legend").removeClass('hidden');
   $("#list-of-legend").removeClass('hidden');
-  createEditIndice(index);
-  $("#real-template-indice").clone().removeAttr("id").removeClass("hidden").appendTo('#real-legend');
-  $("#template-description").clone().removeAttr("id").appendTo('#descriptions');
+  if (!hex_color) {
+    createEditIndice(index);
+    $("#real-template-indice").clone().removeAttr("id").removeClass("hidden").appendTo('#real-legend');
+    $("#template-description").clone().removeAttr("id").appendTo('#descriptions');
+    hex_color = random_colors();
+  }
   document.getElementById("nb-indices").setAttribute("value", index);
   reorder_legend();
   if (index > 98) {
@@ -315,7 +326,7 @@ function add_legend(element) {
   }
   change_indice_color(
     "legend-indice-" + index,
-    random_colors()
+    hex_color
   );
   show_legend(
     document.getElementById("legend-indice-" + index)
@@ -328,14 +339,12 @@ function change_indice_color(indice_id, hex_color) {
   "use strict";
   var indice = $("#" + indice_id);
   indice.css("background-color", hex_color);
-  //debugger;
   $("#description-" + indice.attr("id").substring(14)).find(".indice").css(
     "background-color", hex_color
   );
   $("#real-" + indice.attr("id").substring(7)).find("span").css(
     "background-color", hex_color
   );
-  //
   var rgb = hexToRgb(hex_color);
   var luminance = rgbToHsl(rgb.r, rgb.g, rgb.b);
   var color = "white";
