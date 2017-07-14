@@ -91,13 +91,7 @@
                         reader.readAsText(file);
                         reader.onload = function(e) {
                             "using strict";
-                            $("#content").append(reader.result);
-                            $("#upload-zone").addClass('hidden');
-                            $("#edit-zone").removeClass('hidden');
-                            $("#save-form, #undo-button, #redo-button, #nav-right").removeClass('disabled');
-                            resize_indices();
-                            form.classList.remove('is-uploading');
-                            $("#content").data('full', true);
+                            load_file(reader.result);
                         }
                     });
                 }
