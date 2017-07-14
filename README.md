@@ -11,6 +11,7 @@ Because SVG illustration designed to **educative programs** is really better whe
 - re-import HTML file to edit
 - i18n
 - several concrete examples
+- fluid : animations and resize must be done by css, not javascript
 
 ## Contributing
 
