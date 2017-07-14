@@ -665,8 +665,8 @@ function real_zoom(element) {
     $("#root-svg").css("transform", translate(trans_x, trans_y));
     indice.setAttribute("data-zoom-active", true);
     document.getElementById('content').setAttribute('data-real-zoom-indice', index);
+    $('.description').addClass('hidden');
     if (description.find(".description-content").html().trim() != "") {
-      $('.description').addClass('hidden');
       description.removeClass("hidden");
     }
   }
