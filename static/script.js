@@ -262,6 +262,7 @@ function createForeignObject() {
   svg.append(rootElement);
   //svg.appendChild(switchE);
   SVG.init();
+  svg.setAttribute("viewBox", "0 0 " + SVG.width + " " + SVG.height);
   svg.setAttribute("onmousedown", "Grab(evt)");
   svg.setAttribute("onmousemove", "Drag(evt)");
 }
