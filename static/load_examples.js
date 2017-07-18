@@ -49,6 +49,7 @@ function load_file(stream) {
       );
     }
   });
+  $('#upload-zone form').removeClass('is-uploading');
 }
 
 function load_example(url, name) {
