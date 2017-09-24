@@ -289,6 +289,21 @@ table > tbody > tr > td:first-child {
     border-top: solid 1px #ddd;
     color: #333;
 }
+
+#source-file-label {
+    display: inline-block;
+    width: 8rem;
+    text-align: center;
+    vertical-align: top;
+}
+
+#source-file {
+    display: inline-block;
+    max-width: 20rem;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
 /* </SIDEBAR> */
 
 /* <CONTENT> */
@@ -478,7 +493,7 @@ table > tbody > tr > td:first-child {
 }
 
 #svg .indice text {
-    font-size: 7px;
+    font-size: 14px;
 }
 
 .container .save {

@@ -65,6 +65,7 @@ function load_example(url, name) {
   }
   else {
     $("#source-file").text(name);
+    $("#source-file").attr('title', name);
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.open("GET", url, true);
     xmlhttp.onreadystatechange = function() {

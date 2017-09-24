@@ -27,6 +27,7 @@
                 $("#upload-text").removeClass("hidden");
                 label.textContent = files[0].name;
                 $("#source-file").text(label.textContent);
+                $("#source-file").attr('title', label.textContent);
             },
             triggerFormSubmit = function()
             {
