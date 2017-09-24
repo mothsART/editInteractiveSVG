@@ -20,6 +20,7 @@ function export_html() {
   svg.find("#delete-svg").remove();
   svg.find("#real-legend").removeClass("hidden");
   var str_svg = svg.html();
+  str_svg = str_svg.replace('<br>', '</br>');
   $.when(
     $.ajax("static/export_style.css"),
     $.ajax("./static/jquery.min.js"),
