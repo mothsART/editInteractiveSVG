@@ -19,6 +19,8 @@ for (var i = 0; i < palette.length; i++) {
 }
 var remaining_colors = [];
 var SVG = {
+  x:             0,
+  y:             0,
   width:         0,
   height:        0,
   ratio:         0,
@@ -27,11 +29,18 @@ var SVG = {
   indice_top:    0,
   indice_height: 0,
   indice_width:  0,
+  biggest:       0,
+  scale:         0,
   init: function() {
-    var svg_box = $("#svg svg")[0].getBBox();
-    this.width = svg_box.width + svg_box.x;
-    this.height = svg_box.height + svg_box.y;
-    this.ratio = this.width / this.height;
+    "use strict";
+    var svg_box  = $("#svg svg")[0].getBBox();
+    this.x       = svg_box.x;
+    this.y       = svg_box.y;
+    this.width   = svg_box.width;
+    this.height  = svg_box.height;
+    this.ratio   = this.width / this.height;
+    this.biggest = Math.max(this.width, this.height);
+    this.scale   = this.biggest / 300;
     this.content_ratio = $("#svg").width() / $("#svg").height();
     if (this.ratio > this.content_ratio) {
       this.indice_left = 0;
@@ -107,12 +116,14 @@ function rgbToHsl(r, g, b) {
 }
 
 function componentToHex(c) {
-    var hex = c.toString(16);
-    return hex.length == 1 ? "0" + hex : hex;
+  "use strict";
+  var hex = c.toString(16);
+  return hex.length == 1 ? "0" + hex : hex;
 }
 
 function rgbToHex(r, g, b) {
-    return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+  "use strict";
+  return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
 }
 dragAndDrop.init();
 
@@ -185,27 +196,18 @@ function Grab(evt)
 
 function translate_indice(element, x, y) {
   "use strict";
-  var scale = parseFloat(document.getElementById("svg").getAttribute("data-scale"));
-  if (!scale)
-    scale = 1;
-  var indice_width = 14;
-  x = x - indice_width / 2;
-  y = y - indice_width / 2;
-  if (x < 0) {
-    x = 0;
-  }
-   if (y < 0) {
-    y = 0;
-  }
-  if (x > (SVG.width - indice_width * 3/4)) {
-    x = SVG.width - indice_width * 3/4;
-  }
-   if (y > (SVG.height - indice_width * 3/4)) {
-    y = SVG.height - indice_width * 3/4;
-  }
+  var indice_width = element.getBBox().width / 2;
+  if (x < SVG.x)
+    x = SVG.x;
+  if (y < SVG.y)
+    y = SVG.y;
+  if (x > (SVG.width + SVG.x - indice_width))
+    x = SVG.width + SVG.x - indice_width;
+  if (y > (SVG.height + SVG.y - indice_width))
+    y = SVG.height + SVG.y - indice_width;
   element.setAttribute("data-translate-x", x);
   element.setAttribute("data-translate-y", y);
-  element.style.transform = "translate(" + x + "px, " + y + "px)";
+  element.style.transform = "translate(" + x.toFixed(12) + "px, " + y.toFixed(12) + "px)";
 }
 
 function Drag(evt) {
@@ -225,7 +227,7 @@ function Drag(evt) {
   var container_ratio   = container_width / container_height;
   // margin on left
   var margin_left = (container_width - container_height * SVG.ratio) / 2;
-  var x = SVG.width * (e.clientX - sidebar_width- margin_left) / container_height / SVG.ratio;
+  var x = SVG.width * (e.clientX - sidebar_width - margin_left) / container_height / SVG.ratio;
   var y = SVG.height * (e.clientY - edit_menu_height) / container_height;
   if (SVG.ratio > container_ratio) {
     // margin on top
@@ -233,6 +235,9 @@ function Drag(evt) {
     x = SVG.width * (e.clientX - sidebar_width) / container_width;
     y = SVG.height * (e.clientY - edit_menu_height - margin_top) / container_width * SVG.ratio;
   }
+  var indice_width = DragTarget.parentNode.getBBox().width / 2;
+  x = x + SVG.x - indice_width;
+  y = y + SVG.y - indice_width;
   translate_indice(DragTarget.parentNode, x, y);
 };
 
@@ -262,7 +267,9 @@ function createForeignObject() {
   svg.append(rootElement);
   //svg.appendChild(switchE);
   SVG.init();
-  svg.setAttribute("viewBox", "0 0 " + SVG.width + " " + SVG.height);
+  svg.setAttribute("width", 0);
+  svg.setAttribute("height", 0);
+  svg.setAttribute("viewBox", SVG.x + " " + SVG.y + " " + SVG.width + " " + SVG.height);
   svg.setAttribute("onmousedown", "Grab(evt)");
   svg.setAttribute("onmousemove", "Drag(evt)");
 }
@@ -275,31 +282,38 @@ function createEditIndice(index) {
   indice.setAttribute("data-zoom", 100);
   indice.setAttribute("onclick", "real_zoom(this);");
   var rec = document.createElementNS(NS, "rect");
+  var height = 10;
+  var width  = 10;
+  var stroke_width = 1;
   rec.setAttribute("x", 0);
   rec.setAttribute("y", 0);
-  rec.setAttribute("height", 10);
-  rec.setAttribute("width", 10);
-  rec.setAttribute("rx", 2);
-  rec.setAttribute("ry", 2);
+  rec.setAttribute("height", height);
+  rec.setAttribute("width",  width);
+  rec.setAttribute("rx",     2);
+  rec.setAttribute("ry",     2);
   rec.setAttribute("class", "backgroundColor");
+  rec.setAttribute("transform", "scale(" + SVG.scale + ")");
   var indice_t = document.createElementNS(NS, "text");
   indice_t.setAttribute("class", "indice-text");
-  var x = 3;
+  var x = 7;
   if (index > 9)
-    x = 1;
-  indice_t.setAttribute("x", x);
-  indice_t.setAttribute("y", 7);
+    x = 2;
+  indice_t.setAttribute("x",  x);
+  indice_t.setAttribute("y",  14);
+  indice_t.setAttribute("transform", "scale(" + SVG.scale / 2 + ")");
   indice_t.append(document.createTextNode("1"));
   var indice_cross = document.createElementNS(NS, "text");
-  indice_cross.setAttribute("x", 9);
+  indice_cross.setAttribute("x", 15);
   indice_cross.setAttribute("class", "indice-cross hidden");
+  indice_cross.setAttribute("transform", "scale(" + SVG.scale / 2 + ")");
   indice_cross.append(document.createTextNode(""));
   var mask = document.createElementNS(NS, "rect");
   mask.setAttribute("x", 0);
   mask.setAttribute("y", 0);
-  mask.setAttribute("height", 10);
-  mask.setAttribute("width", 10);
-  mask.setAttribute("class", "mask");
+  mask.setAttribute("height", height);
+  mask.setAttribute("width",  width);
+  mask.setAttribute("class",  "mask");
+  mask.setAttribute("transform", "scale(" + SVG.scale + ")");
   indice.append(rec);
   indice.append(indice_t);
   indice.append(indice_cross);
@@ -307,7 +321,8 @@ function createEditIndice(index) {
   $("#root-svg")[0].appendChild(indice);
   translate_indice(
     indice,
-    .5 * SVG.width, .5 * SVG.height
+    .5 * SVG.width  + SVG.x - SVG.scale * (width - stroke_width) / SVG.content_ratio,
+    .5 * SVG.height + SVG.y - SVG.scale * (width - stroke_width) / SVG.content_ratio
   );
 }
 
