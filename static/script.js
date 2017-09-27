@@ -680,12 +680,10 @@ function real_zoom(element) {
     return;
   $("#svg.show").addClass("duration");
   var id = $(element).attr("id");
-  if (id.startsWith("indice")) {
+  if (id.startsWith("indice"))
     var index = id.substring(7);
-  }
-  else {
+  else
     var index = id.substring(12);
-  }
   var indice = document.getElementById("indice-" + index);
   var description = $("#description-" + index);
   if (
