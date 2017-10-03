@@ -11,6 +11,7 @@ var palette = [
   ["#900"   , "#b45f06", "#bf9000", "#38761d", "#134f5c", "#0b5394", "#351c75", "#741b47"],
   ["#600"   , "#783f04", "#7f6000", "#274e13", "#0c343d", "#073763", "#20124d", "#4c1130"]
 ];
+
 var colors = []
 for (var i = 0; i < palette.length; i++) {
   for (var j = 0; j < palette[i].length; j++) {
@@ -18,6 +19,7 @@ for (var i = 0; i < palette.length; i++) {
   }
 }
 var remaining_colors = [];
+
 var SVG = {
   x:             0,
   y:             0,
@@ -56,6 +58,7 @@ var SVG = {
     }
   }
 };
+
 var dragAndDrop = {
   init: function () {
     this.dragula();
@@ -241,6 +244,23 @@ function Drag(evt) {
   translate_indice(DragTarget.parentNode, x, y);
 };
 
+function percentage_change(value1, value2, size) {
+  "use strict";
+  if (value1 == 0 && value2 == 0)
+    return 0;
+  value1  = Math.abs(value1);
+  value2  = Math.abs(value2);
+  var max = Math.max(value1, value2);
+  var min = Math.min(value1, value2);
+  if (!size || size == 0)
+  {
+    if (min == 0)
+      return 100 * max
+    return 100 * ((max - min) / min);
+  }
+  return 100 * ((max - min) / size);
+}
+
 function createForeignObject() {
   "use strict";
   /*var switchE = document.createElementNS("http://www.w3.org/2000/svg", "switch");
@@ -267,6 +287,17 @@ function createForeignObject() {
   svg.append(rootElement);
   //svg.appendChild(switchE);
   SVG.init();
+  var SVG_Rect = svg.viewBox.baseVal;
+  if (
+    !(SVG_Rect.x == 0 && SVG_Rect.y == 0 && SVG_Rect.width == 0 && SVG_Rect.height == 0)
+    && (
+      percentage_change(SVG.x, SVG_Rect.x, SVG.width) > 20
+      || percentage_change(SVG.y, SVG_Rect.y, SVG.height) > 20
+      || percentage_change(SVG.width, SVG_Rect.width) > 20
+      || percentage_change(SVG.height, SVG_Rect.height) > 20
+    )
+  )
+    Warnings.new('warning-viewbox-detected');
   svg.setAttribute("width", 0);
   svg.setAttribute("height", 0);
   svg.setAttribute("viewBox", SVG.x + " " + SVG.y + " " + SVG.width + " " + SVG.height);
@@ -515,6 +546,7 @@ function delete_pic(replace) {
     $("#upload-zone, #choose-file").removeClass("hidden");
     $("#delete-picture-modal").modal('hide');
   }
+  Warnings.clear();
 }
 
 function show_legend(element) {
