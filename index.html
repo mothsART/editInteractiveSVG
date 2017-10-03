@@ -82,7 +82,7 @@
             </div>
           </li>
           <li>
-            <button onclick="export_html();" id="save-form" class="btn btn-default btn-xs disabled">
+            <button onclick="export_html(this);" id="save-form" class="btn btn-default btn-xs disabled">
               <span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span> Save
             </button>
           </li>
@@ -107,7 +107,7 @@
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <li>
-            <button onclick="display_result();" id="nav-right" type="button" class="btn btn-default btn-xs disabled">
+            <button onclick="display_result(this);" id="nav-right" type="button" class="btn btn-default btn-xs disabled">
               <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Show
             </button>
           </li>
@@ -179,7 +179,7 @@
               <button type="button" id="add-legend-button" onclick="add_legend(this);" class="btn btn-success btn-xs">
                 Add to Legend <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
               </button>
-              <button type="button" id="delete-legend-button" class="btn btn-danger btn-xs disabled" data-toggle="modal" data-target=".bs-delete-legend-modal-sm">
+              <button type="button" id="delete-legend-button" class="btn btn-danger btn-xs disabled" onclick="modal_delete_legend(this)">
                 <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span> Delete
               </button>
             </div>
@@ -190,12 +190,12 @@
               <input type="hidden" id="last-folded-indice" value="" />
               <table id="list-of-legend" class="table table-bordered hidden">
                 <thead>
-                  <tr>
-                    <th id="th-show-all-legend"">
+                  <tr id="tr-show-all-legend">
+                    <th>
                       <span id="show-all-legend" class="display-indice" onclick="show_all_legend();"></span>
                     </th>
                     <th class="no-visible"></th>
-                    <th id="th-select-all-legend">
+                    <th>
                       <input type="checkbox" id="select-all-legend" onclick="select_all_legend();">
                     </th>
                   </tr>

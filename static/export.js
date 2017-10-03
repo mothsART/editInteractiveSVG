@@ -53,8 +53,10 @@ function save_file(contents, str_svg) {
   $('#indice-description').trumbowyg();
 }(self));
 
-function export_html() {
+function export_html(element) {
   "use strict";
+  if (element.classList.contains('disabled'))
+    return;
   var svg = $("#svg").clone();
   svg.find("svg").removeAttr("onmousedown").removeAttr("onmousemove").removeAttr("onmouseup");
   svg.find("svg").css("transform", "scale(1)");
