@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg>
+    <defs>
+      <mask id="cut-off-bottom"
+        maskUnits="userSpaceOnUse">
+        <rect x="0" y="0" width="200" height="100" />
+      </mask>
+    </defs>
+    <circle cx="100" cy="100" r="100" mask="url(#cut-off-bottom)" />
+</svg>

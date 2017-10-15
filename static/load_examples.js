@@ -42,6 +42,10 @@ function load_file(stream) {
     Warnings.new('warning-script-detected');
     $(el).find('svg script').remove();
   }
+  if ($(el).find('svg clipPath').length > 0)
+    Warnings.new('warning-clipPath-tag-detected');
+  if ($(el).find('svg mask').length > 0)
+    Warnings.new('warning-mask-tag-detected');
   var style_list = el.getElementsByTagName("svg")[0].getElementsByTagName("style");
   if (style_list.length > 0) {
     Warnings.new('warning-style-detected');

@@ -176,9 +176,7 @@ function Grab(evt)
   "use strict";
   // exclude drag when zoom is in
   var scale = parseFloat(document.getElementById("svg").getAttribute("data-scale"));
-  if (!scale)
-    scale = 1;
-  if (scale != 1)
+  if (scale)
     return;
   // find out which element we moused down on
   var targetElement = evt.target;
@@ -647,8 +645,8 @@ function translate(trans_x, trans_y) {
   var indice_len_y = 14 * SVG.height / 500;
   var svg_width = parseInt($("#root-svg").css("width").replace("px", ""));
   var svg_height = parseInt($("#root-svg").css("height").replace("px", ""));
-  var x = Math.abs(50 - 100 * trans_x / SVG.width); // - indice_len_x);
-  var y = Math.abs(50 - 100 * trans_y / SVG.height); // - indice_len_y);
+  var x = Math.abs(50 - 100 * trans_x / SVG.width);
+  var y = Math.abs(50 - 100 * trans_y / SVG.height);
   var x_signe = "";
   var y_signe = "";
   if ((100 * trans_x / SVG.width) > 50)
@@ -658,15 +656,18 @@ function translate(trans_x, trans_y) {
   return "translate(" + x_signe + x + "%," + y_signe + y + "%)";
 }
 
-function zoom_edit_mode(value, trans_x, trans_y) {
+function zoom_edit_mode(value, trans_x, trans_y, scale_enabled) {
   "use strict";
   var scale = value / 100;
-  document.getElementById("svg").setAttribute("data-scale", scale);
+  if (scale_enabled)
+    document.getElementById("svg").setAttribute("data-scale", scale);
+  else
+    document.getElementById("svg").removeAttribute("data-scale");
   $("#svg svg").css("transform", "scale(" + scale + ")");
   $("#root-svg").css("transform", translate(trans_x, trans_y));
 }
 
-function zoom_on(index, value, zoom_svg) {
+function zoom_on(index, value, zoom_svg, scale_enabled) {
   "use strict";
   var svg_indice = document.getElementById('indice-' + index);
   var trans_x = parseFloat(svg_indice.getAttribute("data-translate-x"));
@@ -674,7 +675,7 @@ function zoom_on(index, value, zoom_svg) {
   svg_indice.setAttribute("data-zoom", value);
   $("#legend-" + index + " .zoom-input").val(value);
   if (zoom_svg)
-    zoom_edit_mode(value, trans_x, trans_y);
+    zoom_edit_mode(value, trans_x, trans_y, scale_enabled);
 }
 
 function zoom(element) {
@@ -683,7 +684,10 @@ function zoom(element) {
     $(element.parentNode.parentNode.parentNode).find(".indice").attr("id").replace("legend-indice-", "")
   );
   var value = parseInt($(element.parentNode.parentNode.parentNode).find(".zoom-input").val());
-  zoom_on(index, value, true);
+  var scale_enabled = false;
+  if (element.checked)
+    scale_enabled = true;
+  zoom_on(index, value, true, scale_enabled);
 }
 
 function active_zoom(element) {
