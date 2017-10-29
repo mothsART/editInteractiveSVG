@@ -107,10 +107,6 @@ table > tbody > tr > td:first-child {
     background: none;
 }
 
-#return-to-edit {
-    margin-right: -15px;
-}
-
 .navbar-nav > li {
     padding-right: 1rem;
 }
@@ -136,6 +132,7 @@ table > tbody > tr > td:first-child {
 
 #return-to-edit {
     z-index: 1;
+    margin-right: -15px;
     position: relative;
 }
 
