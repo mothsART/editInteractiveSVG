@@ -39,7 +39,10 @@ const en_messages = {
                       + ' of the <strong>pre-filled</strong> imported file are radically different.<br />'
                       + 'If the SVG illustration does not seem to be centered, it\'s very likely that it comes from there!',
     warning_mask:     'File import contain <strong>&#60;mask&#62;</strong> tag(s) : visible zone can be extremly different of viewBox.',
-    warning_clippath: 'File import contain <strong>&#60;clipPath&#62;</strong> tag(s) : visible zone can be extremly different of viewBox.'
+    warning_clippath: 'File import contain <strong>&#60;clipPath&#62;</strong> tag(s) : visible zone can be extremly different of viewBox.',
+    github_repo:      'Github Repository',
+    translators:      'Translators',
+    license:          'License'
   }
 }
 
@@ -88,7 +91,10 @@ const fr_messages = {
     warning_mask:     'Le fichier importé contient une ou plusieurs balises <strong>&#60;mask&#62;</strong> :'
                       +' la zone visible lors de l\'import peut être radicalement différent du viewBox.',
     warning_clippath: 'Le fichier importé contient une ou plusieurs balises <strong>&#60;clipPath&#62;</strong> :'
-                      +'  la zone visible lors de l\'import peut être radicalement différent du viewBox.'
+                      +'  la zone visible lors de l\'import peut être radicalement différent du viewBox.',
+     github_repo:      'Dépôt Github',
+     translators:     'Traducteurs',
+     license:         'Licence'
   }
 }
 
@@ -97,12 +103,28 @@ const messages = {
   fr: fr_messages
 }
 
-// Create VueI18n instance with options
-const i18n = new VueI18n({
-  locale: (navigator.language || navigator.userLanguage).substr(0, 2),
-  messages,
-})
+function I18nException(message) {
+   this.message = message;
+   this.name = "I18nException";
+}
 
-
-// Create a Vue instance with `i18n` option
-new Vue({ i18n }).$mount('#locales')
+function translate() {
+  "use strict";
+  var local = (navigator.language || navigator.userLanguage).substr(0, 2);
+  if (!(local in messages))
+    local = "en";
+  var i18nList = document.getElementsByClassName("i18n");
+  for (var i = 0, len = i18nList.length; i < len; i++) {
+    var element = i18nList[i];
+    var attr = element.getAttribute("data-i18n");
+    if (!attr)
+      throw new I18nException("element tag to be translate without a data-i18n string");
+    if (!(attr in messages[local]["message"])) {
+      if (!(attr in messages["en"]["message"]))
+        throw new I18nException('translate string "' + attr + '" did not exist!');
+      element.innerText = messages["en"]["message"][attr];
+      continue;
+    }
+    element.innerText = messages[local]["message"][attr];
+  }
+}

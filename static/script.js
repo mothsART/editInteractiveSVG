@@ -130,13 +130,14 @@ function rgbToHex(r, g, b) {
 }
 dragAndDrop.init();
 
-$(document).ready(function() {
+function load() {
   "use strict";
+  translate();
   if (document.getElementsByTagName('body')[0].classList.contains('debug'))
     document.getElementById('release-menu').classList.add('hidden');
   else
     document.getElementById('debug-menu').classList.add('hidden');
-});
+};
 
 function reorder_legend() {
   "use strict";
