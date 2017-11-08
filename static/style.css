@@ -1,9 +1,19 @@
+::-moz-selection {
+  background: transparent;
+}
+
 ::selection {
   background: transparent;
 }
 
-::-moz-selection {
-  background: transparent;
+#legend-title::-moz-selection,
+#indice-description *::-moz-selection {
+    background: rgb(111, 168, 220);
+}
+
+#legend-title::selection,
+#indice-description *::selection {
+    background: rgb(111, 168, 220);
 }
 
 body {
@@ -275,7 +285,8 @@ table > tbody > tr > td:first-child {
     position: relative;
 }
 
-.open-detail:before {
+.open-detail:before,
+summary:before {
     content: "◥";
     transform: rotate(45deg);
     transform-origin: center center;
@@ -283,7 +294,8 @@ table > tbody > tr > td:first-child {
     transition-duration: .3s;
 }
 
-.open-detail.unfolded:before {
+.open-detail.unfolded:before,
+details[open] summary:before {
     transform: rotate(135deg);
     margin-left: 3px;
 }
@@ -314,6 +326,10 @@ table > tbody > tr > td:first-child {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+}
+
+.sp-replacer {
+    margin-bottom: 5px;
 }
 /* </SIDEBAR> */
 
@@ -703,6 +719,23 @@ table > tbody > tr > td:first-child {
     font-weight: bold;
     font-size: 0.8em;
     color: white;
+}
+
+summary::-webkit-details-marker {
+   display: none
+}
+
+summary {
+    padding-left: 2rem;
+}
+
+summary:before {
+    left: 5px;
+}
+
+#help h2 {
+    font-size: 20px;
+    margin: 0;
 }
 /* Debug = true */
 .debug .dropdown-menu {
