@@ -155,6 +155,32 @@ table > tbody > tr > td:first-child {
 .alert.alert-warning .badge {
     margin-top: -2px;
 }
+
+/* choose langages :  http://www.famfamfam.com/ */
+.flags {
+    padding: 0 5px 0 20px;
+}
+
+.flags:before {
+    content: "";
+    width: 16px;
+    height: 11px;
+    position: absolute;
+    margin-top: 5px;
+    left: 5px;
+}
+
+#selected-lang.flags:before {
+    top: 1px;
+}
+
+.flags.en:before {
+    background: url(./locale/icons/gb.gif);
+}
+
+.flags.fr:before {
+    background: url(./locale/icons/fr.gif);
+}
 /* </MENU> */
 
 #delete-svg {
@@ -670,8 +696,11 @@ details[open] summary:before {
     padding: 5px;
 }
 
-#about summary {
+#about summary,
+#help summary {
+    cursor: pointer;
     outline: none;
+    margin-bottom: 5px;
 }
 /* DRAGULA.CSS */
 .gu-mirror {

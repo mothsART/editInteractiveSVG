@@ -132,7 +132,7 @@ dragAndDrop.init();
 
 function load() {
   "use strict";
-  translate();
+  translate_app();
   if (document.getElementsByTagName('body')[0].classList.contains('debug'))
     document.getElementById('release-menu').classList.add('hidden');
   else
