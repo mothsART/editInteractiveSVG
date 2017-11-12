@@ -50,7 +50,6 @@ function save_file(contents, str_svg) {
   }
   document.getElementById("save-form").addEventListener("submit", export_html);
   dragula($("#list-of-legend"));
-  $('#indice-description').trumbowyg();
 }(self));
 
 function export_html(element) {

@@ -261,7 +261,7 @@ function I18nException(message) {
   this.name = "I18nException";
 }
 
-function translate_app(local) {
+function translate(local) {
   "use strict";
   if (!local) {
     var local = (navigator.language || navigator.userLanguage).substr(0, 2);
@@ -287,5 +287,6 @@ function translate_app(local) {
   select_lang.classList.add('flags');
   select_lang.innerText = document.getElementById('choose-language').getElementsByClassName(local)[0].innerText;
   select_lang.classList.add(local);
+  return local;
 }
 

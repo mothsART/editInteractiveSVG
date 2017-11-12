@@ -20,6 +20,10 @@ for (var i = 0; i < palette.length; i++) {
 }
 var remaining_colors = [];
 
+var Editor = {
+  local: 'en'
+}
+
 var SVG = {
   x:             0,
   y:             0,
@@ -129,6 +133,15 @@ function rgbToHex(r, g, b) {
   return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
 }
 dragAndDrop.init();
+
+function translate_app(local) {
+  "use strict";
+  Editor.local = translate(local);
+  $("#indice-description").trumbowyg('destroy');
+  $("#indice-description").trumbowyg({
+    lang: Editor.local
+  });
+}
 
 function load() {
   "use strict";
