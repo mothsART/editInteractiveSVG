@@ -139,7 +139,19 @@ function translate_app(local) {
   Editor.local = translate(local);
   $("#indice-description").trumbowyg('destroy');
   $("#indice-description").trumbowyg({
-    lang: Editor.local
+    lang: Editor.local,
+    btns: [
+        ['viewHTML'],
+        ['formatting'],
+        ['strong', 'em', 'del'],
+        ['superscript', 'subscript'],
+        ['link'],
+        ['base64'],
+        ['justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull'],
+        ['unorderedList', 'orderedList'],
+        ['horizontalRule'],
+        ['removeformat']
+    ]
   });
 }
 
