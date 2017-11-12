@@ -67,7 +67,11 @@ const en_messages = {
     limitation:                'Limitation',
     limitation_description:    '<ul>',
     english:                   'english',
-    french:                    'french'
+    french:                    'french',
+    cancel:                    'cancel',
+    choose:                    'choose',
+    more:                      'more',
+    less:                      'less'
   }
 }
 
@@ -246,7 +250,11 @@ const fr_messages = {
                                + '(prévu dans une version future également)</li>'
                                + '</ul>',
     english:                   'anglais',
-    french:                    'français'
+    french:                    'français',
+    cancel:                    'Annuler',
+    choose:                    'Choisir',
+    more:                      'Plus',
+    less:                      'Moins'
   }
 }
 
@@ -261,14 +269,19 @@ function I18nException(message) {
   this.name = "I18nException";
 }
 
-function translate(local) {
+function translate(local, key) {
+  "use strict";
+  return messages[local]["message"][key];
+}
+
+function translateElementsByClassName(name, local) {
   "use strict";
   if (!local) {
     var local = (navigator.language || navigator.userLanguage).substr(0, 2);
     if (!(local in messages))
       local = "en";
   }
-  var i18nList = document.getElementsByClassName("i18n");
+  var i18nList = document.getElementsByClassName(name);
   for (var i = 0, len = i18nList.length; i < len; i++) {
     var element = i18nList[i];
     var attr = element.getAttribute("data-i18n");
@@ -280,7 +293,7 @@ function translate(local) {
       element.innerHTML = messages["en"]["message"][attr];
       continue;
     }
-    element.innerHTML = messages[local]["message"][attr];
+    element.innerHTML = translate(local, attr);
   }
   var select_lang = document.getElementById('selected-lang');
   select_lang.className = '';
@@ -289,4 +302,3 @@ function translate(local) {
   select_lang.classList.add(local);
   return local;
 }
-

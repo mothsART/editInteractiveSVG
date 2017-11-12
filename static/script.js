@@ -136,7 +136,7 @@ dragAndDrop.init();
 
 function translate_app(local) {
   "use strict";
-  Editor.local = translate(local);
+  Editor.local = translateElementsByClassName("i18n", local);
   $("#indice-description").trumbowyg('destroy');
   $("#indice-description").trumbowyg({
     lang: Editor.local,
@@ -153,6 +153,14 @@ function translate_app(local) {
         ['removeformat']
     ]
   });
+  var localization = $.spectrum.localization[local] = {
+      cancelText:            translate(Editor.local, 'cancel'),
+      chooseText:            translate(Editor.local, 'choose'),
+      togglePaletteMoreText: translate(Editor.local, 'more'),
+      togglePaletteLessText: translate(Editor.local, 'less'),
+  };
+  $.extend($.fn.spectrum.defaults, localization);
+
 }
 
 function load() {
@@ -466,10 +474,9 @@ function open_detail(element) {
     );
     var indice = $(element).parent().find(".indice");
     $(element).parent().find(".color-indice-picker").spectrum({
+      localization: Editor.local,
       showPaletteOnly: true,
       togglePaletteOnly: true,
-      togglePaletteMoreText: 'more',
-      togglePaletteLessText: 'less',
       color: indice.css("background-color"),
       palette: palette,
       change: function(color) {
