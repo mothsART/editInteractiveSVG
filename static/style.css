@@ -1,18 +1,20 @@
-::-moz-selection {
-  background: transparent;
-}
-
 ::selection {
   background: transparent;
 }
 
-#legend-title::-moz-selection,
-#indice-description *::-moz-selection {
-    background: rgb(111, 168, 220);
+::-moz-selection {
+  background: transparent;
 }
 
 #legend-title::selection,
-#indice-description *::selection {
+#indice-description *::selection,
+.modal-dialog *::selection {
+    background: rgb(111, 168, 220);
+}
+
+#legend-title::-moz-selection,
+#indice-description *::-moz-selection,
+.modal-dialog *::-moz-selection {
     background: rgb(111, 168, 220);
 }
 
