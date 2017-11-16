@@ -45,27 +45,119 @@ const en_messages = {
     license:                   'License',
     intro:                     'Introduction',
     intro_description:         '<p>'
-                               + 'Cet éditeur permet d\'ajouter de l\'interactivité à un document statique en lui ajoutant des '
-                               + 'zones titrés et commentés ainsi que d\'éventuel zoom.'
+                               + 'This editor allows you to add interactivity to a static document by adding titled, comments and zoom (as well as possible).'
+                               + 'At first use, it\'s recommended to open an example (the drop down on the top left corner) '
+                               + 'to discover how a finished illustration look like.'
                                + '</p>',
-    principle:                 'Principe du logiciel',
-    principle_description:     '<p>Cet éditeur fonctionne selon 2 modes : un <strong>mode d\'édition</strong> ',
-    import:                    'Import d\'un fichier SVG',
-    import_description:        '<p>',
-    create_legend:             'Création de la légende',
-    create_legend_description: '<p>',
-    save:                      'Save',
-    save_description:          '<p>',
+    principle:                 'Software principle',
+    principle_description:     '<p>'
+                               + 'This editor is separate into 2 modes : an <strong>edition modes</strong> and a <strong>preview mode</strong>.<br />'
+                               + 'The preview mode can simulate the finished work after saving.'
+                               + '</p>',
+    import:                    'SVG file import',
+    import_description:        '<p>'
+                               + 'For a new project, you must selected firstly a static SVG file, '
+                               + 'in preference without javascript (it will be disabled anyway). <br />'
+                               + 'This can be do either by drag and drop inside the dotted area (<a href="#figure-1">FIG. 1</a>) '
+                               + 'or by clicking on this area opening a file explorer (<a href="#figure-2">FIG. 2</a>).'
+                               + '</p>',
+    create_legend:             'Create the legend',
+    create_legend_description: '<p>'
+                               + 'After importing a SVG file, you will switch to the <strong>editing mode</strong> of the software.'
+                               + '</p>'
+                               + 'This mode is split into two parts:'
+                               + '<ul>'
+                               + '<li>a left sidebar containing the summary of the legend composed of one or more indices.</li>'
+                               + '<li>a preview area of ​​the file occupying the rest of the space on the right.</li>'
+                               + '</ul>'
+                               + '<p>'
+                               + 'You can add indices (with a limit of 99) to your legend via the dedicated green button.<br />'
+                               + 'By default, adding an index puts it in the center of your illustration, assigns it an (incremented) number, '
+                               + 'makes it visiblen and give it a random color.<br />'
+                               + 'If you create several indices one behind the other, you will notice that the algorithm '
+                               + 'of attribution colors is not completely random: it avoids duplicates.'
+                               + '</p><p>'
+                               + 'Once this step is over, it is possible to move your index by selecting it in the space on the right via a left click '
+                               + 'without releasing + move and release to freeze the position.<br />'
+                               + 'As long as you are traveling, a white cross appears in the upper right corner of your index.'
+                               + '</p><p>'
+                               + 'Each indice, can be hidden via the little eye\'s icon on the right.<br />'
+                               + 'This feature is particularly useful for managing or avoiding overlaps between indices.'
+                               + '</p><p>'
+                               + 'By clicking on the small arrow of a indice, it is possible to edit it:'
+                               + '</p>'
+                               + '<ol>'
+                               + '<li>Zoom is done in 2 steps:'
+                               + '<ul>'
+                               + '<li>activate the zoom via the corresponding check box</li>'
+                               + '<li>we enter a value</li>'
+                               + '</ul>'
+                               + 'As soon as you exit the input area, the zoom is taken into account on the right preview area. '
+                               + 'It is therefore easy to adjust these settings.</li>'
+                               + '<li>Choice of a personalized color:<br />'
+                               + 'As previously indicated, an algorithm chosen at each index creation a color. <br />'
+                               + 'It is obviously possible for you to manually choose this color via a grid of swings.<br />'
+                               + 'A first support will therefore give you a range of 64 standard colors that are entirely sufficient '
+                               + 'in the majority of cases.<br />'
+                               + 'Nevertheless, it remains possible to further refine this selection via a second dialogue '
+                               + 'giving access to a pipette of 16 million colors.'
+                               + '</li><li>'
+                               + 'A green button in the index editing area gives you the ability '
+                               + 'to assign a title and description to your index.<br />'
+                               + 'Pressing outside the dialog will automatically close the dialog and save your work.'
+                               + '</li><li>'
+                               + 'Comments can be enriched by italic, bold, text, image, and so on.<br />'
+                               + 'If you want advanced explanations on this editor, the best is to consult the site of the corresponding plugin: '
+                               + '<a href="https://alex-d.github.io/Trumbowyg" target="_blank">Trumbowyg Editor</a>'
+                               + '</li><li>'
+                               + 'You can reorder indices: for that, nothing is easier than to swap 1 or more indices by dragged / dropped.'
+                               + '</li><li>'
+                               + 'Finally, you can delete 1 or more indices by checking (check box on the right) and then pressing the delete button.<br />'
+                               + 'This delicate manipulation will require answering yes in a modal window, '
+                               + 'otherwise it will not be taken into account.'
+                               + '</li>'
+                               + '</ol>',
+    save:                      'Save your work',
+    save_description:          '<p>'
+                               + 'When you are satisfied with your work, it is useful to register it.<br />'
+                               + 'To do this, there\'s a dedicated button that transforms your work into a single document in HTML format.<br />'
+                               + 'The generated HTML file is currently both the export format '
+                               + '(final file that can be read in a browser) as an editing format.'
+                               + '</p>',
     reopen:                    'Reopen document',
-    reopen_description:        '<p>',
-    new_import:                'Nouvel import',
-    new_import_description:    '<p>',
-    view_mode:                 'Mode de visualisation',
-    view_mode_description:     '<p>',
-    error_import:              'Des soucis d\'import ?',
-    error_import_description:  '<p>',
+    reopen_description:        '<p>'
+                               + 'The HTML file previously saved is actually reeditable at will.<br />'
+                               + 'To do this, you just need to go through the same process as an SVG file import '
+                               + '(dragged / dropped or search file with the explorer) .<br />'
+                               + 'The software will recover the file. information and you will be able to edit it and save a new document later.'
+                               + '</p>',
+    new_import:                'New import',
+    new_import_description:    '<p>'
+                               + 'It is possible at any time to delete the current file.'
+                               + 'To do this, simply click on the delete button in the preview area and confirm in the modal window that follows.'
+                               + '</p><p>'
+                               + 'Warning: this choice is by its nature definitive.'
+                               + '</p>',
+    view_mode:                 'Preview Mode',
+    view_mode_description:     '<p>'
+                               + 'The view mode allows you to interact with your artwork just as if it were just published, '
+                               + 'except that you can re-edit and continue your current work.<br />'
+                               + 'This mode gives you access to control over your final production.'
+                               + '</p>',
+    error_import:              'Import anomalies ?',
+    error_import_description:  '<p>'
+                               + 'After importing a file, a series of quality checks is performed.<br />'
+                               + 'If the slightest anomaly is detected, a warning zone will be visible: '
+                               + 'you will be able to have more precise information on the anomalies '
+                               + 'encountered if necessary and possibly to remedy them.'
+                               + '</p>',
     limitation:                'Limitation',
-    limitation_description:    '<ul>',
+    limitation_description:    '<ul>'
+							   + '<li>This software does not allow you to edit other documents than the SVG format. '
+							   + 'It is nevertheless planned to support image formats (png and jpg) in a future version.</li>'
+							   + '<li>It is not possible to attach media files in the comments area. '
+							   + '(planned in a future version as well)</li>'							   
+							   + '</ul>',
     english:                   'english',
     french:                    'french',
     cancel:                    'cancel',
@@ -143,8 +235,8 @@ const fr_messages = {
     import_description:        '<p>'
                                + 'Pour un nouveau projet, vous devez sélectionner dans un premier temps un fichier SVG statique, '
                                + 'de préférence sans javascript (si le fichier contient du javascript, il sera désactivé).<br />'
-                               + 'Ceci se fait soit via un glissé/déposé du dit document dans la zone en pointillé (figure 1) '
-                               + 'soit par le clic sur cette zone ouvrant un explorateur de fichiers (figure 2).'
+                               + 'Ceci se fait soit via un glisser/déposer du dit document dans la zone en pointillé (<a href="#figure-1">figure 1</a>) '
+                               + 'soit par le clic sur cette zone ouvrant un explorateur de fichiers (<a href="#figure-2">figure 2</a>).'
                                + '</p>',
     create_legend:             'Création de la légende',
     create_legend_description: '<p>'
@@ -168,7 +260,7 @@ const fr_messages = {
                                + 'Tant que vous êtes dans le cadre d\'un déplacement, une croix blanche s\'affiche dans le coin supérieur droit de votre indice.'
                                + '</p>'
                                + '<p>'
-                               + 'Chaque indice, peut être masqué via le petit oeil sur ça droite.<br />'
+                               + 'Chaque indice, peut être masqué via le petit oeil sur sa droite.<br />'
                                + 'Cette fonctionalité est particulièrement appréciable pour gérer ou éviter les chevauchements entre plusieurs indices.'
                                + '</p>'
                                + '<p>'

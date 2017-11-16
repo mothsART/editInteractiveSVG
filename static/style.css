@@ -768,6 +768,23 @@ summary:before {
     font-size: 20px;
     margin: 0;
 }
+
+#help fieldset {
+    border: solid 1px #0f3c4b;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+#help legend {
+    font-size: 14px;
+    color: #0f3c4b;
+    float: right;
+    text-align: right;
+    width: calc(100% - 20px);
+    position: absolute;
+    border: none;
+}
+
 /* Debug = true */
 .debug .dropdown-menu {
     min-width: 450px;
