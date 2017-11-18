@@ -672,7 +672,7 @@ function select_all_legend() {
   $("#template-legend input").prop('checked', false);
 }
 
-function translate(trans_x, trans_y) {
+function css_translate(trans_x, trans_y) {
   "use strict";
   var indice_len_x = 14 * SVG.width / 500;
   var indice_len_y = 14 * SVG.height / 500;
@@ -697,7 +697,7 @@ function zoom_edit_mode(value, trans_x, trans_y, scale_enabled) {
   else
     document.getElementById("svg").removeAttribute("data-scale");
   $("#svg svg").css("transform", "scale(" + scale + ")");
-  $("#root-svg").css("transform", translate(trans_x, trans_y));
+  $("#root-svg").css("transform", css_translate(trans_x, trans_y));
 }
 
 function zoom_on(index, value, zoom_svg, scale_enabled) {
@@ -738,7 +738,7 @@ function active_zoom(element) {
     zoom_input.attr("disabled", true);
     var indice = $("#" + zoom_input.data("indice-id"));
     indice.data("zoom", zoom_input.val());
-    document.getElementById("svg").setAttribute("data-scale", 1);
+    document.getElementById("svg").removeAttribute("data-scale");
     $("#svg svg").css("transform", "scale(1)");
     $("#root-svg").css("transform", "initial");
   }
@@ -776,7 +776,7 @@ function real_zoom(element) {
     var trans_x = parseFloat(indice.getAttribute("data-translate-x"));
     var trans_y = parseFloat(indice.getAttribute("data-translate-y"));
     $("#svg svg").css("transform", "scale(" + scale + ")");
-    $("#root-svg").css("transform", translate(trans_x, trans_y));
+    $("#root-svg").css("transform", css_translate(trans_x, trans_y));
     indice.setAttribute("data-zoom-active", true);
     document.getElementById('content').setAttribute('data-real-zoom-indice', index);
     $('.description').addClass('hidden');
