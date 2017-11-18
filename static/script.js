@@ -468,6 +468,9 @@ function open_detail(element) {
     if (id) {
       $("#" + id).parent().find(".open-detail").removeClass('unfolded');
       $("#" + id).parent().find(".detail").addClass("hidden");
+      var checkbox = $("#" + id).parent().find(".zoom-enabled");
+      if (checkbox[0].checked)
+        checkbox.trigger("click");
     }
     document.getElementById("last-folded-indice").setAttribute(
       "value", $(element).parent().find(".indice").attr("id")
