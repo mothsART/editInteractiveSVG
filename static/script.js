@@ -693,6 +693,21 @@ function css_translate(trans_x, trans_y) {
   return "translate(" + x_signe + x + "%," + y_signe + y + "%)";
 }
 
+
+function UpdateCssTransform() {
+  "use strict";
+  var index      = parseInt($("#last-folded-indice").val().substring(14));
+  var indice     = document.getElementById('legend-indice-' + index);
+  var zoom_input = null;
+  if (indice)
+    zoom_input = indice.parentElement.getElementsByClassName('zoom-enabled')[0];
+  var svg_indice = document.getElementById('indice-' + index);
+  var trans_x = parseFloat(svg_indice.getAttribute("data-translate-x") - SVG.x);
+  var trans_y = parseFloat(svg_indice.getAttribute("data-translate-y") - SVG.y);
+  document.getElementById("root-svg").style.transform = "";
+  document.getElementById("root-svg").style.transform = css_translate(trans_x, trans_y);
+}
+
 function zoom_edit_mode(value, trans_x, trans_y, scale_enabled) {
   "use strict";
   var scale = value / 100;
@@ -701,7 +716,9 @@ function zoom_edit_mode(value, trans_x, trans_y, scale_enabled) {
   else
     document.getElementById("svg").removeAttribute("data-scale");
   $("#svg svg").css("transform", "scale(" + scale + ")");
-  $("#root-svg")[0].style.transform = css_translate(trans_x, trans_y);
+  document.getElementById("root-svg").style.transform = "";
+  document.getElementById("root-svg").style.transform = css_translate(trans_x, trans_y);
+  setTimeout(UpdateCssTransform, 1);
 }
 
 function zoom_on(index, value, zoom_svg, scale_enabled) {
