@@ -18,6 +18,10 @@
     background: rgb(111, 168, 220);
 }
 
+html, body {
+    font-size: 14px;
+}
+
 body {
     overflow : hidden;
     font-family: sans-serif;
