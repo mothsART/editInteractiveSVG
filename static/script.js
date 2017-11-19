@@ -469,7 +469,7 @@ function open_detail(element) {
       $("#" + id).parent().find(".open-detail").removeClass('unfolded');
       $("#" + id).parent().find(".detail").addClass("hidden");
       var checkbox = $("#" + id).parent().find(".zoom-enabled");
-      if (checkbox[0].checked)
+      if (checkbox[0] && checkbox[0].checked)
         checkbox.trigger("click");
     }
     document.getElementById("last-folded-indice").setAttribute(
@@ -510,6 +510,8 @@ function delete_legend() {
     $("#real-indice-" + index).remove();
     if ($('#legend-' + index + " .display-indice").hasClass('show'))
       $("#count-nb-display").val(parseInt($("#count-nb-display").val()) - 1);
+    if (parseInt(document.getElementById("last-folded-indice").getAttribute("value").substring(14)) === parseInt(index))
+      document.getElementById("last-folded-indice").setAttribute("value", "");
   });
   tr_list.remove();
   $('#delete-legend-button').addClass('disabled');
