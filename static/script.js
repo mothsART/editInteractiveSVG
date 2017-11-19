@@ -441,7 +441,11 @@ function change_indice_color(indice_id, hex_color) {
   if (luminance > 0.4) {
     color = "black";
   }
-  indice.css("color", color).css("border-color", color);
+  if (parseInt(indice.attr("id").substring(14)) < 10)
+    indice[0].classList.remove('number');
+  else
+    indice[0].classList.add('number');
+  indice.css("color", color).css("border", color + " solid 3px");
   $("#" + indice.attr("id").substring(7)).find("rect.backgroundColor").css(
     "fill", hex_color
   ).css("stroke", color);

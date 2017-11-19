@@ -256,6 +256,10 @@ table > tbody > tr > td:first-child {
     vertical-align: middle;
 }
 
+#sidebar .indice.number {
+    padding: .1rem .3rem;
+}
+
 .gu-mirror .indice {
     margin: .2rem;
 }
