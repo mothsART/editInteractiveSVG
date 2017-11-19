@@ -46,6 +46,11 @@ function load_file(stream) {
     Warnings.new('warning-clipPath-tag-detected');
   if ($(el).find('svg mask').length > 0)
     Warnings.new('warning-mask-tag-detected');
+  if (el.getElementsByTagName("svg").length == 0)
+  {
+    Errors.new("error-file-not-supported");
+    return;
+  }
   var style_list = el.getElementsByTagName("svg")[0].getElementsByTagName("style");
   if (style_list.length > 0) {
     Warnings.new('warning-style-detected');
@@ -55,7 +60,7 @@ function load_file(stream) {
   }
   $("#content").append($(el).find('svg'));
   document.getElementById('content').setAttribute('data-full', true);
-  $("#upload-zone").addClass('hidden');
+  $("#upload-zone, #error-zone").addClass('hidden');
   $("#edit-zone").removeClass('hidden');
   $("#save-form, #undo-button, #redo-button, #nav-right").removeClass('disabled');
   $("#delete-legend-button").addClass('disabled');
@@ -114,7 +119,7 @@ function load_example(url, name) {
         if (DEBUG) {
           $("#content").append(xmlhttp.responseText);
           document.getElementById('content').setAttribute('data-full', true);
-          $("#upload-zone").addClass('hidden');
+          $("#upload-zone, #error-zone").addClass('hidden');
           $("#edit-zone").removeClass('hidden');
           $("#save-form, #undo-button, #redo-button, #nav-right").removeClass('disabled');
           $("#delete-legend-button").addClass('disabled');

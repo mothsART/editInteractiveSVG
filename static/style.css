@@ -152,12 +152,14 @@ table > tbody > tr > td:first-child {
     position: relative;
 }
 
+.alert.alert-danger,
 .alert.alert-warning {
     padding: 1px .5rem;
     margin: 0;
     margin-left: 5rem;
 }
 
+.alert.alert-danger .badge,
 .alert.alert-warning .badge {
     margin-top: -2px;
 }

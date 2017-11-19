@@ -32,7 +32,10 @@ const en_messages = {
     loading_new_pic:           'Loading a new image means that you will delete your current job.',
     are_you_ok:                'Are you ok with that ?',
     warnings:                  'Warnings',
-    bug_detected:              'imported bugs detected.',
+    errors:                    'Errors',
+    errors_detected:           'imported errors detected.',
+    error_file_not_supported:  'This type of file is not supported',
+    warnings_detected:         'imported warnings detected.',
     warning_style:             'File import contain <strong>&#60;style&#62;</strong> tag(s) : all CSS rules was automaticaly prefixed for safety reasons.',
     warning_script:            'File import contain <strong>&#60;script&#62;</strong> tag(s) : all javascript will be erase before import for safety reasons.',
     warning_viewbox:           'The <strong>calculate viewBox</strong> and the <strong>viewBox</strong>'
@@ -201,7 +204,10 @@ const fr_messages = {
     loading_new_pic:           'Chargez une nouvelle image signifie que vous allez perdre votre travail en cours.',
     are_you_ok:                'Est-ce bien ce que vous souhaitez ?',
     warnings:                  'Avertissements',
-    bug_detected:              'Des anomalies ont été détectées à l\'import.',
+    errors:                    'Erreurs',
+    errors_detected:           'Des anomalies majeurs ont été détectées à l\'import.',
+    error_file_not_supported:  'Le type de fichier n\est pas supporté',
+    warnings_detected:         'Des anomalies mineurs ont été détectées à l\'import.',
     warning_style:             'Le fichier importé contient une ou plusieurs balises <strong>&#60;style&#62;</strong>'
                                +' : toutes les règles css présentent ont été préfixés pour des raisons de sécurité.',
     warning_script:            'Le fichier importé contient une ou plusieurs balises <strong>&#60;script&#62;</strong> :'

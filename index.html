@@ -112,10 +112,20 @@
               </button>
             </li>
             <li>
+              <div id="error-zone" class="alert alert-danger hidden" role="alert">
+                <span class="glyphicon glyphicon-warning-sign"></span> <span id="error-message">
+                  <span id="number-of-errors" class="badge">0</span>
+                  <span class="i18n" data-i18n="errors_detected"></span>
+                  <a href="#" class="alert-link"  data-toggle="modal" data-target=".bs-errors-modal-md">
+                     <span class="i18n" data-i18n="see_more"></span>
+                  </a>
+                  </a>
+                </span>
+              </div>
               <div id="warning-zone" class="alert alert-warning hidden" role="alert">
                 <span class="glyphicon glyphicon-warning-sign"></span> <span id="warning-message">
                   <span id="number-of-warnings" class="badge">0</span>
-                  <span class="i18n" data-i18n="bug_detected"></span>
+                  <span class="i18n" data-i18n="warnings_detected"></span>
                   <a href="#" class="alert-link"  data-toggle="modal" data-target=".bs-warnings-modal-md">
                      <span class="i18n" data-i18n="see_more"></span>
                   </a>
@@ -493,6 +503,18 @@
           </div>
         </div>
       </div>
+      <div id="errors-modal" class="modal fade bs-errors-modal-md" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+        <div class="modal-dialog modal-md" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title i18n" id="myModalLabel" data-i18n="errors"></h4>
+              <ol id="error-list">
+                <li id="error-file-not-supported" class="hidden i18n" data-i18n="error_file_not_supported"></li>
+            </div>
+          </div>
+        </div>
+      </div>
       <div id="warnings-modal" class="modal fade bs-warnings-modal-md" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
         <div class="modal-dialog modal-md" role="document">
           <div class="modal-content">
@@ -527,7 +549,7 @@
     <script type="text/javascript" src="./static/trumbowyg.base64.js"></script>
     <script type="text/javascript" src="./static/spectrum.1.8.0.min.js"></script>
     <script type="text/javascript" src="./static/drag_and_drop_file.js"></script>
-    <script type="text/javascript" src="./static/warnings.js"></script>
+    <script type="text/javascript" src="./static/errors_and_warnings.js"></script>
     <script type="text/javascript" src="./static/script.js"></script>
     <script type="text/javascript" src="./static/export.js"></script>
     <script type="text/javascript" src="./static/populate.js"></script>
