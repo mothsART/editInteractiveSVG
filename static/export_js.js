@@ -85,8 +85,8 @@ function real_zoom(element) {
   }
   else {
     var scale   = indice.getAttribute("data-zoom") / 100;
-    var trans_x = parseFloat(indice.getAttribute("data-translate-x"));
-    var trans_y = parseFloat(indice.getAttribute("data-translate-y"));
+    var trans_x = parseFloat(indice.getAttribute("data-translate-x") - SVG.x);
+    var trans_y = parseFloat(indice.getAttribute("data-translate-y") - SVG.y);
     $("#svg svg").css("transform", "scale(" + scale + ")");
     $("#root-svg").css("transform", translate(trans_x, trans_y));
     indice.setAttribute("data-zoom-active", true);
