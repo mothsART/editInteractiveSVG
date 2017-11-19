@@ -535,7 +535,6 @@ function display_result(element) {
   $("#svg").removeClass("edit-mode").addClass("show");
   $("#show-menu, #real-legend").removeClass("hidden");
   $("#svg svg").css("transform", "scale(1)");
-  //resize_indices();
   $("#indices .indice").each(function(index, el) {
     if ($(el).hasClass('hidden'))
       $(el).data("hidden", true);
@@ -544,6 +543,7 @@ function display_result(element) {
     if ($(el).parent().attr("id") != "template-indice")
       $(el).removeClass('hidden');
   });
+  $("#root-svg")[0].style.transform = "";
 }
 
 function return_to_edit() {
@@ -551,7 +551,7 @@ function return_to_edit() {
   var index      = parseInt($("#last-folded-indice").val().substring(14));
   var indice     = document.getElementById('legend-indice-' + index);
   var zoom_input = null;
-  if (index)
+  if (indice)
     zoom_input = indice.parentElement.getElementsByClassName('zoom-enabled')[0];
   document.getElementById('content').removeAttribute('data-real-zoom-indice');
   $("#indices .indice").removeAttr("onclick");
@@ -559,14 +559,15 @@ function return_to_edit() {
   $("#svg").removeClass("show").addClass("edit-mode");
   $("#show-menu, #real-legend").addClass("hidden");
   $(".description").addClass("hidden");
-  $("#root-svg").css("transform", "scale(1)").removeClass("duration");
+  var svg_element = $("#svg svg")[0];
+  svg_element.style.transform =  "scale(1)";
+  svg_element.classList.remove("duration");
   $("#indices .indice").each(function(index, el) {
     if ($(el).data('hidden') == true)
       $(el).addClass('hidden');
     else
       $(el).removeClass('hidden');
   });
-  $("#svg svg").css("transform", "scale(1)");
   if (zoom_input && zoom_input.checked)
     active_zoom(zoom_input);
 }
@@ -700,7 +701,7 @@ function zoom_edit_mode(value, trans_x, trans_y, scale_enabled) {
   else
     document.getElementById("svg").removeAttribute("data-scale");
   $("#svg svg").css("transform", "scale(" + scale + ")");
-  $("#root-svg").css("transform", css_translate(trans_x, trans_y));
+  $("#root-svg")[0].style.transform = css_translate(trans_x, trans_y);
 }
 
 function zoom_on(index, value, zoom_svg, scale_enabled) {
