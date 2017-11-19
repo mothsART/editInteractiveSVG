@@ -823,7 +823,7 @@ function open_dialog() {
   }
   $("#indice-description").html(description);
   $("#modal-legend-id").val(index);
-  if (text == '-- no title --') {
+  if (text == translate(Editor.local, 'no_title')) {
     $("#legend-title").attr("placeholder", "-- no title --");
     $("#legend-title").val('');
   }
