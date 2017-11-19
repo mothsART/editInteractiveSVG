@@ -706,8 +706,8 @@ function zoom_edit_mode(value, trans_x, trans_y, scale_enabled) {
 function zoom_on(index, value, zoom_svg, scale_enabled) {
   "use strict";
   var svg_indice = document.getElementById('indice-' + index);
-  var trans_x = parseFloat(svg_indice.getAttribute("data-translate-x"));
-  var trans_y = parseFloat(svg_indice.getAttribute("data-translate-y"));
+  var trans_x = parseFloat(svg_indice.getAttribute("data-translate-x") - SVG.x);
+  var trans_y = parseFloat(svg_indice.getAttribute("data-translate-y") - SVG.y);
   svg_indice.setAttribute("data-zoom", value);
   $("#legend-" + index + " .zoom-input").val(value);
   if (zoom_svg)
@@ -776,8 +776,8 @@ function real_zoom(element) {
   }
   else {
     var scale   = indice.getAttribute("data-zoom") / 100;
-    var trans_x = parseFloat(indice.getAttribute("data-translate-x"));
-    var trans_y = parseFloat(indice.getAttribute("data-translate-y"));
+    var trans_x = parseFloat(indice.getAttribute("data-translate-x") - SVG.x);
+    var trans_y = parseFloat(indice.getAttribute("data-translate-y") - SVG.y);
     $("#svg svg").css("transform", "scale(" + scale + ")");
     $("#root-svg").css("transform", css_translate(trans_x, trans_y));
     indice.setAttribute("data-zoom-active", true);
