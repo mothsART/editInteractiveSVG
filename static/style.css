@@ -533,8 +533,12 @@ details[open] summary:before {
 }
 
 #svg .indice .mask {
-     fill: transparent;
+    fill: transparent;
     cursor: pointer;
+}
+
+#svg.scale .indice .mask {
+    cursor: default;
 }
 
 #svg .indice .indice-cross {

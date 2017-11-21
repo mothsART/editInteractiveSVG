@@ -717,10 +717,14 @@ function UpdateCssTransform() {
 function zoom_edit_mode(value, trans_x, trans_y, scale_enabled) {
   "use strict";
   var scale = value / 100;
-  if (scale_enabled)
+  if (scale_enabled) {
     document.getElementById("svg").setAttribute("data-scale", scale);
-  else
+    document.getElementById("svg").classList.add('scale');
+  }
+  else {
     document.getElementById("svg").removeAttribute("data-scale");
+    document.getElementById("svg").classList.remove('scale');
+  }
   $("#svg svg").css("transform", "scale(" + scale + ")");
   document.getElementById("root-svg").style.transform = "";
   document.getElementById("root-svg").style.transform = css_translate(trans_x, trans_y);
@@ -745,7 +749,7 @@ function zoom(element) {
   );
   var value = parseInt($(element.parentNode.parentNode.parentNode).find(".zoom-input").val());
   var scale_enabled = false;
-  if (element.checked)
+  if (element.parentNode.getElementsByClassName('zoom-enabled')[0].checked)
     scale_enabled = true;
   zoom_on(index, value, true, scale_enabled);
 }
@@ -766,6 +770,7 @@ function active_zoom(element) {
     var indice = $("#" + zoom_input.data("indice-id"));
     indice.data("zoom", zoom_input.val());
     document.getElementById("svg").removeAttribute("data-scale");
+    document.getElementById("svg").classList.remove('scale');
     $("#svg svg").css("transform", "scale(1)");
     $("#root-svg").css("transform", "initial");
   }
