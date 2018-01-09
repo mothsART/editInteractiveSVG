@@ -205,25 +205,6 @@ function reorder_legend() {
   });
 }
 
-function Grab(evt)
-{
-  "use strict";
-  // exclude drag when zoom is in
-  var scale = parseFloat(document.getElementById("svg").getAttribute("data-scale"));
-  if (scale)
-    return;
-  // find out which element we moused down on
-  var targetElement = evt.target;
-  if (
-    targetElement == null
-    || !targetElement.classList.contains('mask')
-    || document.getElementById("svg").classList.contains("show")
-  )
-    return;
-  DragTarget = targetElement;
-  $(DragTarget.parentNode).find(".indice-cross")[0].classList.remove("hidden");
-};
-
 function translate_indice(element, x, y) {
   "use strict";
   var indice_width = element.getBBox().width / 2;
@@ -240,12 +221,32 @@ function translate_indice(element, x, y) {
   element.style.transform = "translate(" + x.toFixed(12) + "px, " + y.toFixed(12) + "px)";
 }
 
-function Drag(evt) {
+function Grab(e)
+{
   "use strict";
-  if (DragTarget == null) {
+  e.preventDefault();
+  // exclude drag when zoom is in
+  var scale = parseFloat(document.getElementById("svg").getAttribute("data-scale"));
+  if (scale)
+    return;
+  // find out which element we moused down on
+  var targetElement = e.target;
+  if (
+    targetElement == null
+    || !targetElement.classList.contains('mask')
+    || document.getElementById("svg").classList.contains("show")
+  )
+    return;
+  DragTarget = targetElement;
+  $(DragTarget.parentNode).find(".indice-cross")[0].classList.remove("hidden");
+};
+
+
+function Drag(e) {
+  "use strict";
+  if (!DragTarget) {
     return;
   }
-  var e = evt;
   if (!$("#svg").hasClass("edit-mode") || (e.clientX == 0 && e.clientY == 0))
   {
     return;
@@ -328,8 +329,8 @@ function createForeignObject() {
   svg.setAttribute("width", 0);
   svg.setAttribute("height", 0);
   svg.setAttribute("viewBox", SVG.x + " " + SVG.y + " " + SVG.width + " " + SVG.height);
-  svg.setAttribute("onmousedown", "Grab(evt)");
-  svg.setAttribute("onmousemove", "Drag(evt)");
+  svg.setAttribute("onmousedown", "Grab(evt);");
+  svg.setAttribute("onmousemove", "Drag(evt);");
 }
 
 function createEditIndice(index) {
