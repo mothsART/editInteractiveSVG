@@ -19,15 +19,15 @@ Because SVG illustration designed to **educative programs** is really better whe
 
 ## Goals (2.0)
 
-- [] Undo/Redo (using a diff DOM) + historic
-- [] Store a list of recent document
-- [] Import verification on product and static (svg) file
-- [] delete dependance (full vanilla js): dragula, twitter bootstrap, jquery
-- [] on load, use a minifier (default option) like SVGO
-- []drag indice precisly
-- []active drag and drop in zoom mode.
-- []Add a title
-- []warnings => auto-correction on :
+- [ ] Undo/Redo (using a diff DOM) + historic
+- [ ] Store a list of recent document
+- [ ] Import verification on product and static (svg) file
+- [ ] delete dependance (full vanilla js): dragula, twitter bootstrap, jquery
+- [ ] on load, use a minifier (default option) like SVGO
+- [ ] drag indice precisly
+- [ ] active drag and drop in zoom mode.
+- [ ] Add a title
+- [ ] warnings => auto-correction on :
 
 - mask
 - clipPath
