@@ -563,12 +563,13 @@ function return_to_edit() {
   document.getElementById('content').removeAttribute('data-real-zoom-indice');
   $("#indices .indice").removeAttr("onclick");
   $("#edit-menu, #sidebar, #delete-svg").removeClass("hidden");
+  $("#svg #root-svg")[0].style.transform = "";
+  var svg_element = $("#svg svg")[0];
+  svg_element.classList.remove("duration");
+  svg_element.style.transform =  "scale(1)";
   $("#svg").removeClass("show").addClass("edit-mode");
   $("#show-menu, #real-legend").addClass("hidden");
   $(".description").addClass("hidden");
-  var svg_element = $("#svg svg")[0];
-  svg_element.style.transform =  "scale(1)";
-  svg_element.classList.remove("duration");
   $("#indices .indice").each(function(index, el) {
     if ($(el).data('hidden') == true)
       $(el).addClass('hidden');
