@@ -1,17 +1,36 @@
 # Edit Interactive SVG
 
+[![LICENSE](https://img.shields.io/badge/license-BSD-blue.svg)](LICENSE)
+
 Because SVG illustration designed to **educative programs** is really better when it's interactive!
 
 ## Goals (1.0 version)
 
-- Intuitive and minimalist
-- Responsive
-- import static SVG files
-- export a unique HTML file with an interactive content
-- re-import HTML file to edit
-- i18n
-- several concrete examples
-- fluid : animations and resize must be done by css, not javascript
+- [x] Intuitive and minimalist
+- [x] Responsive
+- [x] import static SVG files
+- [x] export a unique HTML file with an interactive content
+- [x] re-import HTML file to edit
+- [x] i18n
+- [x] several concrete examples
+- [x] fluid : animations and resize must be done by css, not javascript
+
+## Goals (1.1)
+
+## Goals (2.0)
+
+- [] Undo/Redo (using a diff DOM) + historic
+- [] Store a list of recent document
+- [] Import verification on product and static (svg) file
+- [] delete dependance (full vanilla js): dragula, twitter bootstrap, jquery
+- [] on load, use a minifier (default option) like SVGO
+- []drag indice precisly
+- []active drag and drop in zoom mode.
+- []Add a title
+- []warnings => auto-correction on :
+
+- mask
+- clipPath
 
 ## Contributing
 
