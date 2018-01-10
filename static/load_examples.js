@@ -126,9 +126,8 @@ function load_example(url, name) {
           createForeignObject();
           populate_without_action(10);
         }
-        else {
+        else
           load_file(xmlhttp.responseText);
-        }
       }
     }
     xmlhttp.send();

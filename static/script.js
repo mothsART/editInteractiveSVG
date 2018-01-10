@@ -137,6 +137,8 @@ dragAndDrop.init();
 function translate_app(local) {
   "use strict";
   Editor.local = translateElementsByClassName("i18n", local);
+  if (local)
+    translateExportInterface(local);
   $("#indice-description").trumbowyg('destroy');
   $("#indice-description").trumbowyg({
     lang: Editor.local,
@@ -778,6 +780,13 @@ function active_zoom(element) {
   }
 }
 
+function fit_page_to_drawing() {
+  "use strict";
+  $('.description').addClass('hidden');
+  $("#svg svg").css("transform", "scale(1)");
+  $("#root-svg").css("transform", "initial");
+}
+
 function real_zoom(element) {
   "use strict";
   if (DragTarget) {
@@ -801,7 +810,6 @@ function real_zoom(element) {
   )
   {
     $("#svg svg").css("transform", "scale(1)");
-    $("#root-svg").css("transform", "initial");
     indice.setAttribute("data-zoom-active", false);
     description.addClass("hidden");
   }

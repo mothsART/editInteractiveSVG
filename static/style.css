@@ -434,8 +434,30 @@ details[open] summary:before {
     margin-left: 22px;
 }
 
+#fit-page-to-drawing {
+    font-size: 5vh;
+    margin-left: -7vh;
+    margin-top: 0.8vh;
+    top: 0;
+    bottom: 0;
+    position: fixed;
+    cursor: pointer;
+    width: 5vh;
+    height: 6.5vh;
+    z-index: 1;
+}
+
+#fit-page-to-drawing > div {
+    background: white;
+    width: 3.8vh;
+    height: 3.6vh;
+    border: solid .3vh black;
+    border-top: solid .6vh black;
+}
+
 #real-legend {
-    min-height: 5vh;
+    margin-left: 5rem;
+    min-height: 9vh;
     max-height: 25vh;
     overflow: auto;
 }

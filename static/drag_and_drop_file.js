@@ -79,7 +79,8 @@
         // if the form was submitted
         form.addEventListener('submit', function(e)
         {
-            if ($(form).hasClass('is-uploading')) return false;
+            if ($(form).hasClass('is-uploading'))
+              return false;
             form.classList.add('is-uploading');
             form.classList.remove('is-error');
             if(window.FileReader)
@@ -93,6 +94,7 @@
                         reader.onload = function(e) {
                             "using strict";
                             load_file(reader.result);
+                            translateExportInterface(Editor.local);
                         }
                     });
                 }

@@ -156,17 +156,18 @@ const en_messages = {
                                + '</p>',
     limitation:                'Limitation',
     limitation_description:    '<ul>'
-							   + '<li>This software does not allow you to edit other documents than the SVG format. '
-							   + 'It is nevertheless planned to support image formats (png and jpg) in a future version.</li>'
-							   + '<li>It is not possible to attach media files in the comments area. '
-							   + '(planned in a future version as well)</li>'							   
-							   + '</ul>',
+                               + '<li>This software does not allow you to edit other documents than the SVG format. '
+                               + 'It is nevertheless planned to support image formats (png and jpg) in a future version.</li>'
+                               + '<li>It is not possible to attach media files in the comments area. '
+                               + '(planned in a future version as well)</li>'                              
+                               + '</ul>',
     english:                   'english',
     french:                    'french',
     cancel:                    'cancel',
     choose:                    'choose',
     more:                      'more',
-    less:                      'less'
+    less:                      'less',
+    fit_page_to_drawing:       'Fit page to drawing'
   }
 }
 
@@ -352,7 +353,8 @@ const fr_messages = {
     cancel:                    'Annuler',
     choose:                    'Choisir',
     more:                      'Plus',
-    less:                      'Moins'
+    less:                      'Moins',
+    fit_page_to_drawing:       'Ajuster la page à l\'illustration'
   }
 }
 
@@ -369,7 +371,13 @@ function I18nException(message) {
 
 function translate(local, key) {
   "use strict";
-  return messages[local]["message"][key];
+  return messages[local].message[key];
+}
+
+function translateExportInterface(local) {
+  "use strict";
+  var fitPageIcon = document.getElementById("fit-page-to-drawing");
+  fitPageIcon.setAttribute("title", translate(local, fitPageIcon.getAttribute("data-i18n")));
 }
 
 function translateElementsByClassName(name, local) {

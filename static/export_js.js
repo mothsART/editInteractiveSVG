@@ -37,8 +37,6 @@ var SVG = {
   }
 };
 
-var DragTarget = false;
-
 function translate(trans_x, trans_y) {
   "use strict";
   var indice_len_x = 14 * SVG.width / 500;
@@ -56,13 +54,15 @@ function translate(trans_x, trans_y) {
   return "translate(" + x_signe + x + "%," + y_signe + y + "%)";
 }
 
+function fit_page_to_drawing() {
+  "use strict";
+  $('.description').addClass('hidden');
+  $("#svg svg").css("transform", "scale(1)");
+  $("#root-svg").css("transform", "initial");
+}
+
 function real_zoom(element) {
   "use strict";
-  if (DragTarget) {
-    $(DragTarget.parentNode).find(".indice-cross")[0].classList.add("hidden");
-    DragTarget = null;
-    return;
-  }
   if (document.getElementById('svg').classList.contains('edit-mode'))
     return;
   $("#svg.show").addClass("duration");
@@ -79,7 +79,6 @@ function real_zoom(element) {
   )
   {
     $("#svg svg").css("transform", "scale(1)");
-    $("#root-svg").css("transform", "initial");
     indice.setAttribute("data-zoom-active", false);
     description.addClass("hidden");
   }
