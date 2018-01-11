@@ -1,0 +1,5 @@
+#!/bin/sh
+
+set -e
+
+/usr/bin/firefox file:///usr/share/applications/edit-interactive-svg/index.html
