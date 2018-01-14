@@ -319,7 +319,8 @@ function createForeignObject() {
   SVG.init();
   var SVG_Rect = svg.viewBox.baseVal;
   if (
-    !(SVG_Rect.x == 0 && SVG_Rect.y == 0 && SVG_Rect.width == 0 && SVG_Rect.height == 0)
+    SVG_Rect != null
+    && !(SVG_Rect.x == 0 && SVG_Rect.y == 0 && SVG_Rect.width == 0 && SVG_Rect.height == 0)
     && (
       percentage_change(SVG.x, SVG_Rect.x, SVG.width) > 20
       || percentage_change(SVG.y, SVG_Rect.y, SVG.height) > 20
