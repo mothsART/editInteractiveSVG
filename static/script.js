@@ -89,6 +89,14 @@ var dragAndDrop = {
       $($('#real-legend .indice')[old_index]).insertAfter($($('#real-legend .indice')[new_index]));
     }
     reorder_legend();
+    var old_x = 7;
+    if (old_index > 9)
+      old_x = 2;
+    var new_x = 7;
+    if (new_index > 9)
+      new_x = 2;
+    $($('svg .indice')[old_index - 1]).find('.indice-text')[0].setAttribute("x",  old_x);
+    $($('svg .indice')[new_index - 1]).find('.indice-text')[0].setAttribute("x",  new_x);
   }
 };
 
@@ -293,29 +301,12 @@ function percentage_change(value1, value2, size) {
 
 function createForeignObject() {
   "use strict";
-  /*var switchE = document.createElementNS("http://www.w3.org/2000/svg", "switch");
-  var foreignObject = document.createElementNS("http://www.w3.org/2000/svg", "foreignObject");
-  var xhtmlNS = "http://www.w3.org/1999/xhtml";
-  foreignObject.setAttributeNS(null, "x", "0");
-  foreignObject.setAttributeNS(null, "y", "0");
-  foreignObject.setAttributeNS(null, "width", "100%");
-  foreignObject.setAttributeNS(null, "height", "100%");
-  var section = document.createElementNS("http://www.w3.org/1999/xhtml", "section");
-  var subsituteText = document.createElement("text");
-  var substituteContent = document.createTextNode("[Not supported by viewer]");
-  subsituteText.appendChild(substituteContent);
-  section.id = "indices";
-  foreignObject.appendChild(section);
-  switchE.appendChild(foreignObject);
-  switchE.appendChild(subsituteText);
-  */
   var svg = $("#svg svg")[0];
   var rootElement = document.createElementNS(NS, "g");
   rootElement.setAttribute("id", "root-svg");
   rootElement.innerHTML = svg.innerHTML;
   svg.innerHTML   = '';
   svg.append(rootElement);
-  //svg.appendChild(switchE);
   SVG.init();
   var SVG_Rect = svg.viewBox.baseVal;
   if (
