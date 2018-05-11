@@ -108,28 +108,30 @@ function load_example(url, name) {
     modal.data('url', url);
     modal.data('name', name);
     modal.modal('show');
+    return;
   }
-  else {
-    $("#source-file").text(name);
-    $("#source-file").attr('title', name);
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.open("GET", url, true);
-    xmlhttp.onreadystatechange = function() {
-      if (xmlhttp.readyState==4 && xmlhttp.status==200) {
-        if (DEBUG) {
-          $("#content").append(xmlhttp.responseText);
-          document.getElementById('content').setAttribute('data-full', true);
-          $("#upload-zone, #error-zone").addClass('hidden');
-          $("#edit-zone").removeClass('hidden');
-          $("#save-form, #undo-button, #redo-button, #nav-right").removeClass('disabled');
-          $("#delete-legend-button").addClass('disabled');
-          createForeignObject();
-          populate_without_action(10);
-        }
-        else
-          load_file(xmlhttp.responseText);
-      }
+  $("#source-file").text(name);
+  $("#source-file").attr('title', name);
+  var xmlhttp = new XMLHttpRequest();
+  xmlhttp.open("GET", url, true);
+  var isSVG = false;
+  if (url.endsWith(".svg"))
+    isSVG = true;
+  xmlhttp.onreadystatechange = function() {
+    if (xmlhttp.readyState!=4 || xmlhttp.status!=200)
+      return;
+    if (DEBUG && isSVG) {
+      $("#content").append(xmlhttp.responseText);
+      document.getElementById('content').setAttribute('data-full', true);
+      $("#upload-zone, #error-zone").addClass('hidden');
+      $("#edit-zone").removeClass('hidden');
+      $("#save-form, #undo-button, #redo-button, #nav-right").removeClass('disabled');
+      $("#delete-legend-button").addClass('disabled');
+      createForeignObject();
+      populate_without_action(10);
     }
-    xmlhttp.send();
+    else
+      load_file(xmlhttp.responseText);
   }
+  xmlhttp.send();
 }

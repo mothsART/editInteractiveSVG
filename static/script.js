@@ -176,8 +176,10 @@ function translate_app(local) {
 function load() {
   "use strict";
   translate_app();
-  if (document.getElementsByTagName('body')[0].classList.contains('debug'))
+  if (document.getElementsByTagName('body')[0].classList.contains('debug')) {
+    DEBUG = true;
     document.getElementById('release-menu').classList.add('hidden');
+  }
   else
     document.getElementById('debug-menu').classList.add('hidden');
 };
@@ -277,6 +279,7 @@ function Drag(e) {
     y = SVG.height * (e.clientY - edit_menu_height - margin_top) / container_width * SVG.ratio;
   }
   var indice_width = DragTarget.parentNode.getBBox().width / 2;
+  debugger;
   x = x + SVG.x - indice_width;
   y = y + SVG.y - indice_width;
   translate_indice(DragTarget.parentNode, x, y);

@@ -43,11 +43,15 @@ function launch(nb, callback) {
 
 function random_translate(indice) {
   "use strict";
+  var indice_width = document.getElementById("indice-" + (indice)).getBBox().width / 2;
   var x = Math.random() * 100;
   var y = Math.random() * 100;
+  var x = 100;
+  var y = 0;
   translate_indice(
     document.getElementById("indice-" + (indice)),
-    x * SVG.width / 100, y * SVG.height / 100
+    (x - SVG.x - indice_width) * SVG.width / 100,
+    (y - SVG.y - indice_width) * SVG.height / 100
   );
 }
 
@@ -56,7 +60,7 @@ function populate(nb) {
   var values = launch(nb, add_legend, $("#add-legend-button"));
   for (var i = 0; i < nb; i++) {
     var index = values[i];
-    open_detail(index);
+    open_detail(index[0]);
     index.parent().find(".related-target-editor").click();
     $("#legend-title").val(ipsum(50));
     $("#indice-description").html(html_ipsum(500));
@@ -70,7 +74,7 @@ function populate_without_action(nb) {
   var values = launch(nb, add_legend, $("#add-legend-button"));
   for (var i = 0; i < nb; i++) {
     var index = values[i];
-    open_detail(index);
+    open_detail(index[0]);
     open_dialog();
     // add an ipsum title
     $("#legend-title").val(ipsum(50));
@@ -82,6 +86,4 @@ function populate_without_action(nb) {
     var zoom_value = 100 + 10 * parseInt(Math.random() * 40);
     zoom_on(i + 1, zoom_value, false);
   }
-  // show all indices
-  $("#show-all-legend").click();
 }
