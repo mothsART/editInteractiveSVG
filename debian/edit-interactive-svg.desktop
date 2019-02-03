@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Name=Edit-Interactive-SVG
+Comment=Edit SVG files to be interactive
+Exec=edit-interactive-svg
+Icon=/usr/share/applications/edit-interactive-svg/favicon.png
+Terminal=false
+Type=Application
+Categories=Graphics;Illustration;
+Keywords=svg;interactive;education;
+Name[fr_FR]=Edit-Interactive-SVG

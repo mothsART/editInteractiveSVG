@@ -1,0 +1,46 @@
+edit-interactive-svg (1.1.0.1) xenial; urgency=medium
+  * bug fix : reactivate debug mode
+  * bug fix : n firefox, return to edit will keep translation on svg (after a zoom on view mode)
+
+ -- jferry <jerem.ferry@gmail.com>  Thu, 11 May 2018 21:50:10 +0100
+
+edit-interactive-svg (1.0.rc3.3) xenial; urgency=medium
+  * feature : add a "fit page to drawing" button.
+  * bug fix : n firefox, return to edit will keep translation on svg (after a zoom on view mode)
+  * bug fix : drag and drop on firefox => must use a preventDefault()
+
+ -- jferry <jerem.ferry@gmail.com>  Thu, 11 Jan 2018 00:36:10 +0100
+
+edit-interactive-svg (1.0.rc2) xenial; urgency=medium
+  * feature : add a weather example
+  * feature : detect and message when importing a file is impossible : type not supported
+  * feature : uniform rem on firefox and chrome
+  * feature : optimise display of indice on the sidebar
+  * bug fix : ergonomics : when user open indice details, is better to desactivate zoo
+  * bug fix : if we try to delete a indice who details is open, there's impossible to reopen details
+  * bug fix : passage from preview mode to edit : zoom error particulary on chrome (need an ugly timeout)
+  * bug fix : export a file with a svg containing translate on viewbox
+  * bug fix : passage from preview mode to edit : zoom error particulary on chrome (need an ugly timeout)
+  * bug fix : import svg file with a translate value on viewbox cause bug on zoom
+  * bug fix : a drag and drop regression
+  * bug fix : display on file name preview
+  * bug fix : i18n on warnings
+  * bug fix : i18n regression -> show a title placeholder
+  * bug fix : indice can be drag when user change zoom size
+
+ -- jferry <jerem.ferry@gmail.com>  Wed, 22 Nov 2017 20:23:10 +0100
+
+edit-interactive-svg (1.0.5rc1) xenial; urgency=medium
+
+  * i18n on all elements (color picker, editor, help dialog)
+  * a complete help dialog with screenshots
+  * a lang selector
+  * bring pictures on editor (convert to base64)
+
+ -- jferry <jerem.ferry@gmail.com>  Thu, 16 Nov 2017 21:42:49 +0100
+
+edit-interactive-svg (1.0.beta-1) xenial; urgency=medium
+
+  * Initial release
+
+ -- jferry <jerem.ferry@gmail.com>  Thu, 02 Nov 2017 21:36:27 +0100

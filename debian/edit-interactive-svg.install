@@ -1,0 +1,9 @@
+debian/edit-interactive-svg.desktop  usr/share/applications
+edit-interactive-svg                 usr/bin/
+favicon.png                          usr/share/applications/edit-interactive-svg
+index.html                           usr/share/applications/edit-interactive-svg
+examples/campement.html              usr/share/applications/edit-interactive-svg/examples
+examples/organes.html                usr/share/applications/edit-interactive-svg/examples
+examples/weather.html                usr/share/applications/edit-interactive-svg/examples
+examples/fruits.html                 usr/share/applications/edit-interactive-svg/examples
+static/*                             usr/share/applications/edit-interactive-svg/static

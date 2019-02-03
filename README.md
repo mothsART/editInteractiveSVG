@@ -43,3 +43,11 @@ Actualy, to use **edit mode**, simply change the class of the <body> to "debug" 
 ...
 </body>
 ```
+
+## Create a Debian package
+
+```sh
+git clone https://github.com/mothsART/editInteractiveSVG.git
+cd editInteractiveSVG
+dpkg-buildpackage -us -uc
+```
