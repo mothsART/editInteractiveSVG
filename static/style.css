@@ -713,6 +713,12 @@ details[open] summary:before {
     margin-top: 0;
 }
 
+.description h2,
+.description .description-content {
+    word-wrap: break-word;
+    hyphens: auto;
+}
+
 .description .indice {
     position: static;
     display: inline-block;
