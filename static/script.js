@@ -841,6 +841,16 @@ function open_dialog() {
     $("#legend-title").val(text);
 }
 
+function add_blank(html) {
+    "use strict";
+    var doc = new DOMParser().parseFromString(html, "text/xml");
+    var links = doc.getElementsByTagName('a');
+    for (var i = 0; i < links.length; i++) {
+        links[i].setAttribute('target', '_blank');
+    }
+    return doc.firstChild.innerHTML;
+}
+
 function hide_dialog() {
   "use strict";
   var text = $("#legend-title").val();
@@ -859,7 +869,9 @@ function hide_dialog() {
   }
   var html = $("#indice-description").trumbowyg('html');
   if (html != "")
-    $("#description-" + index + " .description-content").html(html);
+    document.getElementById('description-' + index)
+            .getElementsByClassName('description-content')[0]
+            .innerHTML = add_blank(html);
 }
 
 $('#edit-legend-modal').on('show.bs.modal', function (e) {
