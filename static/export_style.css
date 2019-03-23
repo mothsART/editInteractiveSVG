@@ -106,10 +106,10 @@ body {
 }
 
 #real-legend {
-     margin-left: 5rem;
-     min-height: 9vh;
-     max-height: 25vh;
-     overflow: auto;
+    margin-left: 5rem;
+    height: 10vh;
+    overflow: auto;
+    z-index: 1;
 }
 
 #real-legend label {

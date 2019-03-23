@@ -147,9 +147,10 @@ table > tbody > tr > td:first-child {
 }
 
 #return-to-edit {
-    z-index: 1;
-    margin-right: -15px;
-    position: relative;
+    z-index: 2;
+    position: absolute;
+    top: .5rem;
+    right: 1rem;
 }
 
 .alert.alert-danger,
@@ -457,9 +458,9 @@ details[open] summary:before {
 
 #real-legend {
     margin-left: 5rem;
-    min-height: 9vh;
-    max-height: 25vh;
+    height: 10vh;
     overflow: auto;
+    z-index: 1;
 }
 
 #real-legend label {
