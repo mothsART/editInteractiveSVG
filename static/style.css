@@ -692,7 +692,7 @@ details[open] summary:before {
     padding: 5px;
     font-family: monospace;
     font-size: 1.5rem;
-    width: 46.5rem;
+    width: 100%;
 }
 
 .description {
