@@ -281,7 +281,6 @@ function Drag(e) {
     y = SVG.height * (e.clientY - edit_menu_height - margin_top) / container_width * SVG.ratio;
   }
   var indice_width = DragTarget.parentNode.getBBox().width / 2;
-  debugger;
   x = x + SVG.x - indice_width;
   y = y + SVG.y - indice_width;
   translate_indice(DragTarget.parentNode, x, y);
@@ -752,7 +751,7 @@ function zoom(element) {
   var scale_enabled = false;
   if (element.parentNode.getElementsByClassName('zoom-enabled')[0].checked)
     scale_enabled = true;
-  zoom_on(index, value, true, scale_enabled);
+  zoom_on(index, value, scale_enabled, scale_enabled);
 }
 
 function active_zoom(element) {
@@ -763,11 +762,9 @@ function active_zoom(element) {
   var id = $(element.parentNode.parentNode.parentNode).find(".indice").attr("id").replace("legend-", "");
   var indice_element = $("#root-svg #" + id);
   if($(element).prop('checked')) {
-    zoom_input.attr("disabled", false);
     zoom(element);
   }
   else {
-    zoom_input.attr("disabled", true);
     var indice = $("#" + zoom_input.data("indice-id"));
     indice.data("zoom", zoom_input.val());
     document.getElementById("svg").removeAttribute("data-scale");
