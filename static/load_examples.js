@@ -35,6 +35,7 @@ function replace_css(prefix, css) {
 
 function load_file(stream) {
   "use strict";
+  $("#svg svg").remove();
   var el = document.createElement('div');
   el.innerHTML = stream;
   if ($(el).find('svg script').length > 0)
@@ -67,17 +68,23 @@ function load_file(stream) {
   createForeignObject();
   // clone legend on view mode
   var real_legend = $(el).find('#real-legend');
-  if (real_legend.length != 0)
-    $('#real-legend').html(real_legend.clone().html());
+  if (real_legend.length === 0) {
+    $('#upload-zone form').removeClass('is-uploading');
+    $('#update-picture-modal').modal('toggle');
+    return;
+  }
+  $('#real-legend').html(real_legend.clone().html());
   // clone descriptions
   var descriptions = $(el).find('#descriptions');
   if (descriptions.length != 0)
     $("#descriptions").html(descriptions.clone().html());
   // add indices and details
-  $("#real-legend .indice").each(function(index, el) {
+  var indices = real_legend[0].getElementsByClassName('indice');
+  for (var i = 0; i < indices.length; i++) {
+      var el = indices[i];
     if (el.getAttribute('id') != 'real-template-indice')
     {
-      var rgb_value = $('#real-indice-' + index + ' span').css('background-color');
+      var rgb_value = $('#real-indice-' + i + ' span').css('background-color');
       var rgb_array = rgb_value.split("(")[1].split(")")[0].split(',');
       var hex_color = rgbToHex(
         parseInt(rgb_array[0]),
@@ -87,16 +94,16 @@ function load_file(stream) {
       add_legend(el, hex_color);
       var title = $(el).find('em').text();
       if (title.trim() != '') {
-        $('#legend-' + index).find('em').remove();
+        $('#legend-' + i).find('em').remove();
         $("<span class='indice-title' title='"+ title + "'>" + title + "</span>").insertAfter(
-          '#legend-' + index + " .indice"
+          '#legend-' + i + " .indice"
         );
       }
-      $('#legend-' + index).find('.zoom-input').val(
-        $('#indice-' + index).data('zoom')
+      $('#legend-' + i).find('.zoom-input').val(
+        $('#indice-' + i).data('zoom')
       );
     }
-  });
+  }
   $('#upload-zone form').removeClass('is-uploading');
 }
 

@@ -168,7 +168,8 @@ const en_messages = {
     more:                      'more',
     less:                      'less',
     fit_page_to_drawing:       'Fit page to drawing',
-    update:                    'Update'
+    update:                    'Update',
+    update_pic:            'Would you update this picture ?'
   }
 }
 
@@ -356,7 +357,8 @@ const fr_messages = {
     more:                      'Plus',
     less:                      'Moins',
     fit_page_to_drawing:       'Ajuster la page à l\'illustration',
-    update:                    'Mise à jour'
+    update:                    'Mise à jour',
+    update_pic:                'Vous désirez mettre à jour le fichier svg ?'
   }
 }
 
