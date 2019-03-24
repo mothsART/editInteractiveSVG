@@ -19,6 +19,17 @@ body {
     padding: 0;
 }
 
+body.mask:before {
+    content: '';
+    background: grey;
+    opacity: .9;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    overflow: hidden;
+    z-index: 3;
+}
+
 h2 {
     font-size: 30px;
     font-family: inherit;
@@ -230,7 +241,87 @@ body {
     background-color: #d9534f;
     border: solid .4vh black;
     border-radius: .5rem;
-    margin: .2rem;
-    padding: .8rem;
     padding-top: .5rem;
+}
+
+#help-button {
+    position: absolute;
+    left: 1rem;
+    bottom: 1rem;
+    z-index: 2;
+    background: lightgrey;
+    border: grey solid .2rem;
+    border-radius: 1rem;
+    font-weight: bold;
+    color: grey;
+    cursor: pointer;
+    width: 2rem;
+    font: inherit;
+}
+
+.dialog {
+    background: white;
+    position: absolute;
+    z-index: 3;
+    box-shadow: 1px 1px 12px #555;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: .5rem;
+}
+
+.dialog__close {
+    position: absolute;
+    right: -1.2em;
+    top: -1.5em;
+    width: 2.2em;
+    height: 2.2em;
+    cursor: pointer;
+    background: white;
+    padding: 0.5rem;
+    border: solid 0.1rem #555;
+    border-radius: 1rem;
+    box-shadow: 1px 1px 12px #555;
+}
+
+.dialog__close:after, .dialog__close:before {
+    content: '';
+    position: absolute;
+    width: 2px;
+    height: 1.5em;
+    background: #555;
+    display: block;
+    transform: rotate(45deg);
+    left: 50%;
+    margin: .3rem 0 0 -1px;
+    top: 0;
+}
+
+.dialog__close:before {
+    transform: rotate(-45deg);
+}
+
+.dialog kbd {
+    display: inline-block;
+    margin: 0.2rem;
+    padding: 0.4rem;
+    border: solid 0.1rem #0f3c4b;
+    border-radius: 0.1rem;
+    border-bottom-color: #0f3c4b;
+    font-size: 1rem;
+    line-height: 10px;
+    vertical-align: middle;
+    color: #0f3c4b;
+    background-color: lightgrey;
+    box-shadow: inset 0 -1px 0 #0f3c4b;
+    font-weight: bold;
+}
+
+.dialog .help-shortcut {
+    margin-top: 3rem;
+}
+
+.dialog h2,
+.dialog .last-element {
+    margin: 0;
 }

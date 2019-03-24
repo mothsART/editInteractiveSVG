@@ -48,7 +48,8 @@ function save_file(contents, str_svg) {
   get_blob = function() {
     return view.Blob;
   }
-  document.getElementById("save-form").addEventListener("submit", export_html);
+  document.getElementById("save-form")
+          .addEventListener("submit", export_html);
   dragula($("#list-of-legend"));
 }(self));
 
@@ -57,11 +58,13 @@ function export_html(element) {
   if (element.classList.contains('disabled'))
     return;
   var svg = $("#svg").clone();
-  svg.find("svg").removeAttr("onmousedown").removeAttr("onmousemove").removeAttr("onmouseup");
+  svg.find("svg").removeAttr("onmousedown")
+                 .removeAttr("onmousemove").removeAttr("onmouseup");
   svg.find("svg").css("transform", "scale(1)");
   svg.find("#root-svg").css("transform", "initial");
   svg.find("#delete-svg").remove();
   svg.find("#real-legend").removeClass("hidden");
+  svg[0].querySelector("#help-button").classList.remove('hidden');
   var str_svg = svg.html();
   str_svg = str_svg.replace('<br>', '<br />');
   var files = new Map();

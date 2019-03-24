@@ -160,7 +160,9 @@ function translate_app(local) {
         ['justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull'],
         ['unorderedList', 'orderedList'],
         ['horizontalRule'],
-        ['removeformat']
+        ['removeformat'],
+        ['foreColor', 'backColor'],
+        ['emoji']
     ]
   });
   var localization = $.spectrum.localization[local] = {
@@ -537,7 +539,7 @@ function display_result(element) {
   $("#indices .indice").attr("onclick", "real_zoom(this);");
   $("#edit-menu, #sidebar, #delete-svg").addClass("hidden");
   $("#svg").removeClass("edit-mode").addClass("show");
-  $("#show-menu, #real-legend").removeClass("hidden");
+  $("#show-menu, #real-legend, #help-button").removeClass("hidden");
   $("#svg svg").css("transform", "scale(1)");
   $("#indices .indice").each(function(index, el) {
     if ($(el).hasClass('hidden'))
@@ -565,7 +567,7 @@ function return_to_edit() {
   svg_element.classList.remove("duration");
   svg_element.style.transform =  "scale(1)";
   $("#svg").removeClass("show").addClass("edit-mode");
-  $("#show-menu, #real-legend").addClass("hidden");
+  $("#show-menu, #real-legend, #help-button, #help-dialog").addClass("hidden");
   $(".description").addClass("hidden");
   $("#indices .indice").each(function(index, el) {
     if ($(el).data('hidden') == true)
@@ -780,6 +782,8 @@ function fit_page_to_drawing() {
   $('.description').addClass('hidden');
   $("#svg svg").css("transform", "scale(1)");
   $("#root-svg").css("transform", "initial");
+  document.getElementById('content')
+          .setAttribute('data-real-zoom-indice', null);
 }
 
 function real_zoom(element) {
@@ -872,6 +876,18 @@ function hide_dialog() {
     document.getElementById('description-' + index)
             .getElementsByClassName('description-content')[0]
             .innerHTML = add_blank(html);
+}
+
+function show_help() {
+    "use strict";
+    document.getElementsByTagName('body')[0].classList.add('mask');
+    document.getElementById('help-dialog').classList.remove('hidden');
+}
+
+function closeDialog(element) {
+    "use strict";
+    document.getElementsByTagName('body')[0].classList.remove('mask');
+    element.parentNode.classList.add('hidden');
 }
 
 $('#edit-legend-modal').on('show.bs.modal', function (e) {
