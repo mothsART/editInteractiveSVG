@@ -536,7 +536,7 @@ function display_result(element) {
   if (element.classList.contains('disabled'))
     return;
   $("#indices .indice").attr("onclick", "real_zoom(this);");
-  $("#edit-menu, #sidebar, #delete-svg").addClass("hidden");
+  $("#edit-menu, #sidebar, #delete-svg, #update-svg").addClass("hidden");
   $("#svg").removeClass("edit-mode").addClass("show");
   $("#show-menu, #real-legend, #help-button").removeClass("hidden");
   $("#svg svg").css("transform", "scale(1)");
@@ -560,7 +560,7 @@ function return_to_edit() {
     zoom_input = indice.parentElement.getElementsByClassName('zoom-enabled')[0];
   document.getElementById('content').removeAttribute('data-real-zoom-indice');
   $("#indices .indice").removeAttr("onclick");
-  $("#edit-menu, #sidebar, #delete-svg").removeClass("hidden");
+  $("#edit-menu, #sidebar, #delete-svg, #update-svg").removeClass("hidden");
   $("#svg #root-svg")[0].style.transform = "";
   var svg_element = $("#svg svg")[0];
   svg_element.classList.remove("duration");

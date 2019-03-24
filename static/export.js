@@ -62,7 +62,7 @@ function export_html(element) {
                  .removeAttr("onmousemove").removeAttr("onmouseup");
   svg.find("svg").css("transform", "scale(1)");
   svg.find("#root-svg").css("transform", "initial");
-  svg.find("#delete-svg").remove();
+  svg.find("#delete-svg, #update-svg").remove();
   svg.find("#real-legend").removeClass("hidden");
   svg[0].querySelector("#help-button").classList.remove('hidden');
   var str_svg = svg.html();
