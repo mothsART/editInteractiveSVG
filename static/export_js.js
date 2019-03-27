@@ -107,6 +107,12 @@ function show_help() {
     document.getElementById('help-dialog').classList.remove('hidden');
 }
 
+function show_copyright() {
+    "use strict";
+    document.getElementsByTagName('body')[0].classList.add('mask');
+    document.getElementById('copyright-dialog').classList.remove('hidden');
+}
+
 function closeDialog(element) {
     "use strict";
     document.getElementsByTagName('body')[0].classList.remove('mask');

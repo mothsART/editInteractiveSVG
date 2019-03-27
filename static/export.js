@@ -65,6 +65,8 @@ function export_html(element) {
   svg.find("#delete-svg, #update-svg").remove();
   svg.find("#real-legend").removeClass("hidden");
   svg[0].querySelector("#help-button").classList.remove('hidden');
+  if (document.getElementById('copyright-content').innerText.trim())
+      svg[0].querySelector('#copyright-button').classList.remove('hidden');
   var str_svg = svg.html();
   str_svg = str_svg.replace('<br>', '<br />');
   var files = new Map();

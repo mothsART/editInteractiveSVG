@@ -248,8 +248,10 @@ button:focus {
     margin-bottom: 5px;
 }
 
+#edit-coypright-button,
 #delete-legend-button {
     float: right;
+    margin-left: .5rem;
 }
 
 #sidebar td span {
@@ -843,7 +845,8 @@ summary:before {
     border: none;
 }
 
-#help-button {
+#help-button,
+#copyright-button {
     position: absolute;
     left: 1rem;
     bottom: 1rem;
@@ -853,6 +856,11 @@ summary:before {
     border-radius: 1rem;
     font-weight: bold;
     color: grey;
+}
+
+#copyright-button {
+    right: 1rem;
+    left: auto;
 }
 
 .dialog {

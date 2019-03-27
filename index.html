@@ -222,6 +222,7 @@
             </button>
             <div id="content" data-full="false">
               <button id="help-button" class="hidden" onclick="show_help()" title="Aide">?</button>
+              <button id="copyright-button" class="hidden" onclick="show_copyright()" title="Crédits">©</button>
               <div id="help-dialog" class="dialog hidden">
                   <label id="close-help-dialog" class="dialog__close" onclick="closeDialog(this)"></label>
                   <h2>Raccourcis clavier</h2>
@@ -234,6 +235,11 @@
                   <p><strong>Sélectionner un indice</strong> : il suffit de saisir un chiffre sur le clavier numérique.<br>Par exemple <kbd>11</kbd></p>
                   <p class="help-shortcut"><strong>Afficher l'aide</strong> :  <kbd>?</kbd></p>
                   <p class="last-element"><strong>Sortir du panneau d'aide</strong> : <kbd>Echap</kbd></p>
+              </div>
+              <div id="copyright-dialog" class="dialog hidden">
+                  <label id="close-help-dialog" class="dialog__close" onclick="closeDialog(this)"></label>
+                  <h2>Crédits</h2>
+                  <div id="copyright-content"></div>
               </div>
               <section id="real-legend" class="hidden">
                 <div id="fit-page-to-drawing" data-i18n="fit_page_to_drawing" onclick="fit_page_to_drawing();">
@@ -257,6 +263,10 @@
                 <button type="button" id="delete-legend-button" class="btn btn-danger btn-xs disabled" onclick="modal_delete_legend(this)">
                   <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
                   <span class="i18n" data-i18n="delete"></span>
+                </button>
+                <button type="button" id="edit-coypright-button" class="btn btn-success btn-xs" data-toggle="modal" data-target=".bs-edit-copyright-modal-lg">
+                  <span class="glyphicon glyphicon-copyright-mark" aria-hidden="true"></span>
+                  <span class="i18n" data-i18n="edit_copyright"></span>
                 </button>
               </div>
               <div id="legend-list-container" class="container-fluid">
@@ -485,6 +495,19 @@
                 Pour ce faire, il existe un outil dédié très proche de celui-ci et contenant une ergonomie partageant les mêmes codes.
                 </p>
               </details>-->
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="edit-copyright-modal" class="modal fade bs-edit-copyright-modal-lg" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title i18n" id="myModalLabel" data-i18n="edit_copyright"></h4>
+            </div>
+            <div class="modal-body">
+                <div id="edit-copyright"></div>
             </div>
           </div>
         </div>

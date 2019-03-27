@@ -147,8 +147,8 @@ function translate_app(local) {
   Editor.local = translateElementsByClassName("i18n", local);
   if (local)
     translateExportInterface(local);
-  $("#indice-description").trumbowyg('destroy');
-  $("#indice-description").trumbowyg({
+  $("#indice-description, #edit-copyright").trumbowyg('destroy');
+  $("#indice-description, #edit-copyright").trumbowyg({
     lang: Editor.local,
     btns: [
         ['viewHTML'],
@@ -539,6 +539,8 @@ function display_result(element) {
   $("#edit-menu, #sidebar, #delete-svg, #update-svg").addClass("hidden");
   $("#svg").removeClass("edit-mode").addClass("show");
   $("#show-menu, #real-legend, #help-button").removeClass("hidden");
+  if (document.getElementById('copyright-content').innerText.trim())
+      document.getElementById('copyright-button').classList.remove('hidden');
   $("#svg svg").css("transform", "scale(1)");
   $("#indices .indice").each(function(index, el) {
     if ($(el).hasClass('hidden'))
@@ -566,7 +568,7 @@ function return_to_edit() {
   svg_element.classList.remove("duration");
   svg_element.style.transform =  "scale(1)";
   $("#svg").removeClass("show").addClass("edit-mode");
-  $("#show-menu, #real-legend, #help-button, #help-dialog").addClass("hidden");
+  $("#show-menu, #real-legend, #help-button, #copyright-button, #copyright-dialog, #help-dialog").addClass("hidden");
   $(".description").addClass("hidden");
   $("#indices .indice").each(function(index, el) {
     if ($(el).data('hidden') == true)
@@ -844,7 +846,7 @@ function open_dialog() {
 
 function add_blank(html) {
     "use strict";
-    var doc = new DOMParser().parseFromString(html, "text/xml");
+    var doc = new DOMParser().parseFromString(html, "text/html");
     var links = doc.getElementsByTagName('a');
     for (var i = 0; i < links.length; i++) {
         links[i].setAttribute('target', '_blank');
@@ -852,7 +854,7 @@ function add_blank(html) {
     return doc.firstChild.innerHTML;
 }
 
-function hide_dialog() {
+function hide_description_dialog() {
   "use strict";
   var text = $("#legend-title").val();
   var index = $("#modal-legend-id").val();
@@ -875,10 +877,24 @@ function hide_dialog() {
             .innerHTML = add_blank(html);
 }
 
+function hide_copyright_dialog() {
+  "use strict";
+  var html = $("#edit-copyright").trumbowyg('html');
+  if (html != "")
+     document.getElementById('copyright-content')
+             .innerHTML = add_blank(html);
+}
+
 function show_help() {
     "use strict";
     document.getElementsByTagName('body')[0].classList.add('mask');
     document.getElementById('help-dialog').classList.remove('hidden');
+}
+
+function show_copyright() {
+    "use strict";
+    document.getElementsByTagName('body')[0].classList.add('mask');
+    document.getElementById('copyright-dialog').classList.remove('hidden');
 }
 
 function closeDialog(element) {
@@ -895,5 +911,11 @@ $('#edit-legend-modal').on('show.bs.modal', function (e) {
 // Save title and description
 $('#edit-legend-modal').on('hidden.bs.modal', function (e) {
   "use strict";
-  hide_dialog();
+  hide_description_dialog();
+});
+
+// Save title and description
+$('#edit-copyright-modal').on('hidden.bs.modal', function (e) {
+  "use strict";
+  hide_copyright_dialog();
 });
