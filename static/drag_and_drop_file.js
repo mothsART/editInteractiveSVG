@@ -99,7 +99,6 @@
                     });
                 }
             }
-            e.preventDefault();
         });
     });
 }(document, window, 0));
