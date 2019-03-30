@@ -184,7 +184,7 @@
         <form method="post" action="." enctype="multipart/form-data" novalidate="" class="box has-advanced-upload">
           <div class="box__input">
             <div id="download-pic" class="glyphicon glyphicon-download-alt" aria-hidden="true"></div>
-            <input type="file" name="files[]" id="file" class="box__file">
+            <input type="file" name="files[]" id="file" class="box__file" onclick="this.value=null;">
             <label id="choose-file" for="file">
               <div id="choose-file-zone">
                 <div>

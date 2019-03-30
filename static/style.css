@@ -930,6 +930,10 @@ summary:before {
     margin: 0;
 }
 
+#upload-svg-zone {
+    padding: 1rem;
+}
+
 /* Debug = true */
 .debug .dropdown-menu {
     min-width: 450px;

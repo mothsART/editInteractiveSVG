@@ -885,6 +885,16 @@ function hide_copyright_dialog() {
              .innerHTML = add_blank(html);
 }
 
+$('#update-picture-modal').on('show.bs.modal', function (e) {
+  "use strict";
+  document.getElementsByTagName('body')[0].classList.add('update-svg');
+});
+
+$('#update-picture-modal').on('hidden.bs.modal', function (e) {
+  "use strict";
+  document.getElementsByTagName('body')[0].classList.remove('update-svg');
+});
+
 function show_help() {
     "use strict";
     document.getElementsByTagName('body')[0].classList.add('mask');

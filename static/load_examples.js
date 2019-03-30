@@ -33,11 +33,52 @@ function replace_css(prefix, css) {
     return new_css;
 }
 
+function add_indices_and_details(indices) {
+    "use strict";
+    for (var i = 0; i < indices.length; i++) {
+        var el = indices[i];
+        if (el.getAttribute('id') !== 'real-template-indice')
+        {
+            var rgb_value = $('#real-indice-' + i + ' span').css('background-color');
+            var rgb_array = rgb_value.split("(")[1].split(")")[0].split(',');
+            var hex_color = rgbToHex(
+                parseInt(rgb_array[0]),
+                parseInt(rgb_array[1]),
+                parseInt(rgb_array[2])
+            );
+            add_legend(el, hex_color);
+            var title = $(el).find('em').text();
+            if (title.trim() != '') {
+                $('#legend-' + i).find('em').remove();
+                $("<span class='indice-title' title='"+ title + "'>" + title + "</span>").insertAfter(
+                  '#legend-' + i + " .indice"
+                );
+            }
+            $('#legend-' + i).find('.zoom-input').val(
+                $('#indice-' + i).data('zoom')
+            );
+        }
+    }
+}
+
+function add_indices_to_svg(indices) {
+    "use strict";
+    var root_svg = document.getElementById('root-svg');
+    for (var i = 0; i < indices.length; i++) {
+        root_svg.appendChild(indices[i].cloneNode(true));
+    }
+}
+
 function load_file(stream) {
   "use strict";
-  $("#svg svg").remove();
+  var svg = document.getElementById('svg').getElementsByTagName('svg')[0];
   var el = document.createElement('div');
   el.innerHTML = stream;
+  // errors and warnings detection
+  if (svg) {
+    Warnings.clear();
+    Errors.clear();
+  }
   if ($(el).find('svg script').length > 0)
   {
     Warnings.new('warning-script-detected');
@@ -51,6 +92,11 @@ function load_file(stream) {
   {
     Errors.new("error-file-not-supported");
     return;
+  }
+  var indices = null;
+  if (svg) {
+    indices = svg.getElementsByClassName('indice');
+    svg.remove();
   }
   var style_list = el.getElementsByTagName("svg")[0].getElementsByTagName("style");
   if (style_list.length > 0) {
@@ -70,7 +116,11 @@ function load_file(stream) {
   var real_legend = $(el).find('#real-legend');
   if (real_legend.length === 0) {
     $('#upload-zone form').removeClass('is-uploading');
-    $('#update-picture-modal').modal('toggle');
+    if (document.getElementsByTagName('body')[0].classList.contains('update-svg')) {
+        add_indices_to_svg(indices);
+        $('#update-picture-modal').modal('toggle');
+    }
+    document.getElementsByTagName('body')[0].classList.remove('update-svg');
     return;
   }
   $('#real-legend').html(real_legend.clone().html());
@@ -79,31 +129,9 @@ function load_file(stream) {
   if (descriptions.length != 0)
     $("#descriptions").html(descriptions.clone().html());
   // add indices and details
-  var indices = real_legend[0].getElementsByClassName('indice');
-  for (var i = 0; i < indices.length; i++) {
-      var el = indices[i];
-    if (el.getAttribute('id') != 'real-template-indice')
-    {
-      var rgb_value = $('#real-indice-' + i + ' span').css('background-color');
-      var rgb_array = rgb_value.split("(")[1].split(")")[0].split(',');
-      var hex_color = rgbToHex(
-        parseInt(rgb_array[0]),
-        parseInt(rgb_array[1]),
-        parseInt(rgb_array[2])
-      );
-      add_legend(el, hex_color);
-      var title = $(el).find('em').text();
-      if (title.trim() != '') {
-        $('#legend-' + i).find('em').remove();
-        $("<span class='indice-title' title='"+ title + "'>" + title + "</span>").insertAfter(
-          '#legend-' + i + " .indice"
-        );
-      }
-      $('#legend-' + i).find('.zoom-input').val(
-        $('#indice-' + i).data('zoom')
-      );
-    }
-  }
+  add_indices_and_details(
+      real_legend[0].getElementsByClassName('indice')
+  );
   $('#upload-zone form').removeClass('is-uploading');
 }
 
