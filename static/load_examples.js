@@ -97,6 +97,8 @@ function load_file(stream) {
   if (svg) {
     indices = svg.getElementsByClassName('indice');
     svg.remove();
+  } else {
+      el = converting(el);
   }
   var style_list = el.getElementsByTagName("svg")[0].getElementsByTagName("style");
   if (style_list.length > 0) {

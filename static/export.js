@@ -17,6 +17,7 @@ function import_file(files, contents, str_svg) {
 }
 
 function save_file(contents, str_svg) {
+  var version = document.getElementById('app-version').innerHTML;
   var BB = get_blob();
   saveAs(
     new BB(
@@ -25,7 +26,8 @@ function save_file(contents, str_svg) {
         + '<style type="text/css">\n'
         + contents["css"]
         + "\n</style>\n"
-        + "</head>\n<body>\n"
+        + "</head>\n"
+        + '<body data-version="' + version + '" >\n'
         + '<div id="svg" class="show">\n'
         + str_svg
         + "</div>\n"
