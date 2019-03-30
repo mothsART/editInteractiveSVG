@@ -258,6 +258,10 @@ button:focus {
     margin-left: 0;
 }
 
+.zoom-input {
+    max-width: 8rem;
+}
+
 #sidebar .indice,
 .gu-mirror .indice {
     color: #fff;
