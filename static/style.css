@@ -82,6 +82,32 @@ button:focus {
 }
 
 /* <UPLOAD> */
+#update-picture-modal .modal-dialog.modal-md {
+    height: 80vh;
+    width: 80vh;
+}
+
+.box.has-advanced-upload {
+    padding: 2rem;
+}
+
+#update-picture-modal .modal-footer {
+    padding: 0;
+}
+
+#upload-svg-zone {
+    height: 80vh;
+    width: 80vh;
+    max-width: inherit;
+    margin: 0;
+    padding: 1rem;
+}
+
+#upload-svg-zone .box {
+    height: 100%;
+    width: 100%;
+}
+
 #choose-file-zone {
     height: 100%;
     position: absolute;
@@ -91,7 +117,9 @@ button:focus {
 }
 
 #choose-file-zone div {
-    margin-top: 65%;
+    bottom: 1rem;
+    position: absolute;
+    width: 100%;
 }
 
 #upload-zone {
@@ -100,7 +128,7 @@ button:focus {
 
 #download-pic {
     display: block;
-    font-size: 30vh;
+    font-size: 50vh;
     margin-bottom: 1rem;
 }
 /* </UPLOAD> */
@@ -932,10 +960,6 @@ summary:before {
 .dialog h2,
 .dialog .last-element {
     margin: 0;
-}
-
-#upload-svg-zone {
-    padding: 1rem;
 }
 
 /* Debug = true */
