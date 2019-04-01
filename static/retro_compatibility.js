@@ -2,7 +2,7 @@ function version_1_1(el) {
     "use strict";
     var descriptions = el.getElementsByClassName('description-content');
     if (descriptions.length === 0)
-        return;
+        return el;
     for (var i = 0; i < descriptions.length; i++) {
         var links = descriptions[i].getElementsByTagName('a');
         for (var j = 0; j < links.length; j++) {
