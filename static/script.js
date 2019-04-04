@@ -830,11 +830,11 @@ function open_dialog() {
   "use strict";
   var index = parseInt($("#last-folded-indice").val().substring(14));
   var text = $("#" + $("#last-folded-indice").val()).next().text();
-  var description =  $("#description-" + index + " .description-content").html();
-  if (!description) {
+  var description =  $("#description-" + index + " .description-content")[0].innerHTML;
+  if (!description.trim()) {
     description = '';
   }
-  $("#indice-description").html(description);
+  document.getElementById('indice-description').innerHTML = description;
   $("#modal-legend-id").val(index);
   if (text == translate(Editor.local, 'no_title')) {
     $("#legend-title").attr("placeholder", "-- no title --");
@@ -870,11 +870,11 @@ function hide_description_dialog() {
     real_indice.find("em").text(text);
     $("#description-" + index + " .title").text(text);
   }
-  var html = $("#indice-description").trumbowyg('html');
-  if (html != "")
-    document.getElementById('description-' + index)
-            .getElementsByClassName('description-content')[0]
-            .innerHTML = add_blank(html);
+  var html = document.getElementById('indice-description').innerHTML;
+  document.getElementById('description-' + index)
+        .getElementsByClassName('description-content')[0]
+        .innerHTML = add_blank(html);
+  document.getElementById('indice-description').innerText = '';
 }
 
 function hide_copyright_dialog() {
