@@ -134,6 +134,13 @@ function load_file(stream) {
   add_indices_and_details(
       real_legend[0].getElementsByClassName('indice')
   );
+  // clone copyrights
+  var copyright = $(el).find('#copyright-content')[0].innerHTML.trim();
+  if (copyright) {
+    document.getElementById('edit-copyright').innerHTML = copyright;
+    document.getElementById('copyright-content')
+             .innerHTML = add_blank(copyright);
+   }
   $('#upload-zone form').removeClass('is-uploading');
 }
 
