@@ -17,11 +17,13 @@ Because SVG illustration designed to **educative programs** is really better whe
 
 ## Goals (1.1)
 
-- [ ] shortcuts on preview mode and export files.
-- [ ] user can add copyrights
-- [ ] change svg source without delete legend.
-- [ ] shortcuts on preview mode and export files.
-- [ ] change zoom with and without preview
+- [x] shortcuts on preview mode and export files.
+- [x] user can add copyrights
+- [x] change svg source without delete legend.
+- [x] shortcuts on preview mode and export files.
+- [x] change zoom with and without preview
+
+## Goals (1.2)
 
 ## Goals (2.0)
 
