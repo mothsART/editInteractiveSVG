@@ -20,7 +20,6 @@ Because SVG illustration designed to **educative programs** is really better whe
 - [x] shortcuts on preview mode and export files.
 - [x] user can add copyrights
 - [x] change svg source without delete legend.
-- [x] shortcuts on preview mode and export files.
 - [x] change zoom with and without preview
 
 ## Goals (1.2)
