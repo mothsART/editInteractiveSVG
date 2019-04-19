@@ -33,7 +33,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
   - user can add copyrights
   - change svg source without delete legend.
-  - Shortcuts
+  - shortcuts on preview mode and export files.
   - change zoom with and without preview
 ### Fixed
   - better beahavior on legend and description without ugly superposition
