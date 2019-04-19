@@ -1,15 +1,12 @@
 Source: edit-interactive-svg
 Section: education
-Version: 1.0.rc3
-Priority: extra
-Maintainer: Ferry Jérémie <jerem.ferry@gmail.com>
+Priority: optional
+Maintainer: Jérémie Ferry <jerem.ferry@gmail.com>
 Build-Depends: debhelper (>= 9)
 Homepage: https://mothsart.github.io/labo/frontend/edit_interactive_svg/
 
 Package: edit-interactive-svg
-Version: 1.0.rc3
 Architecture: all
-Maintainer: Ferry Jérémie <jerem.ferry@gmail.com>
 Depends: firefox | firefox-esr,
  ${misc:Depends}
 Homepage: https://mothsart.github.io/labo/frontend/edit_interactive_svg/

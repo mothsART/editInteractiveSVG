@@ -10,18 +10,20 @@ edit-interactive-svg (1.1.1.0) xenial; urgency=medium
   * bug fix : add a link on description will always open a new tab.
   * bug fix : long words (or with insecable space) overflows the description frame.
 
+ -- Jérémie Ferry <jerem.ferry@gmail.com>  Fri, 19 Apr 2019 16:50:10 +0100
+
 edit-interactive-svg (1.0.0.1) xenial; urgency=medium
   * bug fix : reactivate debug mode
   * bug fix : n firefox, return to edit will keep translation on svg (after a zoom on view mode)
 
- -- jferry <jerem.ferry@gmail.com>  Thu, 11 May 2018 21:50:10 +0100
+ -- Jérémie Ferry <jerem.ferry@gmail.com>  Thu, 11 May 2018 21:50:10 +0100
 
 edit-interactive-svg (1.0.rc3.3) xenial; urgency=medium
   * feature : add a "fit page to drawing" button.
   * bug fix : n firefox, return to edit will keep translation on svg (after a zoom on view mode)
   * bug fix : drag and drop on firefox => must use a preventDefault()
 
- -- jferry <jerem.ferry@gmail.com>  Thu, 11 Jan 2018 00:36:10 +0100
+ -- Jérémie Ferry <jerem.ferry@gmail.com>  Thu, 11 Jan 2018 00:36:10 +0100
 
 edit-interactive-svg (1.0.rc2) xenial; urgency=medium
   * feature : add a weather example
@@ -40,7 +42,7 @@ edit-interactive-svg (1.0.rc2) xenial; urgency=medium
   * bug fix : i18n regression -> show a title placeholder
   * bug fix : indice can be drag when user change zoom size
 
- -- jferry <jerem.ferry@gmail.com>  Wed, 22 Nov 2017 20:23:10 +0100
+ -- Jérémie Ferry <jerem.ferry@gmail.com>  Wed, 22 Nov 2017 20:23:10 +0100
 
 edit-interactive-svg (1.0.5rc1) xenial; urgency=medium
 
@@ -49,10 +51,10 @@ edit-interactive-svg (1.0.5rc1) xenial; urgency=medium
   * a lang selector
   * bring pictures on editor (convert to base64)
 
- -- jferry <jerem.ferry@gmail.com>  Thu, 16 Nov 2017 21:42:49 +0100
+ -- Jérémie Ferry <jerem.ferry@gmail.com>  Thu, 16 Nov 2017 21:42:49 +0100
 
 edit-interactive-svg (1.0.beta-1) xenial; urgency=medium
 
   * Initial release
 
- -- jferry <jerem.ferry@gmail.com>  Thu, 02 Nov 2017 21:36:27 +0100
+ -- Jérémie Ferry <jerem.ferry@gmail.com>  Thu, 02 Nov 2017 21:36:27 +0100
