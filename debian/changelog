@@ -1,4 +1,16 @@
-edit-interactive-svg (1.1.0.1) xenial; urgency=medium
+edit-interactive-svg (1.1.1.0) xenial; urgency=medium
+  * feature : update credits.
+  * feature : new examples : solar system, material states and seasons.
+  * feature : add and update copyrights.
+  * feature : shortcuts on preview mode and export files.
+  * bug fix : french corrections.
+  * bug fix : better beahavior on legend and description without ugly superposition.
+  * bug fix : export file has ugly placement. (css)
+  * bug fix : adjust size of <input> title.
+  * bug fix : add a link on description will always open a new tab.
+  * bug fix : long words (or with insecable space) overflows the description frame.
+
+edit-interactive-svg (1.0.0.1) xenial; urgency=medium
   * bug fix : reactivate debug mode
   * bug fix : n firefox, return to edit will keep translation on svg (after a zoom on view mode)
 

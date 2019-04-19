@@ -8,12 +8,39 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased : 2.0.X]
 ### Added
 - i18n based on fluent : https://projectfluent.org/
+- optimise export file with lib like **svgo**
+- optimise js and css requests
 
 ## [Unreleased : 1.2.X]
 ### Added
+  - checkbox without native (browser) widget
   - loader on charging SVG file
   - Option > background color (white) and decoration on legend
-  - checkbox without native (browser) widget
+  - color (fore and back) option on editor.
+  - emojis option on editor.
+
+## [Unreleased : 1.X]
+### Added
+  - progress bar on uploading svg or html files.
+  - indice will keep size after zooming
+
+### Fixed
+  - no natural behavior on dezooming indice too close of the edge
+  - responsive menu on little size.
+  - full responsive drag and drop button.
+
+## [1.1]
+### Added
+  - user can add copyrights
+  - change svg source without delete legend.
+  - Shortcuts
+  - change zoom with and without preview
+### Fixed
+  - better beahavior on legend and description without ugly superposition
+  - export file has ugly placement. (css)
+  - adjust size of <input> title.
+  - add a link on description will always open a new tab.
+  - long words (or with insecable space) overflows the description frame.
 
 ## [1.0.1]
 ### Fixed
