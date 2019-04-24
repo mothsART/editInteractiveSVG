@@ -135,7 +135,11 @@ function load_file(stream) {
       real_legend[0].getElementsByClassName('indice')
   );
   // clone copyrights
-  var copyright = $(el).find('#copyright-content')[0].innerHTML.trim();
+  var copyright = null;
+  var copyright_content = $(el).find('#copyright-content')[0];
+  if (copyright_content) {
+      copyright= copyright_content.innerHTML.trim();
+  }
   if (copyright) {
     document.getElementById('edit-copyright').innerHTML = copyright;
     document.getElementById('copyright-content')
