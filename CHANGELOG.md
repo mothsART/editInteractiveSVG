@@ -27,7 +27,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
   - no natural behavior on dezooming indice too close of the edge
   - responsive menu on little size.
-  - full responsive drag and drop button.
 
 ## [1.1]
 ### Added
@@ -41,6 +40,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - adjust size of <input> title.
   - add a link on description will always open a new tab.
   - long words (or with insecable space) overflows the description frame.
+  - full responsive drag and drop button.
 
 ## [1.0.1]
 ### Fixed
