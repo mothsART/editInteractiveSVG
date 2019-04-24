@@ -147,6 +147,7 @@ function translate_app(local) {
   Editor.local = translateElementsByClassName("i18n", local);
   if (local)
     translateExportInterface(local);
+  update_name();
   $("#indice-description, #edit-copyright").trumbowyg('destroy');
   $("#indice-description, #edit-copyright").trumbowyg({
     lang: Editor.local,

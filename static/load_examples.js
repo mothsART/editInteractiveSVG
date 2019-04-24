@@ -148,6 +148,16 @@ function load_file(stream) {
   $('#upload-zone form').removeClass('is-uploading');
 }
 
+function update_name() {
+    "use strict";
+    var sourceElement = document.getElementById('source-file');
+    var title = sourceElement.getAttribute('data-title');
+    var example = translate(Editor.local, 'example');
+    title = title + ' (' + example + ')';
+    sourceElement.innerText = title;
+    sourceElement.setAttribute('title', title);
+}
+
 function load_example(url, name) {
   "use strict";
   if (document.getElementById('content').getAttribute('data-full') == 'true')
@@ -158,8 +168,8 @@ function load_example(url, name) {
     modal.modal('show');
     return;
   }
-  $("#source-file").text(name);
-  $("#source-file").attr('title', name);
+  document.getElementById('source-file').setAttribute('data-title', name);
+  update_name(name);
   var xmlhttp = new XMLHttpRequest();
   xmlhttp.open("GET", url, true);
   var isSVG = false;
