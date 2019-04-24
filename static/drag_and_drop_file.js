@@ -26,8 +26,11 @@
                 $("#choose-file").addClass("hidden");
                 $("#upload-text").removeClass("hidden");
                 label.textContent = files[0].name;
-                $("#source-file").text(label.textContent);
-                $("#source-file").attr('title', label.textContent);
+                if (!document.getElementsByTagName('body')[0].classList.contains('update-svg')) {
+                    var sourceElement = document.getElementById('source-file');
+                    sourceElement.innerText = label.textContent;
+                    sourceElement.setAttribute('title', label.textContent);
+                }
             },
             triggerFormSubmit = function()
             {

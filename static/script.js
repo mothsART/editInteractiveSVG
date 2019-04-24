@@ -586,6 +586,7 @@ function delete_pic(replace) {
   checked_all();
   delete_legend();
   $("#nb-indices, #count-nb-display").val(0);
+  document.getElementById('source-file').setAttribute('data-title', '');
   $("#svg svg").remove();
   document.getElementById('content').setAttribute('data-full', false);
   if (!replace) {

@@ -152,6 +152,8 @@ function update_name() {
     "use strict";
     var sourceElement = document.getElementById('source-file');
     var title = sourceElement.getAttribute('data-title');
+    if (!title)
+        return;
     var example = translate(Editor.local, 'example');
     title = title + ' (' + example + ')';
     sourceElement.innerText = title;
