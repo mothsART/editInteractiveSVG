@@ -1,0 +1,18 @@
+{
+    "app-id": "org.flatpak.edit-interactive-svg",
+    "runtime": "org.freedesktop.Platform",
+    "runtime-version": "18.08",
+    "sdk": "org.freedesktop.Sdk",
+    "command": "edit-interactive-svg",
+    "modules": [
+        {
+            "name": "editInteractiveSVG",
+            "sources": [
+                {
+                    "type": "dir",
+                    "path": "."
+                }
+            ]
+        }
+    ]
+}
