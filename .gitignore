@@ -1,0 +1,8 @@
+.flatpak-builder/
+build-dir/
+debian/debhelper-build-stamp
+debian/edit-interactive-svg.debhelper.log
+debian/edit-interactive-svg.substvars
+debian/edit-interactive-svg/
+debian/files
+debian/source/
