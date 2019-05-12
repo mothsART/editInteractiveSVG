@@ -55,6 +55,6 @@ fs.readdir(examplesPath, function (err, files) {
         let html = create_HTML(contents, str_svg, __version__());
         let bytes = new Uint8Array(Buffer.from(html));
         fs.writeFileSync(filepath, bytes);
-        process.exit();
+        //process.exit();
     });
 });
