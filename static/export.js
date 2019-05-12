@@ -2,7 +2,7 @@ function import_file(files, contents, str_svg) {
     "use strict";
     var file = files.next().value;
     if (!file) {
-        var version = document.getElementById('app-version').innerHTML;
+        var version = __version__();
         var blob = new Blob([
             create_HTML(contents, str_svg, version),
             ], { type: "application/xhtml+xml;charset=UTF-8" }

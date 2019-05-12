@@ -1,5 +1,18 @@
-function version_1_1(el) {
+function __version__() {
+    return "1.2";
+}
+
+function smaller_then(doc_version, version) {
     "use strict";
+    doc_version = parseInt(doc_version.replace('.', ''));
+    version = parseInt(version.replace('.', ''));
+    return doc_version < version;
+}
+
+function version_1_1(el, doc_version) {
+    "use strict";
+    if (!smaller_then(doc_version, "1.1"))
+        return el;
     var descriptions = el.getElementsByClassName('description-content');
     if (descriptions.length === 0)
         return el;
@@ -12,9 +25,8 @@ function version_1_1(el) {
     return el;
 }
 
-function converting(el, version) {
+function converting(el, doc_version) {
     "use strict";
-    if (!version)
-        el = version_1_1(el);
+    el = version_1_1(el, doc_version);
     return el;
 }

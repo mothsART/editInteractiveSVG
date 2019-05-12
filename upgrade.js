@@ -7,8 +7,8 @@ const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
 
 // project files
-eval(fs.readFileSync('./static/export.js') + '');
 eval(fs.readFileSync('./static/retro_compatibility.js') + '');
+eval(fs.readFileSync('./static/export.js') + '');
 
 const examplesPath = path.join(__dirname, 'examples');
 const staticPath = path.join(__dirname, 'static');
@@ -40,10 +40,15 @@ fs.readdir(examplesPath, function (err, files) {
         // synchronous
         let data = fs.readFileSync(filepath, 'utf8');
         let dom = new JSDOM(data);
-        let version = dom.window.document.getElementsByTagName('body')[0].getAttribute('data-version');
-        let document = converting(dom.window.document);
+        let doc_version = dom.window
+            .document.getElementsByTagName('body')[0]
+            .getAttribute('data-version');
+        let document = converting(
+            dom.window.document,
+            doc_version
+        );
         let str_svg = document.getElementById('svg').innerHTML;
-        let html = create_HTML(contents, str_svg, '1.1');
+        let html = create_HTML(contents, str_svg, __version__());
         let bytes = new Uint8Array(Buffer.from(html));
         fs.writeFileSync(filepath, bytes);
         //process.exit();
