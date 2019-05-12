@@ -24,45 +24,6 @@ var Editor = {
   local: 'en'
 }
 
-var SVG = {
-  x:             0,
-  y:             0,
-  width:         0,
-  height:        0,
-  ratio:         0,
-  content_ratio: 0,
-  indice_left:   0,
-  indice_top:    0,
-  indice_height: 0,
-  indice_width:  0,
-  biggest:       0,
-  scale:         0,
-  init: function() {
-    "use strict";
-    var svg_box  = $("#svg svg")[0].getBBox();
-    this.x       = svg_box.x;
-    this.y       = svg_box.y;
-    this.width   = svg_box.width;
-    this.height  = svg_box.height;
-    this.ratio   = this.width / this.height;
-    this.biggest = Math.max(this.width, this.height);
-    this.scale   = this.biggest / 300;
-    this.content_ratio = $("#svg").width() / $("#svg").height();
-    if (this.ratio > this.content_ratio) {
-      this.indice_left = 0;
-      this.indice_top = parseInt(($("#svg").height() - $("#svg").width() / this.ratio) / 2);
-      this.indice_height = 5 + parseInt($("#svg").width() / this.ratio);
-      this.indice_width = $("#svg").width();
-    }
-    else {
-      this.indice_left = parseInt(($("#svg").width() - $("#svg").height() * this.ratio) / 2);
-      this.indice_top = 0;
-      this.indice_width = 5 + parseInt($("#svg").height() * this.ratio);
-      this.indice_height = $("#svg").height();
-    }
-  }
-};
-
 var dragAndDrop = {
   init: function () {
     this.dragula();
@@ -384,6 +345,21 @@ function createEditIndice(index) {
   );
 }
 
+function real_zoom(element) {
+    "use strict"
+    let svg_container = document.getElementById('svg');
+    if (DragTarget) {
+        $(DragTarget.parentNode).find(".indice-cross")[0].classList.add("hidden");
+        DragTarget = null;
+        return;
+    }
+    if (document.getElementById('svg').classList.contains('edit-mode'))
+        return;
+    if (svg_container.classList.contains('show'))
+        svg_container.classList.add('duration');
+    indice_zoom(element);
+}
+
 function random_colors() {
   "use strict";
   if (remaining_colors.length == 0)
@@ -686,24 +662,6 @@ function select_all_legend() {
   $("#template-legend input").prop('checked', false);
 }
 
-function css_translate(trans_x, trans_y) {
-  "use strict";
-  var indice_len_x = 14 * SVG.width / 500;
-  var indice_len_y = 14 * SVG.height / 500;
-  var svg_width = parseInt($("#root-svg").css("width").replace("px", ""));
-  var svg_height = parseInt($("#root-svg").css("height").replace("px", ""));
-  var x = Math.abs(50 - 100 * trans_x / SVG.width);
-  var y = Math.abs(50 - 100 * trans_y / SVG.height);
-  var x_signe = "";
-  var y_signe = "";
-  if ((100 * trans_x / SVG.width) > 50)
-    x_signe = "-";
-  if ((100 * trans_y / SVG.height) > 50)
-    y_signe = "-";
-  return "translate(" + x_signe + x + "%," + y_signe + y + "%)";
-}
-
-
 function UpdateCssTransform() {
   "use strict";
   var index      = parseInt($("#last-folded-indice").val().substring(14));
@@ -778,56 +736,6 @@ function active_zoom(element) {
   }
 }
 
-function fit_page_to_drawing() {
-  "use strict";
-  $('.description').addClass('hidden');
-  $("#svg svg").css("transform", "scale(1)");
-  $("#root-svg").css("transform", "initial");
-  document.getElementById('content')
-          .setAttribute('data-real-zoom-indice', null);
-}
-
-function real_zoom(element) {
-  "use strict";
-  if (DragTarget) {
-    $(DragTarget.parentNode).find(".indice-cross")[0].classList.add("hidden");
-    DragTarget = null;
-    return;
-  }
-  if (document.getElementById('svg').classList.contains('edit-mode'))
-    return;
-  $("#svg.show").addClass("duration");
-  var id = $(element).attr("id");
-  if (id.startsWith("indice"))
-    var index = id.substring(7);
-  else
-    var index = id.substring(12);
-  var indice = document.getElementById("indice-" + index);
-  var description = $("#description-" + index);
-  if (
-    document.getElementById('content').getAttribute('data-real-zoom-indice') == index
-    && indice.getAttribute("data-zoom-active") == "true"
-  )
-  {
-    $("#svg svg").css("transform", "scale(1)");
-    indice.setAttribute("data-zoom-active", false);
-    description.addClass("hidden");
-  }
-  else {
-    var scale   = indice.getAttribute("data-zoom") / 100;
-    var trans_x = parseFloat(indice.getAttribute("data-translate-x") - SVG.x);
-    var trans_y = parseFloat(indice.getAttribute("data-translate-y") - SVG.y);
-    $("#svg svg").css("transform", "scale(" + scale + ")");
-    $("#root-svg").css("transform", css_translate(trans_x, trans_y));
-    indice.setAttribute("data-zoom-active", true);
-    document.getElementById('content').setAttribute('data-real-zoom-indice', index);
-    $('.description').addClass('hidden');
-    if (description.find(".description-content").html().trim() != "") {
-      description.removeClass("hidden");
-    }
-  }
-}
-
 function open_dialog() {
   "use strict";
   var index = parseInt($("#last-folded-indice").val().substring(14));
@@ -896,24 +804,6 @@ $('#update-picture-modal').on('hidden.bs.modal', function (e) {
   "use strict";
   document.getElementsByTagName('body')[0].classList.remove('update-svg');
 });
-
-function show_help() {
-    "use strict";
-    document.getElementsByTagName('body')[0].classList.add('mask');
-    document.getElementById('help-dialog').classList.remove('hidden');
-}
-
-function show_copyright() {
-    "use strict";
-    document.getElementsByTagName('body')[0].classList.add('mask');
-    document.getElementById('copyright-dialog').classList.remove('hidden');
-}
-
-function closeDialog(element) {
-    "use strict";
-    document.getElementsByTagName('body')[0].classList.remove('mask');
-    element.parentNode.classList.add('hidden');
-}
 
 $('#edit-legend-modal').on('show.bs.modal', function (e) {
   "use strict";

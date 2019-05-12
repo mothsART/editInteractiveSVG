@@ -28,14 +28,13 @@ function create_HTML(contents, str_svg, version) {
     + "</style>"
     + "</head>"
     + '<body data-version="' + version + '" >'
-    + '<div id="svg" class="show">'
+    + '<div id="svg" class="show duration">'
     + str_svg
     + "</div>"
     + '<script type="text/javascript">'
-    + contents["jquery"]
-    + '</script>'
-    + '<script type="text/javascript">'
     + contents["script"]
+    + contents["action_keys"]
+    + contents["event"]
     + "</script>"
     + "</body></html>";
 }
@@ -64,9 +63,10 @@ function export_html(element) {
       svg[0].querySelector('#copyright-button').classList.remove('hidden');
   var str_svg = svg.html();
   var files = new Map();
-  files.set("css",    "static/export_style.css");
-  files.set("jquery", "static/jquery.min.js");
-  files.set("script", "static/export_js.js");
+  files.set("css", "static/export/style.css");
+  files.set("script", "static/export/script.js");
+  files.set("action_keys", "static/action_key.js");
+  files.set("event", "static/export/event.js");
   var contents = [];
   import_file(files.entries(), contents, str_svg);
 }

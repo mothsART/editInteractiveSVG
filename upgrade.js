@@ -13,16 +13,20 @@ eval(fs.readFileSync('./static/export.js') + '');
 const examplesPath = path.join(__dirname, 'examples');
 const staticPath = path.join(__dirname, 'static');
 const contents = {
-    'jquery': fs.readFileSync(
-        path.join(staticPath, 'jquery.min.js'),
+    'script': fs.readFileSync(
+        path.join(staticPath, 'export', 'script.js'),
         'utf8'
     ),
-    'script': fs.readFileSync(
-        path.join(staticPath, 'export_js.js'),
+    'action_keys': fs.readFileSync(
+        path.join(staticPath, 'action_key.js'),
+        'utf8'
+    ),
+    'event': fs.readFileSync(
+        path.join(staticPath, 'export', 'event.js'),
         'utf8'
     ),
     'css': fs.readFileSync(
-        path.join(staticPath, 'export_style.css'),
+        path.join(staticPath, 'export', 'style.css'),
         'utf8'
     )
 };
