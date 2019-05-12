@@ -96,7 +96,11 @@ function load_file(stream) {
     indices = svg.getElementsByClassName('indice');
     svg.remove();
   } else {
-      el = converting(el);
+      let version = new DOMParser()
+        .parseFromString(stream, 'text/html')
+        .getElementsByTagName('body')[0]
+        .getAttribute('data-version');
+      el = converting(el, version);
   }
   var style_list = el.getElementsByTagName("svg")[0].getElementsByTagName("style");
   if (style_list.length > 0) {

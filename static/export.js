@@ -28,7 +28,7 @@ function create_HTML(contents, str_svg, version) {
     + "</style>"
     + "</head>"
     + '<body data-version="' + version + '" >'
-    + '<div id="svg" class="show">\n'
+    + '<div id="svg" class="show">'
     + str_svg
     + "</div>"
     + '<script type="text/javascript">'

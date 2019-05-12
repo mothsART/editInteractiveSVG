@@ -6,15 +6,14 @@ function version_1_1(el) {
     for (var i = 0; i < descriptions.length; i++) {
         var links = descriptions[i].getElementsByTagName('a');
         for (var j = 0; j < links.length; j++) {
-            links[j].setAttribute('target', 'blank');
+            links[j].setAttribute('target', '_blank');
         }
     }
     return el;
 }
 
-function converting(el) {
+function converting(el, version) {
     "use strict";
-    let version = el.getElementsByTagName('body')[0].getAttribute('data-version');
     if (!version)
         el = version_1_1(el);
     return el;
