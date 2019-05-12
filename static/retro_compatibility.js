@@ -14,7 +14,7 @@ function version_1_1(el) {
 
 function converting(el) {
     "use strict";
-    var version = document.getElementsByTagName('body')[0].getAttribute('data-version');
+    let version = el.getElementsByTagName('body')[0].getAttribute('data-version');
     if (!version)
         el = version_1_1(el);
     return el;

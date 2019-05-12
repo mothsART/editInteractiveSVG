@@ -1,59 +1,52 @@
-var get_blob;
-
 function import_file(files, contents, str_svg) {
-  "use strict";
-  var file = files.next().value;
-  if (!file)
-    return save_file(contents, str_svg);
-  var xmlhttp = new XMLHttpRequest();
-  xmlhttp.open("GET", file[1], true);
-  xmlhttp.onreadystatechange = function() {
-    if (xmlhttp.readyState==4 && xmlhttp.status==200) {
-      contents[file[0]] = xmlhttp.responseText;
-      import_file(files, contents, str_svg);
+    "use strict";
+    var file = files.next().value;
+    if (!file) {
+        var version = document.getElementById('app-version').innerHTML;
+        var blob = new Blob([
+            create_HTML(contents, str_svg, version),
+            ], { type: "application/xhtml+xml;charset=UTF-8" }
+        );
+        return save_file(blob);
     }
-  }
-  xmlhttp.send();
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.open("GET", file[1], true);
+    xmlhttp.onreadystatechange = function() {
+        if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+            contents[file[0]] = xmlhttp.responseText;
+            import_file(files, contents, str_svg);
+        }
+    }
+    xmlhttp.send();
 }
 
-function save_file(contents, str_svg) {
-  var version = document.getElementById('app-version').innerHTML;
-  var BB = get_blob();
-  saveAs(
-    new BB(
-      [
-        "<!DOCTYPE html>\n<html>\n<head>\n"
-        + '<style type="text/css">\n'
-        + contents["css"]
-        + "\n</style>\n"
-        + "</head>\n"
-        + '<body data-version="' + version + '" >\n'
-        + '<div id="svg" class="show">\n'
-        + str_svg
-        + "</div>\n"
-        + '<script type="text/javascript">\n'
-        + contents["jquery"]
-        + '\n</script>\n'
-        + '<script type="text/javascript">\n'
-        + contents["script"]
-        + "</script>\n"
-        + "</body>\n</html>\n"
-      ]
-      , {type: "application/xhtml+xml;charset=UTF-8"}
-   )
-   , "interactive_illustration.html"
-  );
+function create_HTML(contents, str_svg, version) {
+    "use strict";
+    return "<!DOCTYPE html><html><head>"
+    + '<style type="text/css">'
+    + contents["css"]
+    + "</style>"
+    + "</head>"
+    + '<body data-version="' + version + '" >'
+    + '<div id="svg" class="show">\n'
+    + str_svg
+    + "</div>"
+    + '<script type="text/javascript">'
+    + contents["jquery"]
+    + '</script>'
+    + '<script type="text/javascript">'
+    + contents["script"]
+    + "</script>"
+    + "</body></html>";
 }
 
-(function(view) {
-  "use strict";
-  get_blob = function() {
-    return view.Blob;
-  }
-  document.getElementById("save-form")
-          .addEventListener("submit", export_html);
-  dragula($("#list-of-legend"));
-}(self));
+function save_file(blob) {
+    "use strict";
+    saveAs(
+        blob,
+        "interactive_illustration.html"
+    );
+}
 
 function export_html(element) {
   "use strict";
@@ -70,7 +63,6 @@ function export_html(element) {
   if (document.getElementById('copyright-content').innerText.trim())
       svg[0].querySelector('#copyright-button').classList.remove('hidden');
   var str_svg = svg.html();
-  str_svg = str_svg.replace('<br>', '<br />');
   var files = new Map();
   files.set("css",    "static/export_style.css");
   files.set("jquery", "static/jquery.min.js");

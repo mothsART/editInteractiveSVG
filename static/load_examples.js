@@ -79,8 +79,7 @@ function load_file(stream) {
     Warnings.clear();
     Errors.clear();
   }
-  if ($(el).find('svg script').length > 0)
-  {
+  if ($(el).find('svg script').length > 0) {
     Warnings.new('warning-script-detected');
     $(el).find('svg script').remove();
   }
@@ -88,8 +87,7 @@ function load_file(stream) {
     Warnings.new('warning-clipPath-tag-detected');
   if ($(el).find('svg mask').length > 0)
     Warnings.new('warning-mask-tag-detected');
-  if (el.getElementsByTagName("svg").length == 0)
-  {
+  if (el.getElementsByTagName("svg").length == 0) {
     Errors.new("error-file-not-supported");
     return;
   }
