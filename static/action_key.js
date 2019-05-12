@@ -1,4 +1,4 @@
-var lastValue = null;
+let lastValue = null;
 
 document.addEventListener("keydown", function(evt) {
     "use strict";
@@ -10,11 +10,11 @@ document.addEventListener("keydown", function(evt) {
         show_help();
     }
 
-    var nb_indices = document.getElementById('real-legend')
+    let nb_indices = document.getElementById('real-legend')
                              .getElementsByClassName('indice').length;
     if (nb_indices <= 1)
         return;
-    var select_indice = parseInt(
+    let select_indice = parseInt(
         document.getElementById('content')
                 .getAttribute('data-real-zoom-indice')
     );
@@ -84,9 +84,9 @@ document.addEventListener("keydown", function(evt) {
     // Num Pad : 1 to 9
     if (evt.which < 96 || evt.which > 105)
         return;
-    var numPadValue = evt.which - 96;
+    let numPadValue = evt.which - 96;
     if (lastValue) {
-        var newValue = lastValue + String(numPadValue);
+        let newValue = lastValue + String(numPadValue);
         lastValue += String(numPadValue);
         if (newValue.length > 2)
             lastValue = newValue.substr(1)
