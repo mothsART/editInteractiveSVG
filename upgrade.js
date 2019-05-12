@@ -36,13 +36,16 @@ fs.readdir(examplesPath, function (err, files) {
             return;
         }
         let filepath = path.join(examplesPath, filename);
+        console.log(filepath);
         // synchronous
         let data = fs.readFileSync(filepath, 'utf8');
         let dom = new JSDOM(data);
+        let version = dom.window.document.getElementsByTagName('body')[0].getAttribute('data-version');
         let document = converting(dom.window.document);
         let str_svg = document.getElementById('svg').innerHTML;
         let html = create_HTML(contents, str_svg, '1.1');
         let bytes = new Uint8Array(Buffer.from(html));
         fs.writeFileSync(filepath, bytes);
+        //process.exit();
     });
 });
