@@ -345,6 +345,21 @@ function createEditIndice(index) {
   );
 }
 
+function real_zoom(element) {
+    "use strict"
+    let svg_container = document.getElementById('svg');
+    if (DragTarget) {
+        $(DragTarget.parentNode).find(".indice-cross")[0].classList.add("hidden");
+        DragTarget = null;
+        return;
+    }
+    if (document.getElementById('svg').classList.contains('edit-mode'))
+        return;
+    if (svg_container.classList.contains('show'))
+        svg_container.classList.add('duration');
+    indice_zoom(element);
+}
+
 function random_colors() {
   "use strict";
   if (remaining_colors.length == 0)

@@ -97,19 +97,12 @@ function fit_page_to_drawing() {
     root_svg.style.transform = "initial";
 }
 
-function real_zoom(element) {
+function indice_zoom(element) {
     "use strict";
     let svg_container = document.getElementById('svg');
     let svg = svg_container.getElementsByTagName('svg')[0];
     let root_svg = document.getElementById('root-svg');
 
-    /**/
-    if (document.getElementById('svg').classList.contains('edit-mode'))
-      return;
-    if (svg_container.classList.contains('show'))
-        svg_container.classList.add('duration');
-    /**/
-    
     let id = element.getAttribute('id');
     let index = id.substring(12);
     if (id.startsWith("indice"))
@@ -126,12 +119,19 @@ function real_zoom(element) {
       return;
     }
     let scale = indice.getAttribute("data-zoom") / 100;
-    let trans_x = parseFloat(indice.getAttribute("data-translate-x") - SVG.x);
-    let trans_y = parseFloat(indice.getAttribute("data-translate-y") - SVG.y);
+    let trans_x = parseFloat(
+        indice.getAttribute("data-translate-x") - SVG.x
+    );
+    let trans_y = parseFloat(
+        indice.getAttribute("data-translate-y") - SVG.y
+    );
     svg.style.transform = "scale(" + scale + ")";
     root_svg.style.transform = css_translate(trans_x, trans_y);
     indice.setAttribute("data-zoom-active", true);
-    document.getElementById('content').setAttribute('data-real-zoom-indice', index);
+    document.getElementById('content').setAttribute(
+        'data-real-zoom-indice',
+        index
+    );
     addclassToElement(
         document.getElementsByClassName('description'),
         'hidden'
