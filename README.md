@@ -58,3 +58,15 @@ git clone https://github.com/mothsART/editInteractiveSVG.git
 cd editInteractiveSVG
 dpkg-buildpackage -us -uc
 ```
+
+## Launch test
+
+```sh
+npm test
+```
+
+## Upgrade examples documents
+
+```sh
+node upgrade.js
+```

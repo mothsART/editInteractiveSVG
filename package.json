@@ -6,5 +6,11 @@
   "license": "BSD",
   "dependencies": {
     "jsdom": "^15"
+  },
+  "devDependencies": {
+    "mocha": "^6.1.4"
+  },
+  "scripts": {
+    "test": "mocha"
   }
 }
