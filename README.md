@@ -1,5 +1,6 @@
 # Edit Interactive SVG
 
+[![Build Status](https://travis-ci.org/mothsART/editInteractiveSVG.png?branch=master)](https://travis-ci.org/mothsART/editInteractiveSVG)
 [![LICENSE](https://img.shields.io/badge/license-BSD-blue.svg)](LICENSE)
 
 Because SVG illustration designed to **educative programs** is really better when it's interactive!
