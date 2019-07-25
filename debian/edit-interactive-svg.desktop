@@ -2,6 +2,7 @@
 Version=1.0
 Name=Edit-Interactive-SVG
 Comment=Edit SVG files to be interactive
+Comment[fr_FR]=Éditer un fichier SVG statique afin de le présenter comme un contenu interactif.
 Exec=edit-interactive-svg
 Icon=/usr/share/applications/edit-interactive-svg/favicon.png
 Terminal=false
