@@ -1,3 +1,8 @@
+edit-interactive-svg (1.1.1.1) xenial; urgency=medium
+  * CORS policy changed on firefox >= 67
+
+ -- Jérémie Ferry <jerem.ferry@gmail.com>  Sun, 18 Aug 2019 13:06:10 +0100
+
 edit-interactive-svg (1.1.1.0) xenial; urgency=medium
   * feature : update credits.
   * feature : new examples : solar system, material states and seasons.

@@ -71,3 +71,11 @@ npm test
 ```sh
 node upgrade.js
 ```
+
+## Create a Debian package
+
+```sh
+git clone https://github.com/mothsART/editInteractiveSVG.git
+cd editInteractiveSVG
+dpkg-buildpackage -us -uc
+```

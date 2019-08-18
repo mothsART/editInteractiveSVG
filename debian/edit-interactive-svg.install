@@ -6,4 +6,7 @@ examples/campement.html              usr/share/applications/edit-interactive-svg
 examples/organes.html                usr/share/applications/edit-interactive-svg/examples
 examples/weather.html                usr/share/applications/edit-interactive-svg/examples
 examples/fruits.html                 usr/share/applications/edit-interactive-svg/examples
+examples/les-saisons.html            usr/share/applications/edit-interactive-svg/examples
+examples/etats-de-la-matiere.html    usr/share/applications/edit-interactive-svg/examples
+examples/le-systeme-solaire.html     usr/share/applications/edit-interactive-svg/examples
 static/*                             usr/share/applications/edit-interactive-svg/static
