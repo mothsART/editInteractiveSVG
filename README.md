@@ -57,7 +57,7 @@ Actualy, to use **edit mode**, simply change the class of the <body> to "debug" 
 ```sh
 git clone https://github.com/mothsART/editInteractiveSVG.git
 cd editInteractiveSVG
-dpkg-buildpackage -us -uc
+debuild -us -uc
 ```
 
 ## Launch test
@@ -70,12 +70,4 @@ npm test
 
 ```sh
 node upgrade.js
-```
-
-## Create a Debian package
-
-```sh
-git clone https://github.com/mothsART/editInteractiveSVG.git
-cd editInteractiveSVG
-dpkg-buildpackage -us -uc
 ```
