@@ -4,8 +4,14 @@ function __version__() {
 
 function smaller_then(doc_version, version) {
     "use strict";
-    doc_version = parseInt(doc_version.replace('.', ''));
-    version = parseInt(version.replace('.', ''));
+    if (!doc_version)
+        return false;
+    doc_version = parseInt(doc_version.replace(/\./g, ''));
+    if (doc_version.toString().length == 2)
+        doc_version = doc_version * 10;
+    version = parseInt(version.replace(/\./g, ''));
+    if (version.toString().length == 2)
+        version = version * 10;
     return doc_version < version;
 }
 
