@@ -5,10 +5,12 @@
   "author": "Ferry Jérémie <ferryjeremie@free.fr>",
   "license": "BSD",
   "dependencies": {
-    "jsdom": "^15"
+    "jsdom": "^15.2.1",
+    "nunjucks": "^3.2.2",
+    "semver": "^7.3.2"
   },
   "devDependencies": {
-    "mocha": "^6.1.4"
+    "mocha": "^6.2.3"
   },
   "scripts": {
     "test": "mocha"

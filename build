@@ -1,0 +1,22 @@
+// node dependances
+const fs = require('fs')
+const semver = require('semver')
+const nunjucks = require('nunjucks')
+
+eval.apply(this, [fs.readFileSync('./static/retro_compatibility.js').toString()])
+
+nunjucks.configure('templates', { autoescape: true })
+
+console.log(__version__() != semver.valid(semver.coerce(__version__())))
+console.log(semver.valid(__version__()))
+console.log(semver.valid(semver.coerce(__version__())))
+let result = nunjucks.render(
+    'index.html',
+    {
+        version: __version__(),
+        unstable: __version__() != semver.valid(semver.coerce(__version__()))
+    }
+)
+
+let bytes = new Uint8Array(Buffer.from(result))
+fs.writeFileSync('index.html', bytes)

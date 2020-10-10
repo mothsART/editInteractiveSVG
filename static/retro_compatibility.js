@@ -1,8 +1,9 @@
 function __version__() {
-    return "1.2";
+    "use strict";
+    return '1.2.0';
 }
 
-function smaller_then(doc_version, version) {
+function greater_then(doc_version, version) {
     "use strict";
     if (!doc_version)
         return false;
@@ -12,12 +13,12 @@ function smaller_then(doc_version, version) {
     version = parseInt(version.replace(/\./g, ''));
     if (version.toString().length == 2)
         version = version * 10;
-    return doc_version < version;
+    return doc_version > version;
 }
 
 function version_1_1(el, doc_version) {
     "use strict";
-    if (!smaller_then(doc_version, "1.1"))
+    if (greater_then(doc_version, "1.1"))
         return el;
     var descriptions = el.getElementsByClassName('description-content');
     if (descriptions.length === 0)

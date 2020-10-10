@@ -60,14 +60,20 @@ cd editInteractiveSVG
 debuild -us -uc
 ```
 
+## Build
+
+```sh
+make build
+```
+
 ## Launch test
 
 ```sh
-npm test
+make test
 ```
 
 ## Upgrade examples documents
 
 ```sh
-node upgrade.js
+make upgrade
 ```
