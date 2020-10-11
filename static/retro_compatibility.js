@@ -1,6 +1,6 @@
 function __version__() {
     "use strict";
-    return '1.2.0';
+    return '1.2.0-beta';
 }
 
 function greater_then(doc_version, version) {

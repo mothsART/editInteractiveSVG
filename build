@@ -7,9 +7,6 @@ eval.apply(this, [fs.readFileSync('./static/retro_compatibility.js').toString()]
 
 nunjucks.configure('templates', { autoescape: true })
 
-console.log(__version__() != semver.valid(semver.coerce(__version__())))
-console.log(semver.valid(__version__()))
-console.log(semver.valid(semver.coerce(__version__())))
 let result = nunjucks.render(
     'index.html',
     {

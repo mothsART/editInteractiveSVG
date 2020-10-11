@@ -171,7 +171,9 @@ const en_messages = {
     update:                    'Update',
     update_pic:                'Would you update this picture ?',
     edit_copyright:            'Edit copyright',
-    example:                   'example'
+    example:                   'example',
+    unstable_errors:           'unstable version detected.',
+    error_unstable_version:    "This version (" + __version__() + ") is unstable. It is therefore not recommended to use it."
   }
 }
 
@@ -362,7 +364,9 @@ const fr_messages = {
     update:                    'Mise à jour',
     update_pic:                'Vous désirez mettre à jour le fichier svg ?',
     edit_copyright:            'Edition des crédits',
-    example:                   'exemple'
+    example:                   'exemple',
+    unstable_errors:           'version instable détectée',
+    error_unstable_version:    "Cette version (" + __version__() + ") est instable. Il est donc déconseillé de l'utiliser."
   }
 }
 
