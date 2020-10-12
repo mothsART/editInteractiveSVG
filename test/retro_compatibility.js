@@ -31,4 +31,14 @@ describe('Retro compatibility', function() {
       );
     });
   });
+  
+    describe('#__version__() => "' + __version__() + ' is stable ?"', function() {
+    it('version is semver', function() {
+      assert.equal(
+        __version__() == semver.valid(semver.coerce(__version__())),
+        true
+      );
+    });
+  });
+  
 });
