@@ -1,7 +1,7 @@
 'use strict';
 
 const fs = require('fs')
-var assert = require('assert')+
+var assert = require('assert')
 
 eval.apply(this, [fs.readFileSync('./static/colors.js').toString()]);
 

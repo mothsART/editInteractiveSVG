@@ -4,4 +4,4 @@ node_js: '11'
 install:
     - npm install
 script:
-    - npm test
+    - make test
