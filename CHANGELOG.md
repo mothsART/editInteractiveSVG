@@ -30,6 +30,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - color (fore and back) option on editor.
   - emojis option on editor.
 
+## [1.1.3]
+
+### Fixed
+  - version migration break drag and drop feature
+
 ## [1.1]
 ### Added
   - user can add copyrights
