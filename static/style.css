@@ -51,13 +51,23 @@ body.mask:before {
     format('svg')
 }
 
+.glyphicon-flip {
+    transform: scaleX(-1);
+}
+
 .table > thead > tr > th,
 .table > tbody > tr > td {
     padding: 5px;
+    height: 3rem;
+}
+
+.table > thead > tr > th {
+    height: 2rem;
 }
 
 table > tbody > tr > td:first-child {
     width: 1px;
+    vertical-align: middle;
 }
 
 .btn:active:focus,
@@ -172,17 +182,6 @@ button:focus {
     padding-right: 1rem;
 }
 
-.glyphicon-undo {
-    -webkit-transform: matrix(-1, 0, 0, 1, 0, 0);
-    -moz-transform: matrix(-1, 0, 0, 1, 0, 0);
-    -o-transform: matrix(-1, 0, 0, 1, 0, 0);
-    transform: matrix(-1, 0, 0, 1, 0, 0);
-}
-
-.glyphicon-undo:before {
-    content: "\e095";
-}
-
 .navbar {
     margin: 0;
 }
@@ -239,7 +238,7 @@ button:focus {
 
 #delete-svg {
     z-index: 1;
-    right: 5px;
+    right: .5rem;
     position: absolute;
 }
 
@@ -317,6 +316,10 @@ button:focus {
     padding: .1rem .3rem;
 }
 
+.detail {
+   padding-top: .5rem; 
+}
+
 .gu-mirror .indice {
     margin: .2rem;
 }
@@ -354,6 +357,7 @@ button:focus {
 
 #list-of-legend td.selection {
     width: 10px;
+    vertical-align: middle;
 }
 
 .display-indice {
@@ -369,6 +373,8 @@ button:focus {
 .display-indice.show:before {
     content: "\e105";
     color: #333;
+    padding-top: 2px;
+    display: block;
 }
 
 .open-detail {
@@ -441,7 +447,7 @@ details[open] summary:before {
     height: calc(-34px + 100vh);
     margin-left: 33rem;
     width: calc(-33rem + 100vw);
-    padding: 5px;
+    padding: .5rem;
     position: absolute;
     background-image: linear-gradient(-45deg,rgb(255,255,255) 25%,
         transparent 25%,
@@ -486,7 +492,7 @@ details[open] summary:before {
     text-overflow: ellipsis;
     display: block;
     position: relative;
-    margin-top: -21px;
+    margin-top: -25px;
     padding: 0 0 0 3rem;
     margin-left: 22px;
 }
@@ -799,7 +805,7 @@ details[open] summary:before {
     padding-top: .5rem;
 }
 
-#about, #help  {
+#239, #help  {
     padding: 5px;
 }
 
@@ -809,6 +815,12 @@ details[open] summary:before {
     outline: none;
     margin-bottom: 5px;
 }
+
+#about p, #about ul,
+#help p, #help ul {
+    padding-left: 2rem;
+}
+
 /* DRAGULA.CSS */
 .gu-mirror {
   position: fixed !important;

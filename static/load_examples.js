@@ -46,7 +46,7 @@ function add_indices_and_details(indices) {
                 parseInt(rgb_array[1]),
                 parseInt(rgb_array[2])
             );
-            add_legend(el, hex_color);
+            add_legend(el, hex_color, true);
             var title = $(el).find('em').text();
             if (title.trim() != '') {
                 $('#legend-' + i).find('em').remove();
@@ -113,7 +113,7 @@ function load_file(stream) {
   document.getElementById('content').setAttribute('data-full', true);
   $("#upload-zone, #error-zone").addClass('hidden');
   $("#edit-zone").removeClass('hidden');
-  $("#save-form, #undo-button, #redo-button, #nav-right").removeClass('disabled');
+  $("#save-form, #nav-right").removeClass('disabled');
   $("#delete-legend-button").addClass('disabled');
   createForeignObject();
   // clone legend on view mode
@@ -187,7 +187,7 @@ function load_example(url, name) {
       document.getElementById('content').setAttribute('data-full', true);
       $("#upload-zone, #error-zone").addClass('hidden');
       $("#edit-zone").removeClass('hidden');
-      $("#save-form, #undo-button, #redo-button, #nav-right").removeClass('disabled');
+      $("#save-form, #nav-right").removeClass('disabled');
       $("#delete-legend-button").addClass('disabled');
       createForeignObject();
       populate_without_action(10);

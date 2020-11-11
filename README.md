@@ -25,9 +25,12 @@ Because SVG illustration designed to **educative programs** is really better whe
 
 ## Goals (1.2)
 
+- [ ] Undo/Redo (using a diff DOM) + historic
+- [ ] Use media query "prefers-reduced-motion"
+
 ## Goals (2.0)
 
-- [ ] Undo/Redo (using a diff DOM) + historic
+- [ ] Use Makefile on debian package
 - [ ] Store a list of recent document
 - [ ] Import verification on product and static (svg) file
 - [ ] delete dependance (full vanilla js): dragula, twitter bootstrap, jquery

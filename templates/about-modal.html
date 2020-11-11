@@ -1,0 +1,42 @@
+<div id="about-modal" class="modal fade bs-about-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title i18n" id="myModalLabel" data-i18n="about"></h4>
+            </div>
+            <div id="about">
+                <details open>
+                    <summary><strong>Edit interactive SVG</strong> (<span id="app-version">{{ version }}</span>)</summary>
+                    <p class="i18n" data-i18n="description1"></p>
+                    <p  class="i18n" data-i18n="description2"></p>
+                </details>
+                <details>
+                    <summary class="i18n" data-i18n="credits"></summary>
+                    <ul>
+                        <li><a href="http://mothsart.github.io" target="_blank">Jérémie Ferry (mothsART)</a></li>
+                        <li><a href="https://www.de-bric-et-de-broc.fr" target="_blank">Philippe Ronflette</a></li>
+                        <li><a href="https://primtux.fr" target="_blank">Stéphane Deudon</a></li>
+                        <li><a href="https://cyrille-borne.com" target="_blank">Cyrille Borne</a></li>
+                        <li><a href="https://github.com/jonadem" target="_blank">jonadem</a></li>
+                    </ul>
+                </details>
+                <details>
+                    <summary class="i18n" data-i18n="translators"></summary>
+                    <ul>
+                        <li><a href="http://mothsart.github.io" target="_blank">Jérémie Ferry (mothsART)</a></li>
+                    </ul>
+                </details>
+                {% include "copyright.html" %}
+                <details>
+                    <summary>Source</summary>
+                    <p>
+                        <a href="https://github.com/mothsART/editInteractiveSVG" target="_blank">
+                        <span class="i18n" data-i18n="github_repo">Github repository</span>
+                        </a>
+                    </p>
+                </details>
+            </div>
+        </div>
+    </div>
+</div>
