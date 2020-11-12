@@ -96,6 +96,7 @@
                         reader.readAsText(file);
                         reader.onload = function(e) {
                             "using strict";
+                            delete_pic(true);
                             load_file(reader.result);
                             translateExportInterface(Editor.local);
                         }

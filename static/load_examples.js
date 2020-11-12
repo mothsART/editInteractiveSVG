@@ -63,6 +63,8 @@ function add_indices_and_details(indices) {
 
 function add_indices_to_svg(indices) {
     "use strict";
+    if (!indices)
+        return;
     var root_svg = document.getElementById('root-svg');
     for (var i = 0; i < indices.length; i++) {
         root_svg.appendChild(indices[i].cloneNode(true));
@@ -122,7 +124,7 @@ function load_file(stream) {
     $('#upload-zone form').removeClass('is-uploading');
     if (document.getElementsByTagName('body')[0].classList.contains('update-svg')) {
         add_indices_to_svg(indices);
-        $('#update-picture-modal').modal('toggle');
+        $('#update-picture-modal').modal('hide');
     }
     document.getElementsByTagName('body')[0].classList.remove('update-svg');
     return;
@@ -148,6 +150,7 @@ function load_file(stream) {
              .innerHTML = add_blank(copyright);
    }
   $('#upload-zone form').removeClass('is-uploading');
+  $('#update-picture-modal').modal('hide');
 }
 
 function update_name() {
