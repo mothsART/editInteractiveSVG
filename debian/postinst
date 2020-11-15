@@ -1,11 +1,19 @@
 #!/bin/bash
 
 if grep Debian /etc/os-release; then
+    echo "debian"
     if ! grep "pref(\"privacy.file_unique_origin\", false, locked);" /etc/firefox-esr/firefox-esr.js
         then echo "pref(\"privacy.file_unique_origin\", false, locked);" >> /etc/firefox-esr/firefox-esr.js
     fi
 fi
-    if grep Ubuntu /etc/os-release; then
+if grep Raspbian /etc/os-release; then
+    echo "raspbian"
+    if ! grep "pref(\"privacy.file_unique_origin\", false, locked);" /etc/firefox-esr/firefox-esr.js
+        then echo "pref(\"privacy.file_unique_origin\", false, locked);" >> /etc/firefox-esr/firefox-esr.js
+    fi
+fi
+if grep Ubuntu /etc/os-release; then
+    echo "ubuntu"
     if ! grep "pref(\"privacy.file_unique_origin\", false, locked);" /etc/firefox/syspref.js
        then echo "pref(\"privacy.file_unique_origin\", false, locked);" >> /etc/firefox/syspref.js
     fi
