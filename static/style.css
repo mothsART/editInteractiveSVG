@@ -20,6 +20,7 @@
 
 html, body {
     font-size: 14px;
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
 }
 
 body {
@@ -40,7 +41,7 @@ body.mask:before {
     z-index: 3;
 }
 
-@font-face{
+@font-face {
     font-family:'Glyphicons Halflings';
     src:url(./fonts/glyphicons-halflings-regular.eot);
     src:url(./fonts/glyphicons-halflings-regular.eot?#iefix)
@@ -157,7 +158,7 @@ button:focus {
 }
 
 #edit-menu {
-    padding: 5px;
+    padding: .5rem;
     min-height: 34px;
     border-bottom: solid 1px #ddd;
     background: white;
@@ -165,7 +166,7 @@ button:focus {
 
 @media (min-width: 768px) {
     .navbar-right {
-        margin-right: -10px;
+        margin-right: -1rem;
     }
 }
 
@@ -249,9 +250,9 @@ button:focus {
 
 /* <SIDEBAR> */
 #sidebar {
-    padding: 5px;
-    padding-bottom: 25px;
-    height: calc(-35px + 100%);
+    padding: .5rem;
+    padding-bottom: 2.5rem;
+    height: calc(-3.5rem + 100%);
     width: 33rem;
     position: absolute;
     background: white;

@@ -30,6 +30,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - color (fore and back) option on editor.
   - emojis option on editor.
 
+  - build templates
+  - optimise perf :
+    - js "defer"
+    - minify js and css and concat it
+
 ## [1.1.3]
 
 ### Fixed

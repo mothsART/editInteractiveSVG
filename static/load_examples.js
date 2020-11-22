@@ -1,9 +1,9 @@
 function replace_with_example() {
-  "use strict";
-  var modal = $('#load-picture-modal');
-  $('#load-picture-modal').modal('hide');
-  delete_pic(true);
-  load_example(modal.data('url'), modal.data('name'));
+    "use strict";
+    var modal = $('#load-picture-modal');
+    $('#load-picture-modal').modal('hide');
+    delete_pic(true);
+    load_example(modal.data('url'), modal.data('name'));
 }
 
 function replace_css(prefix, css) {
@@ -72,85 +72,85 @@ function add_indices_to_svg(indices) {
 }
 
 function load_file(stream) {
-  "use strict";
-  var svg = document.getElementById('svg').getElementsByTagName('svg')[0];
-  var el = document.createElement('div');
-  el.innerHTML = stream;
-  // errors and warnings detection
-  if (svg) {
-    Warnings.clear();
-    Errors.clear();
-  }
-  if ($(el).find('svg script').length > 0) {
-    Warnings.new('warning-script-detected');
-    $(el).find('svg script').remove();
-  }
-  if ($(el).find('svg clipPath').length > 0)
-    Warnings.new('warning-clipPath-tag-detected');
-  if ($(el).find('svg mask').length > 0)
-    Warnings.new('warning-mask-tag-detected');
-  if (el.getElementsByTagName("svg").length == 0) {
-    Errors.new("error-file-not-supported");
-    return;
-  }
-  var indices = null;
-  if (svg) {
-    indices = svg.getElementsByClassName('indice');
-    svg.remove();
-  } else {
-      let version = new DOMParser()
-        .parseFromString(stream, 'text/html')
-        .getElementsByTagName('body')[0]
-        .getAttribute('data-version');
-      el = converting(el, version);
-  }
-  var style_list = el.getElementsByTagName("svg")[0].getElementsByTagName("style");
-  if (style_list.length > 0) {
-    Warnings.new('warning-style-detected');
-    for (var i = 0, len = style_list.length; i < len; i++) {
-        style_list[i].innerHTML = replace_css("#content svg ", style_list[i].innerHTML);
+    "use strict";
+    var svg = document.getElementById('svg').getElementsByTagName('svg')[0];
+    var el = document.createElement('div');
+    el.innerHTML = stream;
+    // errors and warnings detection
+    if (svg) {
+        Warnings.clear();
+        Errors.clear();
     }
-  }
-  $("#content").append($(el).find('svg'));
-  document.getElementById('content').setAttribute('data-full', true);
-  $("#upload-zone, #error-zone").addClass('hidden');
-  $("#edit-zone").removeClass('hidden');
-  $("#save-form, #nav-right").removeClass('disabled');
-  $("#delete-legend-button").addClass('disabled');
-  createForeignObject();
-  // clone legend on view mode
-  var real_legend = $(el).find('#real-legend');
-  if (real_legend.length === 0) {
+    if ($(el).find('svg script').length > 0) {
+        Warnings.new('warning-script-detected');
+        $(el).find('svg script').remove();
+    }
+    if ($(el).find('svg clipPath').length > 0)
+        Warnings.new('warning-clipPath-tag-detected');
+    if ($(el).find('svg mask').length > 0)
+        Warnings.new('warning-mask-tag-detected');
+    if (el.getElementsByTagName("svg").length == 0) {
+        Errors.new("error-file-not-supported");
+        return;
+    }
+    var indices = null;
+    if (svg) {
+        indices = svg.getElementsByClassName('indice');
+        svg.remove();
+    } else {
+        let version = new DOMParser()
+            .parseFromString(stream, 'text/html')
+            .getElementsByTagName('body')[0]
+            .getAttribute('data-version');
+        el = converting(el, version);
+    }
+    var style_list = el.getElementsByTagName("svg")[0].getElementsByTagName("style");
+    if (style_list.length > 0) {
+        Warnings.new('warning-style-detected');
+        for (var i = 0, len = style_list.length; i < len; i++) {
+            style_list[i].innerHTML = replace_css("#content svg ", style_list[i].innerHTML);
+        }
+    }
+    $("#content").append($(el).find('svg'));
+    document.getElementById('content').setAttribute('data-full', true);
+    $("#upload-zone, #error-zone").addClass('hidden');
+    $("#edit-zone").removeClass('hidden');
+    $("#save-form, #nav-right").removeClass('disabled');
+    $("#delete-legend-button").addClass('disabled');
+    createForeignObject();
+    // clone legend on view mode
+    var real_legend = $(el).find('#real-legend');
+    if (real_legend.length === 0) {
+        $('#upload-zone form').removeClass('is-uploading');
+        if (document.getElementsByTagName('body')[0].classList.contains('update-svg')) {
+            add_indices_to_svg(indices);
+            $('#update-picture-modal').modal('hide');
+        }
+        document.getElementsByTagName('body')[0].classList.remove('update-svg');
+        return;
+    }
+    $('#real-legend').html(real_legend.clone().html());
+    // clone descriptions
+    var descriptions = $(el).find('#descriptions');
+    if (descriptions.length != 0)
+        $("#descriptions").html(descriptions.clone().html());
+    // add indices and details
+    add_indices_and_details(
+        real_legend[0].getElementsByClassName('indice')
+    );
+    // clone copyrights
+    var copyright = null;
+    var copyright_content = $(el).find('#copyright-content')[0];
+    if (copyright_content) {
+        copyright= copyright_content.innerHTML.trim();
+    }
+    if (copyright) {
+        document.getElementById('edit-copyright').innerHTML = copyright;
+        document.getElementById('copyright-content')
+                 .innerHTML = add_blank(copyright);
+       }
     $('#upload-zone form').removeClass('is-uploading');
-    if (document.getElementsByTagName('body')[0].classList.contains('update-svg')) {
-        add_indices_to_svg(indices);
-        $('#update-picture-modal').modal('hide');
-    }
-    document.getElementsByTagName('body')[0].classList.remove('update-svg');
-    return;
-  }
-  $('#real-legend').html(real_legend.clone().html());
-  // clone descriptions
-  var descriptions = $(el).find('#descriptions');
-  if (descriptions.length != 0)
-    $("#descriptions").html(descriptions.clone().html());
-  // add indices and details
-  add_indices_and_details(
-      real_legend[0].getElementsByClassName('indice')
-  );
-  // clone copyrights
-  var copyright = null;
-  var copyright_content = $(el).find('#copyright-content')[0];
-  if (copyright_content) {
-      copyright= copyright_content.innerHTML.trim();
-  }
-  if (copyright) {
-    document.getElementById('edit-copyright').innerHTML = copyright;
-    document.getElementById('copyright-content')
-             .innerHTML = add_blank(copyright);
-   }
-  $('#upload-zone form').removeClass('is-uploading');
-  $('#update-picture-modal').modal('hide');
+    $('#update-picture-modal').modal('hide');
 }
 
 function update_name() {
@@ -166,37 +166,36 @@ function update_name() {
 }
 
 function load_example(url, name) {
-  "use strict";
-  if (document.getElementById('content').getAttribute('data-full') == 'true')
-  {
-    var modal = $('#load-picture-modal');
-    modal.data('url', url);
-    modal.data('name', name);
-    modal.modal('show');
-    return;
-  }
-  document.getElementById('source-file').setAttribute('data-title', name);
-  update_name(name);
-  var xmlhttp = new XMLHttpRequest();
-  xmlhttp.open("GET", url, true);
-  var isSVG = false;
-  if (url.endsWith(".svg"))
-    isSVG = true;
-  xmlhttp.onreadystatechange = function() {
-    if (xmlhttp.readyState!=4 || xmlhttp.status!=200)
-      return;
-    if (DEBUG && isSVG) {
-      $("#content").append(xmlhttp.responseText);
-      document.getElementById('content').setAttribute('data-full', true);
-      $("#upload-zone, #error-zone").addClass('hidden');
-      $("#edit-zone").removeClass('hidden');
-      $("#save-form, #nav-right").removeClass('disabled');
-      $("#delete-legend-button").addClass('disabled');
-      createForeignObject();
-      populate_without_action(10);
+    "use strict";
+    if (document.getElementById('content').getAttribute('data-full') == 'true') {
+        var modal = $('#load-picture-modal');
+        modal.data('url', url);
+        modal.data('name', name);
+        modal.modal('show');
+        return;
     }
-    else
-      load_file(xmlhttp.responseText);
-  }
-  xmlhttp.send();
+    document.getElementById('source-file').setAttribute('data-title', name);
+    update_name(name);
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.open("GET", url, true);
+    var isSVG = false;
+    if (url.endsWith(".svg"))
+        isSVG = true;
+    xmlhttp.onreadystatechange = function() {
+        if (xmlhttp.readyState!=4 || xmlhttp.status!=200)
+            return;
+        if (DEBUG && isSVG) {
+            $("#content").append(xmlhttp.responseText);
+            document.getElementById('content').setAttribute('data-full', true);
+            $("#upload-zone, #error-zone").addClass('hidden');
+            $("#edit-zone").removeClass('hidden');
+            $("#save-form, #nav-right").removeClass('disabled');
+            $("#delete-legend-button").addClass('disabled');
+            createForeignObject();
+            populate_without_action(10);
+        }
+        else
+            load_file(xmlhttp.responseText);
+    }
+    xmlhttp.send();
 }
