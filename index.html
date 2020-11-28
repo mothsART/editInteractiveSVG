@@ -325,7 +325,7 @@
     <div id="sidebar">
     <div id="legend-container" class="container-fluid">
         <div id="add-and-delete-legend">
-            <button type="button" id="add-legend-button" onclick="add_legend(this);" class="btn btn-success btn-xs">
+            <button type="button" id="add-legend-button" onclick="add_legend();" class="btn btn-success btn-xs">
                 <span class="i18n" data-i18n="add_to_legend"></span>
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
             </button>
@@ -596,7 +596,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default btn-xs i18n" data-dismiss="modal" data-i18n="no"></button>
-                <button type="button" onclick="delete_legend();" class="btn btn-primary btn-xs i18n" data-i18n="yes"></button>
+                <button type="button" onclick="delete_selected_legend();" class="btn btn-primary btn-xs i18n" data-i18n="yes"></button>
             </div>
         </div>
     </div>

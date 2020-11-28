@@ -1,6 +1,12 @@
-function add_legend(element, hex_color, load) {
+var add_legend_el = document.getElementById('add-legend-button');
+
+function add_legend(hex_color, avoid_history) {
     "use strict";
     var index = parseInt(document.getElementById("nb-indices").getAttribute("value")) + 1;
+    if (index > 98) {
+        $(add_legend_el).attr("disabled", "disabled").attr("title", "Too lot indices.");
+        return;
+    }
     $("#show-all-legend").prop('checked', false);
     $("#template-legend").clone().removeAttr("id").removeClass("hidden")
         .appendTo("#list-of-legend tbody").attr("id", "legend-" + index);
@@ -10,10 +16,6 @@ function add_legend(element, hex_color, load) {
         $("#real-template-indice").clone().removeAttr("id").removeClass("hidden").appendTo('#real-legend');
         $("#template-description").clone().removeAttr("id").appendTo('#descriptions');
         hex_color = random_colors();
-    }
-    if (index > 98) {
-        $(element).attr("disabled", "disabled").attr("title", "Too lot indices.");
-        return;
     }
     document.getElementById("nb-indices").setAttribute("value", index);
     reorder_legend();
@@ -26,8 +28,13 @@ function add_legend(element, hex_color, load) {
         document.getElementById("legend-indice-" + index)
         .parentElement.parentElement.getElementsByClassName('display-indice')[0]
     );
-    if (!load)
-        add_history(history_add_legend);
+    if (!avoid_history) {
+        add_history(
+            history_add_legend,
+            { 'index': index },
+            { 'hex_color': hex_color }
+        );
+    }
     return $("#legend-" + index + " .open-detail");
 }
 
@@ -63,8 +70,9 @@ function delete_selected_legend() {
     $("#add-legend-button").removeAttr('disabled').removeAttr("title");
 }
 
-function delete_legend() {
+function delete_legend(index) {
     "use strict";
+    $("#nb-indices").val(parseInt($("#nb-indices").val()) - 1);
     $("#indice-" + index).remove();
     $("#description-" + index).remove();
     $("#real-indice-" + index).remove();
@@ -72,4 +80,5 @@ function delete_legend() {
         $("#count-nb-display").val(parseInt($("#count-nb-display").val()) - 1);
     if (parseInt(document.getElementById("last-folded-indice").getAttribute("value").substring(14)) === parseInt(index))
         document.getElementById("last-folded-indice").setAttribute("value", "");
+    $("#legend-" + index).remove();
 }

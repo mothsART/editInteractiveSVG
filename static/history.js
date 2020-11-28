@@ -1,6 +1,4 @@
-var history_actions = [
-];
-
+var history_actions = [];
 var history_pointer = 0;
 
 var undo_btn = document.getElementById('undo-button');
@@ -9,32 +7,53 @@ var history_btn = document.getElementById('history-button');
 var history_list = document.getElementById('history-list');
 
 function redo() {
-    window['redo_' + history_actions[history_pointer + 1]['action']['callback']]();
+    "use strict";
+    var action = history_actions[history_pointer]['action'];
+    window['redo_' + action['callback']](
+        action['redo_params']
+    );
+    history_pointer += 1;
+    undo_btn.classList.remove('disabled');
+    if (history_pointer == history_actions.length)
+        redo_btn.classList.add('disabled');
 }
 
 function undo() {
+    "use strict";
+    history_pointer -= 1;
     if (history_pointer === 0)
         undo_btn.classList.add('disabled');
-    window['undo_' + history_actions[history_pointer]['action']['callback']]();
+    redo_btn.classList.remove('disabled');
+    var action = history_actions[history_pointer]['action'];
+    window['undo_' + action['callback']](
+        action['undo_params']
+    );
 }
 
 function get_history(_id) {
-    var last_id = history_actions.length - 1;
-    for (let i = last_id; i >= _id; i--) {
-        window['undo_' + history_actions[i]['action']['callback']]();
+    "use strict";
+    last_history_pointer = history_pointer;
+    history_pointer = history_actions.length - _id;
+    for (let i = last_id; i >= hist_id; i--) {
+        var action = history_actions[i]['action'];
+        window['undo_' + action['callback']](
+            action['undo_params']
+        );
     }
 }
 
 function open_history() {
+    "use strict";
     history_list.classList.remove('hidden');
 }
 
-function add_history(_callback) {
+function add_history(_callback, undo_params, redo_params) {
+    "use strict";
     undo_btn.classList.remove('disabled');
     history_btn.classList.remove('disabled');
-    var new_entry = _callback();
+    var new_entry = _callback(undo_params, redo_params);
     history_actions.push(new_entry);
-    history_pointer = history_actions.length - 1;
+    history_pointer = history_actions.length;
     var entry = document.createElement('li');
     entry.setAttribute(
         'onclick',
@@ -44,41 +63,46 @@ function add_history(_callback) {
     history_list.appendChild(entry);
 }
 
-function history_add_legend() {
+function history_add_legend(undo_params, redo_params) {
+    "use strict";
     return {
         'action': {
             'callback': 'add_legend',
-            'undo_params': [],
-            'redo_params': []
+            'undo_params': undo_params,
+            'redo_params': redo_params
         },
         'text': "ajout d'une légende"
     };
 }
 
-function history_delete_legend() {
+function history_delete_legend(undo_params, redo_params) {
+    "use strict";
     return {
         'action': {
             'callback': 'delete_legend',
-            'undo_params': [],
-            'redo_params': []
+            'undo_params': undo_params,
+            'redo_params': redo_params
         },
         'text': "suppression d'une légende"
     };
 }
 
-function undo_add_legend(_id) {
-    console.log('undo add legend');
-    delete_legend();
+function undo_add_legend(undo_params) {
+    "use strict";
+    delete_legend(undo_params['index']);
 }
 
-function redo_add_legend(_id) {
-    console.log('redo add legend');
+function redo_add_legend(redo_params) {
+    "use strict";
+    add_legend(redo_params['hex_color'], true);
 }
 
-function undo_delete_legend(_id) {
+function undo_delete_legend(undo_params) {
+    "use strict";
     console.log('undo delete legend');
 }
 
-function redo_delete_legend(_id) {
-    console.log('redo delete legend');
+function redo_delete_legend(redo_params) {
+    "use strict";
+    delete_legend(redo_params['index']);
 }

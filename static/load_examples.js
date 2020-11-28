@@ -46,7 +46,7 @@ function add_indices_and_details(indices) {
                 parseInt(rgb_array[1]),
                 parseInt(rgb_array[2])
             );
-            add_legend(el, hex_color, true);
+            add_legend(hex_color, true);
             var title = $(el).find('em').text();
             if (title.trim() != '') {
                 $('#legend-' + i).find('em').remove();
