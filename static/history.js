@@ -32,14 +32,16 @@ function undo() {
 
 function get_history(_id) {
     "use strict";
-    last_history_pointer = history_pointer;
-    history_pointer = history_actions.length - _id;
-    for (let i = last_id; i >= hist_id; i--) {
+    var last_history_pointer = history_pointer - 1;
+    history_pointer = _id - 1;
+    for (let i = last_history_pointer; i >= history_pointer; i--) {
         var action = history_actions[i]['action'];
         window['undo_' + action['callback']](
             action['undo_params']
         );
     }
+    if (history_pointer === 0)
+        undo_btn.classList.add('disabled');
 }
 
 function open_history() {

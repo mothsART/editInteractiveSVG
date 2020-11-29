@@ -1,9 +1,13 @@
-function replace_with_example() {
+function replace_with_example(_id) {
     "use strict";
     var modal = $('#load-picture-modal');
     $('#load-picture-modal').modal('hide');
     delete_pic(true);
-    load_example(modal.data('url'), modal.data('name'));
+    load_example(
+        document.getElementById(_id),
+        modal.data('url'),
+        modal.data('name')
+    );
 }
 
 function replace_css(prefix, css) {
@@ -165,15 +169,21 @@ function update_name() {
     sourceElement.setAttribute('title', title);
 }
 
-function load_example(url, name) {
+function load_example(el, url, name) {
     "use strict";
+    if (el.getAttribute('disabled'))
+        return;
     if (document.getElementById('content').getAttribute('data-full') == 'true') {
         var modal = $('#load-picture-modal');
         modal.data('url', url);
         modal.data('name', name);
         modal.modal('show');
+        document.getElementById('confirm-override-btn').setAttribute(
+            'onclick', "replace_with_example('" + el.id + "')"
+        );
         return;
     }
+    el.setAttribute('disabled', 'disabled');
     document.getElementById('source-file').setAttribute('data-title', name);
     update_name(name);
     var xmlhttp = new XMLHttpRequest();
@@ -182,7 +192,7 @@ function load_example(url, name) {
     if (url.endsWith(".svg"))
         isSVG = true;
     xmlhttp.onreadystatechange = function() {
-        if (xmlhttp.readyState!=4 || xmlhttp.status!=200)
+        if (xmlhttp.readyState != 4 || xmlhttp.status != 200)
             return;
         if (DEBUG && isSVG) {
             $("#content").append(xmlhttp.responseText);

@@ -237,6 +237,11 @@ button:focus {
 }
 /* </MENU> */
 
+.example-launcher[disabled] {
+    cursor: not-allowed;
+    opacity: .65;
+}
+
 #delete-svg {
     z-index: 1;
     right: .5rem;

@@ -427,19 +427,24 @@ function return_to_edit() {
 }
 
 function delete_pic(replace) {
-  "use strict";
-  checked_all();
-  delete_selected_legend();
-  $("#nb-indices, #count-nb-display").val(0);
-  document.getElementById('source-file').setAttribute('data-title', '');
-  $("#svg svg").remove();
-  document.getElementById('content').setAttribute('data-full', false);
-  if (!replace) {
-    $("#edit-zone, #upload-text").addClass("hidden");
-    $("#upload-zone, #choose-file").removeClass("hidden");
-    $("#delete-picture-modal").modal('hide');
-  }
-  Warnings.clear();
+    "use strict";
+    checked_all();
+    delete_selected_legend();
+    $("#nb-indices, #count-nb-display").val(0);
+    document.getElementById('source-file').setAttribute('data-title', '');
+    var li = document.getElementsByClassName('example-launcher');
+    for (var i = 0; i < li.length; i++) {
+        li[i].removeAttribute('disabled');
+    }
+    document.getElementById('source-file').setAttribute('data-title', '');
+    $("#svg svg").remove();
+    document.getElementById('content').setAttribute('data-full', false);
+    if (!replace) {
+        $("#edit-zone, #upload-text").addClass("hidden");
+        $("#upload-zone, #choose-file").removeClass("hidden");
+        $("#delete-picture-modal").modal('hide');
+    }
+    Warnings.clear();
 }
 
 function show_legend(element) {
