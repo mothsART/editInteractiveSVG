@@ -237,7 +237,8 @@ button:focus {
 }
 /* </MENU> */
 
-.example-launcher[disabled] {
+.example-launcher[disabled],
+.history-action[disabled] {
     cursor: not-allowed;
     opacity: .65;
 }

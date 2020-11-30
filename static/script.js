@@ -426,16 +426,20 @@ function return_to_edit() {
     active_zoom(zoom_input);
 }
 
+function disabledClass(class_name) {
+    var els = document.getElementsByClassName(class_name);
+    for (var i = 0; i < els.length; i++) {
+        els[i].removeAttribute('disabled');
+    }
+}
+
 function delete_pic(replace) {
     "use strict";
     checked_all();
     delete_selected_legend();
     $("#nb-indices, #count-nb-display").val(0);
     document.getElementById('source-file').setAttribute('data-title', '');
-    var li = document.getElementsByClassName('example-launcher');
-    for (var i = 0; i < li.length; i++) {
-        li[i].removeAttribute('disabled');
-    }
+    disabledClass('example-launcher');
     document.getElementById('source-file').setAttribute('data-title', '');
     $("#svg svg").remove();
     document.getElementById('content').setAttribute('data-full', false);
