@@ -215,7 +215,7 @@ const fr_messages = {
     warnings:                  'Avertissements',
     errors:                    'Erreurs',
     errors_detected:           'Des anomalies majeures ont été détectées à l\'import.',
-    error_file_not_supported:  'Le type de fichier n\est pas supporté',
+    error_file_not_supported:  'Le type de fichier n\'est pas supporté',
     warnings_detected:         'Des anomalies mineures ont été détectées à l\'import.',
     warning_style:             'Le fichier importé contient une ou plusieurs balises <strong>&#60;style&#62;</strong>'
                                +' : toutes les règles css présentes ont été préfixées pour des raisons de sécurité.',
@@ -237,7 +237,7 @@ const fr_messages = {
                                + 'Cet éditeur permet d\'ajouter de l\'interactivité à un document statique en lui ajoutant des '
                                + 'zones titrées et commentées ainsi que d\'éventuels zooms.'
                                + '</p>'
-                               + 'Pour vos premiers usages, il est fortement recommandé d\'ouvrir un des exemples '
+                               + '<p>Pour vos premiers usages, il est fortement recommandé d\'ouvrir un des exemples '
                                + '(liste en haut à gauche) afin de découvrir à quoi peu ressembler une illustration interactive terminée.'
                                + '</p>',
     principle:                 'Principe du logiciel',
@@ -297,7 +297,7 @@ const fr_messages = {
                                + 'Néanmoins, il reste possible d\'affiner encore cette sélection via un second dialogue donnant accès à une pipette de 16 millions de couleurs.'
                                + '</li>'
                                + '<li>'
-                               + 'Un bouton vert dans la zone d\'édition d\'un indice vous donne la possibilité d\'attribuer un titre et un descriptif à votre indice.'
+                               + 'Un bouton vert dans la zone d\'édition d\'un indice vous donne la possibilité d\'attribuer un titre et un descriptif à votre indice. '
                                + 'L\'appui en dehors de la zone de dialogue fermera automatiquement le dialogue et enregistrera votre travail.<br />'
                                + 'Les commentaires peuvent être enrichis par des zones en italique, en gras, des tailles de texte, des images etc.<br />'
                                + 'Su vous désirez des explications avancées sur cet éditeur, le mieux est de consulter le site du plugin correspondant : <br />'
