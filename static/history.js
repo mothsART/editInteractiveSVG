@@ -25,6 +25,10 @@ function redo() {
 function undo() {
     "use strict";
     history_pointer -= 1;
+    disabledClass('history-action');
+    document.getElementById('history-action-' + _id).setAttribute(
+        'disabled', 'disabled'
+    );
     if (history_pointer === 0)
         undo_btn.classList.add('disabled');
     redo_btn.classList.remove('disabled');
