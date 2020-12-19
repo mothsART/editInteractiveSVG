@@ -25,8 +25,13 @@ Because SVG illustration designed to **educative programs** is really better whe
 
 ## Goals (1.2)
 
-- [ ] Undo/Redo (using a diff DOM) + historic
-- [ ] Use media query "prefers-reduced-motion"
+- [ ] Undo/Redo and history changes
+- [ ] Open (or drag and drop) picture's files : png and jpg files
+- [ ] Use video and sound on comments
+
+## Goals (1.X)
+
+- [ ] Use WebP or Avif file
 
 ## Goals (2.0)
 
@@ -37,8 +42,8 @@ Because SVG illustration designed to **educative programs** is really better whe
 - [ ] on load, use a minifier (default option) like SVGO
 - [ ] drag indice precisly
 - [ ] active drag and drop in zoom mode.
-- [ ] Add a title
-- [ ] warnings => auto-correction on :
+- [ ] Add a document title
+- [ ] warnings => auto-correction
 
 - mask
 - clipPath
