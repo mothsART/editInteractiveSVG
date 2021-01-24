@@ -14,7 +14,7 @@ function redo() {
     );
     history_pointer += 1;
     disabledClass('history-action');
-    document.getElementById('history-action-' + _id).setAttribute(
+    document.getElementById('history-action-' + history_pointer).setAttribute(
         'disabled', 'disabled'
     );
     undo_btn.classList.remove('disabled');
@@ -26,7 +26,7 @@ function undo() {
     "use strict";
     history_pointer -= 1;
     disabledClass('history-action');
-    document.getElementById('history-action-' + _id).setAttribute(
+    document.getElementById('history-action-' + history_pointer).setAttribute(
         'disabled', 'disabled'
     );
     if (history_pointer === 0)
@@ -65,10 +65,12 @@ function get_history(el, _id) {
                 action['redo_params']
             );
         }
-        redo_btn.classList.remove('disabled');
+        undo_btn.classList.remove('disabled');
     }
     if (history_pointer === 0)
         undo_btn.classList.add('disabled');
+    if (history_pointer === history_actions.length)
+        redo_btn.classList.add('disabled');
 }
 
 function open_history() {
@@ -97,11 +99,16 @@ function add_history(_callback, undo_params, redo_params) {
     history_btn.classList.remove('disabled');
     disabledClass('history-action');
     var new_entry = _callback(undo_params, redo_params);
+    history_actions.length = history_pointer;
     history_actions.push(new_entry);
-    history_pointer = history_actions.length;
+    history_pointer += 1;
     if (history_list.children.length === 0) {
         var entry = create_entry(history_pointer - 1, 'étape initiale');
         history_list.appendChild(entry);
+    } else if (history_pointer < history_list.children.length) {
+        while (history_pointer < history_list.children.length) {
+            history_list.removeChild(history_list.lastChild);
+        }
     }
     var entry = create_entry(history_pointer, new_entry['text'], true);
     history_list.appendChild(entry);
@@ -141,9 +148,34 @@ function redo_add_legend(redo_params) {
     add_legend(redo_params['hex_color'], true);
 }
 
+function insert_legend(old_index, new_index) {
+    "use strict";
+    debugger;
+    $($('svg .indice')[old_index - 1]).insertBefore($($('svg .indice')[new_index - 1]));
+    $($('#descriptions article')[old_index]).insertBefore($($('#descriptions article')[new_index]));
+    $($('#real-legend .indice')[old_index]).insertBefore($($('#real-legend .indice')[new_index]));
+    $('#legend-' + old_index).insertBefore($('#legend-' + new_index));
+    reorder_legend();
+    align_indice(old_index, new_index);
+}
+
 function undo_delete_legend(undo_params) {
     "use strict";
-    console.log('undo delete legend');
+    for (const [key, value] of Object.entries(undo_params['list'])) {
+        add_legend(
+            cssRgbToHex(value['hex_color']),
+            true,
+            value['title'],
+            value['description'],
+            value['zoom'],
+            value['x'],
+            value['y']
+        );
+        insert_legend(
+            document.getElementsByClassName('indice-line').length - 1,
+            parseInt(value['index'])
+        );
+    }
 }
 
 function redo_delete_legend(redo_params) {

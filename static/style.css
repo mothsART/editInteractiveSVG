@@ -181,6 +181,7 @@ button:focus {
 
 .navbar-nav > li {
     padding-right: 1rem;
+    margin-bottom: .5rem;
 }
 
 .navbar {
