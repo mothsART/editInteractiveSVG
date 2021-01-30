@@ -244,6 +244,10 @@ button:focus {
     opacity: .65;
 }
 
+#history-list {
+    min-width: 300px;
+}
+
 #delete-svg {
     z-index: 1;
     right: .5rem;
@@ -258,8 +262,7 @@ button:focus {
 /* <SIDEBAR> */
 #sidebar {
     padding: .5rem;
-    padding-bottom: 2.5rem;
-    height: calc(-3.5rem + 100%);
+    height: calc(-3.3rem + 100%);
     width: 33rem;
     position: absolute;
     background: white;
@@ -268,7 +271,7 @@ button:focus {
 
 #sidebar #legend-container {
     padding: 0;
-    height: 100%;
+    height: calc(100% - 3rem);
 }
 
 #sidebar #legend-container.edit-legend {
@@ -420,13 +423,18 @@ details[open] summary:before {
 #source-file-zone {
     border-top: solid 1px #ddd;
     color: #333;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    left: 0;
+    padding: .5rem;
 }
 
 #source-file-label {
     display: inline-block;
     width: 10rem;
     text-align: center;
-    vertical-align: top;
+    vertical-align: middle;
 }
 
 #source-file {
@@ -435,6 +443,7 @@ details[open] summary:before {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+    vertical-align: middle;
 }
 
 .sp-replacer {
@@ -452,7 +461,7 @@ details[open] summary:before {
 }
 
 #svg {
-    height: calc(-34px + 100vh);
+    height: calc(-3.3rem + 100vh);
     margin-left: 33rem;
     width: calc(-33rem + 100vw);
     padding: .5rem;

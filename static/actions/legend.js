@@ -18,9 +18,8 @@ function add_legend(hex_color, avoid_history, title, description, zoom_value, x,
         $("#real-template-indice").clone().removeAttr("id").removeClass("hidden").appendTo('#real-legend');
         $("#template-description").clone().removeAttr("id").appendTo('#descriptions');
     }
-    if (!hex_color) {
+    if (!hex_color)
         hex_color = random_colors();
-    }
     document.getElementById("nb-indices").setAttribute("value", index);
     reorder_legend();
     $('#select-all-legend').prop('checked', false);
@@ -100,6 +99,7 @@ function delete_selected_legend() {
         reorder_legend();
     add_history(
         history_delete_legend,
+        { 'list': list },
         { 'list': list }
     );
     $("#add-legend-button").removeAttr('disabled').removeAttr("title");

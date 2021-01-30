@@ -3,41 +3,40 @@ var DEBUG = false;
 var NS="http://www.w3.org/2000/svg";
 
 var Editor = {
-  local: 'en'
+    local: 'en'
 }
 
 function translate_app(local) {
-  "use strict";
-  Editor.local = translateElementsByClassName("i18n", local);
-  if (local)
-    translateExportInterface(local);
-  update_name();
-  $("#indice-description, #edit-copyright").trumbowyg('destroy');
-  $("#indice-description, #edit-copyright").trumbowyg({
-    lang: Editor.local,
-    btns: [
-        ['viewHTML'],
-        ['formatting'],
-        ['strong', 'em', 'del'],
-        ['superscript', 'subscript'],
-        ['link'],
-        ['base64'],
-        ['justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull'],
-        ['unorderedList', 'orderedList'],
-        ['horizontalRule'],
-        ['removeformat'],
-        ['foreColor', 'backColor'],
-        ['emoji']
-    ]
-  });
-  var localization = $.spectrum.localization[local] = {
-      cancelText: translate(Editor.local, 'cancel'),
-      chooseText: translate(Editor.local, 'choose'),
-      togglePaletteMoreText: translate(Editor.local, 'more'),
-      togglePaletteLessText: translate(Editor.local, 'less'),
-  };
-  $.extend($.fn.spectrum.defaults, localization);
-
+    "use strict";
+    Editor.local = translateElementsByClassName("i18n", local);
+    if (local)
+      translateExportInterface(local);
+    update_name();
+    $("#indice-description, #edit-copyright").trumbowyg('destroy');
+    $("#indice-description, #edit-copyright").trumbowyg({
+        lang: Editor.local,
+        btns: [
+            ['viewHTML'],
+            ['formatting'],
+            ['strong', 'em', 'del'],
+            ['superscript', 'subscript'],
+            ['link'],
+            ['base64'],
+            ['justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull'],
+            ['unorderedList', 'orderedList'],
+            ['horizontalRule'],
+            ['removeformat'],
+            ['foreColor', 'backColor'],
+            ['emoji']
+        ]
+    });
+    var localization = $.spectrum.localization[local] = {
+        cancelText: translate(Editor.local, 'cancel'),
+        chooseText: translate(Editor.local, 'choose'),
+        togglePaletteMoreText: translate(Editor.local, 'more'),
+        togglePaletteLessText: translate(Editor.local, 'less'),
+    };
+    $.extend($.fn.spectrum.defaults, localization);
 }
 
 function load() {
@@ -87,7 +86,7 @@ function createForeignObject() {
             || percentage_change(SVG.height, SVG_Rect.height) > 20
         )
     )
-      Warnings.new('warning-viewbox-detected');
+        Warnings.new('warning-viewbox-detected');
     svg.setAttribute("width", 0);
     svg.setAttribute("height", 0);
     svg.setAttribute("viewBox", SVG.x + " " + SVG.y + " " + SVG.width + " " + SVG.height);

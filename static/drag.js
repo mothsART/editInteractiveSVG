@@ -10,40 +10,61 @@ function align_indice(old_index, new_index) {
     $($('svg .indice')[new_index - 1]).find('.indice-text')[0].setAttribute("x",  new_x);
 }
 
+function insert_legend(old_index, new_index, history) {
+    "use strict";
+    let inc = 0;
+    if (old_index > new_index) {
+        $($('svg .indice')[old_index - 1]).insertBefore($($('svg .indice')[new_index - 1]));
+        $($('#descriptions article')[old_index]).insertBefore($($('#descriptions article')[new_index]));
+        $($('#real-legend .indice')[old_index]).insertBefore($($('#real-legend .indice')[new_index]));
+    }
+    else {
+        inc = 1;
+        $($('svg .indice')[old_index - 1]).insertAfter($($('svg .indice')[new_index - 1]));
+        $($('#descriptions article')[old_index]).insertAfter($($('#descriptions article')[new_index]));
+        $($('#real-legend .indice')[old_index]).insertAfter($($('#real-legend .indice')[new_index]));
+    }
+    if (history)
+        $('#legend-' + old_index).insertBefore($('#legend-' + (new_index + inc)));
+    align_indice(old_index, new_index);
+}
+
 var dragAndDrop = {
     init: function () {
+        "use strict";
         this.dragula();
         this.eventListeners();
     },
     eventListeners: function () {
+        "use strict";
         this.dragula.on('drop', this.dropped.bind(this));
     },
     dragula: function () {
+        "use strict";
         this.dragula = dragula([document.querySelector('#list-of-legend tbody')]);
     },
     dropped: function (el) {
+        "use strict";
         var nodes = Array.prototype.slice.call(this.dragula.containers[0].childNodes);
         var old_index = parseInt(el.getAttribute('id').replace('legend-', ''));
         var new_index = nodes.indexOf(el) - 2;
-        if (old_index > new_index) {
-            $($('svg .indice')[old_index - 1]).insertBefore($($('svg .indice')[new_index - 1]));
-            $($('#descriptions article')[old_index]).insertBefore($($('#descriptions article')[new_index]));
-            $($('#real-legend .indice')[old_index]).insertBefore($($('#real-legend .indice')[new_index]));
-        }
-        else {
-            $($('svg .indice')[old_index - 1]).insertAfter($($('svg .indice')[new_index - 1]));
-            $($('#descriptions article')[old_index]).insertAfter($($('#descriptions article')[new_index]));
-            $($('#real-legend .indice')[old_index]).insertAfter($($('#real-legend .indice')[new_index]));
-        }
+        insert_legend(old_index, new_index);
         reorder_legend();
-        align_indice(old_index, new_index);
+        add_history(
+            history_drag_legend,
+            { 
+                'title': document.getElementById("legend-" + new_index).getElementsByClassName('indice-title')[0].innerText,
+                'new_index': new_index,
+                'old_index': old_index
+            },
+            { 'old_index': old_index, 'new_index': new_index }
+        );
     }
 };
 
 dragAndDrop.init();
 
-function Grab(e)
-{
+function Grab(e) {
     "use strict";
     e.preventDefault();
     // exclude drag when zoom is in
