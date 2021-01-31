@@ -1,8 +1,8 @@
 function open_dialog() {
     "use strict";
-    var index = parseInt($("#last-folded-indice").val().substring(14));
-    var text = $("#" + $("#last-folded-indice").val()).next().text();
-    var description =  $("#description-" + index + " .description-content")[0].innerHTML;
+    let index = parseInt($("#last-folded-indice").val().substring(14));
+    let text = $("#" + $("#last-folded-indice").val()).next().text();
+    let description =  $("#description-" + index + " .description-content")[0].innerHTML;
     if (!description.trim()) {
         description = '';
     }
@@ -16,32 +16,9 @@ function open_dialog() {
         $("#legend-title").val(text);
 }
 
-function hide_description_dialog() {
-    "use strict";
-    var text = $("#legend-title").val();
-    var index = $("#modal-legend-id").val();
-    var indice = $("#legend-indice-" + index);
-    var real_indice = $("#real-indice-" + index);
-    indice.next().remove();
-    if (text == '' || text == '-- no title --') {
-        indice.after("<em>-- no title --</em>");
-        real_indice.find("em").text("");
-    }
-    else {
-        indice.after("<span class='indice-title' title='"+ text + "'>" + text + "</span>");
-        real_indice.find("em").text(text);
-        $("#description-" + index + " .title").text(text);
-    }
-    var html = document.getElementById('indice-description').innerHTML;
-    document.getElementById('description-' + index)
-          .getElementsByClassName('description-content')[0]
-          .innerHTML = add_blank(html);
-    document.getElementById('indice-description').innerText = '';
-}
-
 function hide_copyright_dialog() {
     "use strict";
-    var html = $("#edit-copyright").trumbowyg('html');
+    let html = $("#edit-copyright").trumbowyg('html');
     if (html != "")
        document.getElementById('copyright-content')
                .innerHTML = add_blank(html);
@@ -62,16 +39,16 @@ $('#edit-legend-modal').on('show.bs.modal', function (e) {
     open_dialog();
 });
 
-// Save title and description
+// Save title and description on legend
 $('#edit-legend-modal').on('hidden.bs.modal', function (e) {
     "use strict";
-    hide_description_dialog();
+    update_title(true);
 });
 
-// Save title and description
+// Save title and description on copyright
 $('#edit-copyright-modal').on('hidden.bs.modal', function (e) {
     "use strict";
-    hide_copyright_dialog();
+    update_title(true);
 });
 
 function modal_delete_legend(element) {

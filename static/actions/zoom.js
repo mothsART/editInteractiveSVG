@@ -56,7 +56,7 @@ function zoom(element, record_history) {
             history_zoom_legend,
             {
                 'index': index,
-                'title': document.getElementById("legend-" + index).getElementsByClassName('indice-title')[0].innerText,
+                'title': elements.title(index),
                 'value': element.defaultValue
             },
             {

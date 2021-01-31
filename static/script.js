@@ -258,6 +258,7 @@ function delete_pic(replace) {
         $("#delete-picture-modal").modal('hide');
     }
     Warnings.clear();
+    history.clear();
 }
 
 function show_legend(element) {
