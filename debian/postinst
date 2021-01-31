@@ -18,3 +18,9 @@ if grep Ubuntu /etc/os-release; then
        then echo "pref(\"privacy.file_unique_origin\", false, locked);" >> /etc/firefox/syspref.js
     fi
 fi
+if grep Mint /etc/os-release; then
+    echo "mint"
+    if ! grep "pref(\"privacy.file_unique_origin\", false, locked);" /etc/firefox/syspref.js
+       then echo "pref(\"privacy.file_unique_origin\", false, locked);" >> /etc/firefox/syspref.js
+    fi
+fi

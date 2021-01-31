@@ -1,3 +1,8 @@
+edit-interactive-svg (1.1.4.1) xenial; urgency=medium
+  * bug fix : postinstall not detected on raspbian
+
+ -- Jérémie Ferry <jerem.ferry@gmail.com>  Sun, 15 Nov 2020 15:06:10 +0100
+
 edit-interactive-svg (1.1.4) xenial; urgency=medium
   * bug fix : new picture doesn't clear old one
   * bug fix : regression on warning and error's modal : user can't show details
