@@ -24,5 +24,26 @@ const elements = {
         if (!el)
             return '';
         return el.innerText;
+    },
+    'indice': {
+        get: function(_index) {
+            return document.getElementById('indice-' + _index);
+        },
+        'x': {
+            get: function(_el) {
+                return parseFloat(_el.getAttribute("data-translate-x"));
+            },
+            set: function(_el, _value) {
+                _el.setAttribute("data-translate-x", _value);
+            }
+        },
+        'y': {
+            get: function(_el) {
+                return parseFloat(_el.getAttribute("data-translate-y"));
+            },
+            set: function(_el, _value) {
+                _el.setAttribute("data-translate-y", _value);
+            }
+        },
     }
 }

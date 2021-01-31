@@ -50,22 +50,6 @@ function load() {
     document.getElementById('debug-menu').classList.add('hidden');
 };
 
-function translate_indice(element, x, y) {
-    "use strict";
-    var indice_width = element.getBBox().width / 2;
-    if (x < SVG.x)
-        x = SVG.x;
-    if (y < SVG.y)
-        y = SVG.y;
-    if (x > (SVG.width + SVG.x - indice_width))
-        x = SVG.width + SVG.x - indice_width;
-    if (y > (SVG.height + SVG.y - indice_width))
-        y = SVG.height + SVG.y - indice_width;
-    element.setAttribute("data-translate-x", x);
-    element.setAttribute("data-translate-y", y);
-    element.style.transform = "translate(" + x.toFixed(12) + "px, " + y.toFixed(12) + "px)";
-}
-
 function createForeignObject() {
     "use strict";
     var svg = $("#svg svg")[0];

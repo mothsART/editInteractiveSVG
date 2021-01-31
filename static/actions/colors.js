@@ -115,7 +115,7 @@ function change_indice_color(indice_id, hex_color, record_history) {
             {
                 'id': id,
                 'indice_id': indice_id,
-                'title': document.getElementById("legend-" + id).getElementsByClassName('indice-title')[0].innerText,
+                'title': elements.title.get(id),
                 'color': cssRgbToHex(old_color)
             },
             {

@@ -1,9 +1,9 @@
 function align_indice(old_index, new_index) {
     "use strict";
-    var old_x = 7;
+    let old_x = 7;
     if (old_index > 9)
         old_x = 2;
-    var new_x = 7;
+    let new_x = 7;
     if (new_index > 9)
         new_x = 2;
     $($('svg .indice')[old_index - 1]).find('.indice-text')[0].setAttribute("x",  old_x);
@@ -45,9 +45,9 @@ var dragAndDrop = {
     },
     dropped: function (el) {
         "use strict";
-        var nodes = Array.prototype.slice.call(this.dragula.containers[0].childNodes);
-        var old_index = parseInt(el.getAttribute('id').replace('legend-', ''));
-        var new_index = nodes.indexOf(el) - 2;
+        let nodes = Array.prototype.slice.call(this.dragula.containers[0].childNodes);
+        let old_index = parseInt(el.getAttribute('id').replace('legend-', ''));
+        let new_index = nodes.indexOf(el) - 2;
         insert_legend(old_index, new_index);
         reorder_legend();
         add_history(
@@ -64,15 +64,20 @@ var dragAndDrop = {
 
 dragAndDrop.init();
 
+
+let is_moving = false;
+let old_x = 0;
+let old_y = 0;
+
 function Grab(e) {
     "use strict";
     e.preventDefault();
     // exclude drag when zoom is in
-    var scale = parseFloat(document.getElementById("svg").getAttribute("data-scale"));
+    let scale = parseFloat(document.getElementById("svg").getAttribute("data-scale"));
     if (scale)
         return;
     // find out which element we moused down on
-    var targetElement = e.target;
+    let targetElement = e.target;
     if (
         targetElement == null
         || !targetElement.classList.contains('mask')
@@ -80,7 +85,25 @@ function Grab(e) {
     )
         return;
     DragTarget = targetElement;
-    $(DragTarget.parentNode).find(".indice-cross")[0].classList.remove("hidden");
+    let el = DragTarget.parentNode;
+    $(el).find(".indice-cross")[0].classList.remove("hidden");
+    let index = parseInt(el.id.substring(7));
+    if (is_moving) {
+        add_history(
+            history_drag_indice,
+            {
+                'index': index,
+                'x': old_x,
+                'y': old_y
+            },
+            {
+                'index': index,
+                'x': elements.indice.x.get(el),
+                'y': elements.indice.y.get(el)
+            }
+        );
+        is_moving = false;
+    }
 };
 
 function Drag(e) {
@@ -89,23 +112,28 @@ function Drag(e) {
         return;
     if (!$("#svg").hasClass("edit-mode") || (e.clientX == 0 && e.clientY == 0))
         return;
-    var sidebar_width     = document.getElementById("sidebar").offsetWidth;
-    var edit_menu_height  = document.getElementById("edit-menu").offsetHeight;
-    var container_width   = document.getElementById("svg").offsetWidth;
-    var container_height  = document.getElementById("svg").offsetHeight;
-    var container_ratio   = container_width / container_height;
+    let sidebar_width = document.getElementById("sidebar").offsetWidth;
+    let edit_menu_height = document.getElementById("edit-menu").offsetHeight;
+    let container_width = document.getElementById("svg").offsetWidth;
+    let container_height = document.getElementById("svg").offsetHeight;
+    let container_ratio = container_width / container_height;
     // margin on left
-    var margin_left = (container_width - container_height * SVG.ratio) / 2;
-    var x = SVG.width * (e.clientX - sidebar_width - margin_left) / container_height / SVG.ratio;
-    var y = SVG.height * (e.clientY - edit_menu_height) / container_height;
+    let margin_left = (container_width - container_height * SVG.ratio) / 2;
+    let x = SVG.width * (e.clientX - sidebar_width - margin_left) / container_height / SVG.ratio;
+    let y = SVG.height * (e.clientY - edit_menu_height) / container_height;
     if (SVG.ratio > container_ratio) {
         // margin on top
-        var margin_top = (container_height - container_width / SVG.ratio) / 2;
+        let margin_top = (container_height - container_width / SVG.ratio) / 2;
         x = SVG.width * (e.clientX - sidebar_width) / container_width;
         y = SVG.height * (e.clientY - edit_menu_height - margin_top) / container_width * SVG.ratio;
     }
-    var indice_width = DragTarget.parentNode.getBBox().width / 2;
+    let indice_width = DragTarget.parentNode.getBBox().width / 2;
     x = x + SVG.x - indice_width;
     y = y + SVG.y - indice_width;
+    if (!is_moving) {
+        old_x = x;
+        old_y = y;
+    }
+    is_moving = true;
     translate_indice(DragTarget.parentNode, x, y);
 };
