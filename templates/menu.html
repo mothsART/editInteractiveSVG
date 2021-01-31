@@ -1,0 +1,78 @@
+<nav class="collapse navbar-collapse" id="bs-navbar">
+    <ul class="nav navbar-nav">
+        <li>
+            <div class="btn-group">
+            <button type="button" class="btn btn-default btn-xs dropdown-toggle"
+            data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+              <span class="i18n" data-i18n="load_examples">
+              </span> : <span class="caret"></span>
+            </button>
+            {% include "examples.html" %}
+            </div>
+        </li>
+        {% include "history.html" %}
+        <li>
+            <button onclick="export_html(this);" id="save-form" class="btn btn-default btn-xs disabled">
+            <span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span>
+            <span class="i18n" data-i18n="save"></span>
+            </button>
+        </li>
+        <li>
+            <button class="btn btn-default btn-xs" data-toggle="modal" data-target=".bs-about-modal-sm">
+            <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+            <span class="i18n" data-i18n="about"></span>
+            </button>
+        </li>
+        <li>
+            <button class="btn btn-default btn-xs" data-toggle="modal" data-target=".bs-help-modal-lg">
+            <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
+            <span class="i18n" data-i18n="help"></span>
+            </button>
+        </li>
+        <li>
+            {% if unstable %}
+                {% include "alert_unstable.html" %}
+            {% endif %}
+            <div id="error-zone" class="alert alert-danger hidden" role="alert">
+                <span class="glyphicon glyphicon-warning-sign"></span>
+                <span id="error-message">
+                    <span id="number-of-errors" class="badge">0</span>
+                    <span class="i18n" data-i18n="errors_detected"></span>
+                    <a href="#" class="alert-link"  data-toggle="modal" data-target=".bs-errors-modal-md">
+                        <span class="i18n" data-i18n="see_more"></span>
+                    </a>
+                </span>
+            </div>
+            <div id="warning-zone" class="alert alert-warning hidden" role="alert">
+            <span class="glyphicon glyphicon-warning-sign"></span>
+                <span id="warning-message">
+                    <span id="number-of-warnings" class="badge">0</span>
+                    <span class="i18n" data-i18n="warnings_detected"></span>
+                    <a href="#" class="alert-link"  data-toggle="modal" data-target=".bs-warnings-modal-md">
+                        <span class="i18n" data-i18n="see_more"></span>
+                    </a>
+                </span>
+            </div>
+        </li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+        <li id="choose-language">
+            <button type="button" class="btn btn-default btn-xs dropdown-toggle"
+            data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            <span class="flags" id="selected-lang"></span><span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+                <li onclick="translate_app('en');" class="i18n flags en" data-i18n="english"></li>
+                <li onclick="translate_app('fr');" class="i18n flags fr"  data-i18n="french"></li>
+            </ul>
+        </li>
+        <li>
+            <button onclick="display_result(this);" id="nav-right" type="button" class="btn btn-default btn-xs disabled">
+            <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+            <span class="i18n" data-i18n="show"></span>
+            </button>
+        </li>
+    </ul>
+</nav>

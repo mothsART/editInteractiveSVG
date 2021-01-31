@@ -1,0 +1,36 @@
+<li>
+    <button id="undo-button"
+            onclick="undo(this);"
+            class="btn btn-default btn-xs disabled">
+        <span class="glyphicon glyphicon glyphicon-share-alt glyphicon-flip"
+              aria-hidden="true">
+        </span>
+        <span class="i18n" data-i18n="undo"></span>
+    </button>
+</li>
+<li>
+    <button id="redo-button"
+            onclick="redo(this);"
+            class="btn btn-default btn-xs disabled">
+        <span class="glyphicon glyphicon glyphicon-share-alt"
+              aria-hidden="true">
+        </span>
+        <span class="i18n" data-i18n="redo"></span>
+    </button>
+</li>
+<li class="dropdown">
+    <button id="history-button"
+            type="button"
+            class="btn btn-default btn-xs dropdown-toggle disabled"
+            onclick="open_history()"
+    data-toggle="dropdown"
+    aria-haspopup="true" aria-expanded="false">
+        <span class="i18n" data-i18n="history">
+        </span>
+        <span class="hidden">
+           : <span class="caret"></span>
+        </span>
+    </button>
+    <ul id="history-list" class="dropdown-menu hidden">
+    </ul>
+</li>

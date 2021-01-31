@@ -9,14 +9,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - i18n based on fluent : https://projectfluent.org/
 - optimise export file with lib like **svgo**
-- optimise js and css requests
 
 ## [Unreleased : 1.X]
 ### Added
+  - checkbox without native (browser) widget
+  - loader on charging SVG file
+  - Option > background color (white) and decoration on legend
+  - color (fore and back) option on editor.
+  - emojis option on editor.
+  - optimise perf :
+    - minify js and css and concat it
+    - javascript : https://jsperf.com/innertext-vs-textcontent-vs-textnode/6
   - progress bar on uploading svg or html files.
   - indice will keep size after zooming
-  - optimise javascript : https://jsperf.com/innertext-vs-textcontent-vs-textnode/6
-  - video and sound with base64 : http://www.iandevlin.com/blog/2012/09/html5/html5-media-and-data-uri/
+  - Use media query "prefers-reduced-motion"
 
 ### Fixed
   - no natural behavior on dezooming indice too close of the edge
@@ -24,11 +30,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased : 1.2.X]
 ### Added
-  - checkbox without native (browser) widget
-  - loader on charging SVG file
-  - Option > background color (white) and decoration on legend
-  - color (fore and back) option on editor.
-  - emojis option on editor.
+
+  - video and sound on comments with base64 : http://www.iandevlin.com/blog/2012/09/html5/html5-media-and-data-uri/
+  - Undo/Redo and history changes
+  - Open (or drag and drop) picture's files : png, gif and jpg files
+
+### Fixed
+  - build templates
+  - optimise perf with js "defer"
 
 ## [1.1.3]
 

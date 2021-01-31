@@ -25,17 +25,25 @@ Because SVG illustration designed to **educative programs** is really better whe
 
 ## Goals (1.2)
 
+- [ ] Undo/Redo and history changes
+- [ ] Open (or drag and drop) picture's files : png and jpg files
+- [ ] Use video and sound on comments
+
+## Goals (1.X)
+
+- [ ] Use WebP or Avif file
+
 ## Goals (2.0)
 
-- [ ] Undo/Redo (using a diff DOM) + historic
+- [ ] Use Makefile on debian package
 - [ ] Store a list of recent document
 - [ ] Import verification on product and static (svg) file
 - [ ] delete dependance (full vanilla js): dragula, twitter bootstrap, jquery
 - [ ] on load, use a minifier (default option) like SVGO
 - [ ] drag indice precisly
 - [ ] active drag and drop in zoom mode.
-- [ ] Add a title
-- [ ] warnings => auto-correction on :
+- [ ] Add a document title
+- [ ] warnings => auto-correction
 
 - mask
 - clipPath

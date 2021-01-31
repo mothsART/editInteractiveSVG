@@ -1,0 +1,41 @@
+<div id="frame">
+    <button id="delete-svg" type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target=".bs-delete-picture-modal-sm">
+        <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
+        <span class="i18n" data-i18n="delete"></span>
+    </button>
+    <button id="update-svg" type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target=".bs-update-picture-modal-sm">
+        <span class="glyphicon  glyphicon-refresh" aria-hidden="true"></span>
+        <span class="i18n" data-i18n="_new"></span>
+    </button>
+    <div id="content" data-full="false">
+        <button id="help-button" class="hidden" onclick="show_help()" title="Aide">?</button>
+        <button id="copyright-button" class="hidden" onclick="show_copyright()" title="Crédits">©</button>
+        <div id="help-dialog" class="dialog hidden">
+            <label id="close-help-dialog" class="dialog__close" onclick="closeDialog(this)"></label>
+            <h2>Raccourcis clavier</h2>
+            <p>Il est possible de commander cette illustration avec le clavier :</p>
+            <p><strong>Avancer</strong> : <kbd>barre espace</kbd> ou <kbd>↦</kbd> (boucle sur le premier indice si on est à la fin)</p>
+            <p><strong>Reculer</strong> : <kbd>↤</kbd> (boucle sur le dernier indice si on est au début)</p>
+            <p><strong>Aller au premier indice</strong> : <kbd>↥</kbd> ou <kbd>↖</kbd></p>
+            <p><strong>Aller au dernier indice</strong> : <kbd>↧</kbd> ou <kbd>Fin</kbd></p>
+            <p><strong>Ajuster la page à l'illustration</strong> (on ne sélectionne aucun indice) : <kbd>Echap</kbd></p>
+            <p><strong>Sélectionner un indice</strong> : il suffit de saisir un chiffre sur le clavier numérique.<br>Par exemple <kbd>11</kbd></p>
+            <p class="help-shortcut"><strong>Afficher l'aide</strong> :  <kbd>?</kbd></p>
+            <p class="last-element"><strong>Sortir du panneau d'aide</strong> : <kbd>Echap</kbd></p>
+        </div>
+        <div id="copyright-dialog" class="dialog hidden">
+            <label id="close-help-dialog" class="dialog__close" onclick="closeDialog(this)"></label>
+            <h2>Crédits</h2>
+            <div id="copyright-content"></div>
+        </div>
+        <section id="real-legend" class="hidden">
+            <div id="fit-page-to-drawing" data-i18n="fit_page_to_drawing" onclick="fit_page_to_drawing();">
+                <div></div>
+            </div>
+            <label id="real-template-indice" class="indice hidden" onclick="real_zoom(this);">
+                <span>0</span>
+                <em></em>
+            </label>
+        </section>
+    </div>
+</div>

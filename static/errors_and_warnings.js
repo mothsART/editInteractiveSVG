@@ -1,7 +1,7 @@
 var warning_zone_el = document.getElementById('warning-zone');
 var error_zone_el = document.getElementById('error-zone');
 
-var Warnings = {
+const Warnings = {
     nb: 0,
     new: function(id) {
         "use strict";
@@ -13,8 +13,8 @@ var Warnings = {
     clear: function() {
         "use strict";
         warning_zone_el.classList.add('hidden');
-        var warning_list_el = document.getElementById('warning-list');
-        var li_list = warning_list_el.getElementsByTagName('li');
+        let warning_list_el = document.getElementById('warning-list');
+        let li_list = warning_list_el.getElementsByTagName('li');
         for (var i = 0, len = li_list.length; i < len; i++) {
             li_list[i].classList.add('hidden');
         }
@@ -22,7 +22,7 @@ var Warnings = {
     }
 }
 
-var Errors = {
+const Errors = {
     nb: 0,
     new: function(id) {
         "use strict";
@@ -37,10 +37,10 @@ var Errors = {
     clear: function() {
         "use strict";
         error_zone_el.classList.add('hidden');
-        var error_list_el = document.getElementById('error-list');
+        let error_list_el = document.getElementById('error-list');
         if (!error_list_el)
             return;
-        var li_list = error_list_el.getElementsByTagName('li');
+        let li_list = error_list_el.getElementsByTagName('li');
         for (var i = 0, len = li_list.length; i < len; i++) {
             li_list[i].classList.add('hidden');
         }

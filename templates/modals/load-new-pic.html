@@ -1,0 +1,36 @@
+<div id="update-picture-modal" class="modal fade bs-update-picture-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title i18n" id="myModalLabel" data-i18n="update_pic"></h4>
+            </div>
+            <div class="modal-footer">
+                <div id="upload-svg-zone" class="container">
+                    <form method="post" action="." enctype="multipart/form-data" novalidate="" class="box has-advanced-upload">
+                        <div class="box__input">
+                            <div id="download-pic" class="glyphicon glyphicon-download-alt" aria-hidden="true">
+                            </div>
+                            <input type="file" name="files[]" id="file" class="box__file">
+                            <label id="choose-file" for="file">
+                                <div id="choose-file-zone">
+                                    <div>
+                                        <strong class="i18n" data-i18n="choose_a_file">
+                                        </strong>
+                                        <span class="box__dragndrop i18n" data-i18n="drag_it_here">
+                                        </span>
+                                    </div>
+                                </div>
+                            </label>
+                            <label id="upload-text" class="hidden" for="file"></label>
+                            <button type="submit" class="box__button i18n" data-i18n="upload">
+                            </button>
+                        </div>
+                        <div class="box__error i18n" data-i18n="error_try_again">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
