@@ -175,7 +175,12 @@ function open_detail(element) {
             color: indice.css("background-color"),
             palette: palette,
             change: function(color) {
-                change_indice_color(indice.attr("id"), color.toHexString());
+                change_indice_color(
+                    indice.attr("id"),
+                    color.toHexString(),
+                    true
+                );
+                $(this).spectrum("hide");
             }
         });
     }

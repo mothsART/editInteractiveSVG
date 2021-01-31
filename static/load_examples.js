@@ -50,7 +50,7 @@ function add_indices_and_details(indices) {
                 parseInt(rgb_array[1]),
                 parseInt(rgb_array[2])
             );
-            add_legend(hex_color, true);
+            add_legend(hex_color, true, null, null, $('#indice-' + i).data('zoom'));
             var title = $(el).find('em').text();
             if (title.trim() != '') {
                 $('#legend-' + i).find('em').remove();

@@ -41,25 +41,40 @@ function zoom_on(index, value, zoom_svg, scale_enabled) {
         zoom_edit_mode(value, trans_x, trans_y, scale_enabled);
 }
 
-function zoom(element) {
+function zoom(element, record_history) {
     "use strict";
-    var index = parseInt(
+    let index = parseInt(
       $(element.parentNode.parentNode.parentNode).find(".indice").attr("id").replace("legend-indice-", "")
     );
     var value = parseInt($(element.parentNode.parentNode.parentNode).find(".zoom-input").val());
-    var scale_enabled = false;
+    let scale_enabled = false;
     if (element.parentNode.getElementsByClassName('zoom-enabled')[0].checked)
         scale_enabled = true;
     zoom_on(index, value, scale_enabled, scale_enabled);
+    if (record_history) {
+        add_history(
+            history_zoom_legend,
+            {
+                'index': index,
+                'title': document.getElementById("legend-" + index).getElementsByClassName('indice-title')[0].innerText,
+                'value': element.defaultValue
+            },
+            {
+                'index': index,
+                'value': value
+            }
+        );
+    }
+    element.defaultValue = value;
 }
 
 function active_zoom(element) {
     "use strict";
-    var svg_width = parseInt($("#root-svg").css("width").replace("px", ""));
-    var svg_height = parseInt($("#root-svg").css("height").replace("px", ""));
-    var zoom_input = $(element).parent().find(".zoom-input");
-    var id = $(element.parentNode.parentNode.parentNode).find(".indice").attr("id").replace("legend-", "");
-    var indice_element = $("#root-svg #" + id);
+    let svg_width = parseInt($("#root-svg").css("width").replace("px", ""));
+    let svg_height = parseInt($("#root-svg").css("height").replace("px", ""));
+    let zoom_input = $(element).parent().find(".zoom-input");
+    let id = $(element.parentNode.parentNode.parentNode).find(".indice").attr("id").replace("legend-", "");
+    let indice_element = $("#root-svg #" + id);
     if($(element).prop('checked')) {
         zoom(element);
     }

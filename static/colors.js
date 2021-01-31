@@ -64,7 +64,7 @@ function cssRgbToHex(value) {
     let substr = value.substring(value.indexOf(',') + 1);
     let g = parseInt(substr.substring(0, substr.indexOf(',')));
     let b = parseInt(substr.substring(substr.indexOf(',') + 1, substr.indexOf(')')));
-    return rgbToHex(r, g, 0);
+    return rgbToHex(r, g, b);
 }
 
 function random_colors() {
@@ -77,22 +77,24 @@ function random_colors() {
     return new_value;
 }
 
-function change_indice_color(indice_id, hex_color) {
+function change_indice_color(indice_id, hex_color, record_history) {
     "use strict";
-    var indice = $("#" + indice_id);
+    let indice = $("#" + indice_id);
+    let id = parseInt(indice.attr("id").substring(14));
+    let old_color = document.getElementById("legend-indice-" + id).style.backgroundColor;
     indice.css("background-color", hex_color);
-    $("#description-" + indice.attr("id").substring(14)).find(".indice").css(
+    $("#description-" + id).find(".indice").css(
         "background-color", hex_color
     );
     $("#real-" + indice.attr("id").substring(7)).find("span").css(
         "background-color", hex_color
     );
-    var rgb = hexToRgb(hex_color);
-    var luminance = rgbToHsl(rgb.r, rgb.g, rgb.b);
-    var color = "white";
+    let rgb = hexToRgb(hex_color);
+    let luminance = rgbToHsl(rgb.r, rgb.g, rgb.b);
+    let color = "white";
     if (luminance > 0.4 && hex_color != '#0000ff')
         color = "black";
-    if (parseInt(indice.attr("id").substring(14)) < 10)
+    if (id < 10)
         indice[0].classList.remove('number');
     else
         indice[0].classList.add('number');
@@ -104,7 +106,23 @@ function change_indice_color(indice_id, hex_color) {
         "fill", color
     );
     $("#" + indice.attr("id").substring(7)).css("color", color);
-    $("#description-" + indice.attr("id").substring(14)).find(".indice")
+    $("#description-" + id).find(".indice")
     .css("color", color);
     $("#real-" + indice.attr("id").substring(7)).find("span").css("color", color);
+    if (record_history) {
+        add_history(
+            history_color_legend,
+            {
+                'id': id,
+                'indice_id': indice_id,
+                'title': document.getElementById("legend-" + id).getElementsByClassName('indice-title')[0].innerText,
+                'color': cssRgbToHex(old_color)
+            },
+            {
+                'id': id,
+                'indice_id': indice_id,
+                'color': hex_color
+            }
+        );
+    }
 }

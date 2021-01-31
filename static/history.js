@@ -89,7 +89,7 @@ function create_entry(_history_pointer, text, disabled) {
         'onclick',
         'get_history(this, ' + _history_pointer + ')'
     );
-    entry.appendChild(document.createTextNode(text));
+    entry.innerHTML = text;
     return entry;
 }
 

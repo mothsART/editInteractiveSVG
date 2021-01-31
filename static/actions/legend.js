@@ -38,15 +38,16 @@ function add_legend(hex_color, avoid_history, title, description, zoom_value, x,
         indice.after("<span class='indice-title' title='"+ title + "'>" + title + "</span>");
         real_indice.find("em").text(title);
         $("#description-" + index + " .title").text(title);
-
-        var zoom_input_el = document.getElementById('legend-' + index).getElementsByClassName('zoom-input')[0];
-        zoom_input_el.value = zoom_value;
-        zoom(zoom_input_el);
-        translate_indice(document.getElementById('indice-' + index), x, y);
         
         document.getElementById('description-' + index)
             .getElementsByClassName('description-content')[0]
             .innerHTML = description;
+        translate_indice(document.getElementById('indice-' + index), x, y);
+    }
+    if (zoom) {
+        var zoom_input_el = document.getElementById('legend-' + index).getElementsByClassName('zoom-input')[0];
+        zoom_input_el.defaultValue = zoom_value;
+        zoom(zoom_input_el);
     }
     if (!avoid_history) {
         add_history(
