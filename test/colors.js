@@ -3,7 +3,7 @@
 const fs = require('fs')
 var assert = require('assert')
 
-eval.apply(this, [fs.readFileSync('./static/colors.js').toString()]);
+eval.apply(this, [fs.readFileSync('./static/actions/colors.js').toString()]);
 
 describe('Colors', function() {
   describe('#hexToRgb()', function() {
