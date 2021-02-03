@@ -22,6 +22,7 @@ function translate_app(local) {
             ['superscript', 'subscript'],
             ['link'],
             ['base64'],
+            ['insertAudio'],
             ['justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull'],
             ['unorderedList', 'orderedList'],
             ['horizontalRule'],
