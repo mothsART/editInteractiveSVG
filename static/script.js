@@ -23,6 +23,7 @@ function translate_app(local) {
             ['link'],
             ['base64'],
             ['insertAudio'],
+            ['insertVideo'],
             ['justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull'],
             ['unorderedList', 'orderedList'],
             ['horizontalRule'],

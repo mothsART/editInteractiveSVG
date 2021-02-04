@@ -2,14 +2,20 @@ const elements = {
     'description': {
         get: function(_index) {
             "use strict";
-            let el = document.getElementById('description-' + _index).getElementsByClassName('description-content')[0];
+            let el = document.getElementById('description-' + _index);
+            if (!el)
+                return;
+            el = el.getElementsByClassName('description-content')[0];
             if (!el)
                 return '';
             return el.innerHTML;
         },
         set: function(_index, _value) {
             "use strict";
-            let el = document.getElementById('description-' + _index).getElementsByClassName('description-content')[0];
+            let el = document.getElementById('description-' + _index);
+            if (!el)
+                return;
+            el = el.getElementsByClassName('description-content')[0];
             if (!el)
                 return;
             el.innerHTML = _value;
@@ -20,7 +26,10 @@ const elements = {
     },
     title: function(_index) {
         "use strict";
-        let el = document.getElementById("legend-" + _index).getElementsByClassName('indice-title')[0];
+        let el = document.getElementById("legend-" + _index);
+        if (!el)
+            return;
+        el = el.getElementsByClassName('indice-title')[0];
         if (!el)
             return '';
         return el.innerText;
