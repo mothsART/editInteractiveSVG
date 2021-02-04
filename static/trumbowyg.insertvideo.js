@@ -5,25 +5,27 @@
         return typeof FileReader !== 'undefined';
     };
 
-    var isValidSound = function (type) {
-        return /^data:audio\/[a-z]?/i.test(type);
+    var isValidVideo = function (type) {
+        return /^data:video\/[a-z]?/i.test(type);
     };
 
     $.extend(true, $.trumbowyg, {
         langs: {
             en: {
-                insertAudio: 'Insert Sound',
+                insertVideo: 'Insert video',
                 file: 'File',
-                errInvalidSound: 'Invalid sound file.'
+                errFileReaderNotSupported: 'FileReader is not supported by your browser.',
+                errInvalidVideo: 'Invalid video file.'
             },
             fr: {
-                insertAudio: 'Insérer un son',
+                insertVideo: 'Insérer une vidéo',
                 file: 'Fichier',
-                errInvalidSound: 'Invalid sound file.'
+                errFileReaderNotSupported: "FileReader n'est pas supporté dans votre navigateur.",
+                errInvalidVideo: 'fichier vidéo invalide.'
             },
         },
         plugins: {
-            insertAudio: {
+            insertVideo: {
                 shouldInit: isSupported,
                 init: function (trumbowyg) {
                     var btnDef = {
@@ -34,7 +36,7 @@
                             var file;
                             var $modal = trumbowyg.openModalInsert(
                                 // Title
-                                trumbowyg.lang.insertAudio,
+                                trumbowyg.lang.insertVideo,
 
                                 // Fields
                                 {
@@ -42,7 +44,7 @@
                                         type: 'file',
                                         required: true,
                                         attributes: {
-                                            accept: 'audio/*'
+                                            accept: 'video/*'
                                         }
                                     },
                                     alt: {
@@ -56,10 +58,12 @@
                                     var fReader = new FileReader();
 
                                     fReader.onloadend = function (e) {
-                                        if (isValidSound(e.target.result)) {
+                                        if (isValidVideo(e.target.result)) {
                                             trumbowyg.execCmd(
                                                 'insertHTML', 
-                                                '<audio controls src="' + fReader.result + '" alt="' + values.alt + '" >',
+                                                '<video controls>'
+                                                    + '<source src="' + fReader.result + '" alt="' + values.alt + '" >'
+                                                + '</video>',
                                                 false,
                                                 true
                                             );
@@ -67,7 +71,7 @@
                                         } else {
                                             trumbowyg.addErrorOnModalField(
                                                 $('input[type=file]', $modal),
-                                                trumbowyg.lang.errInvalidSound
+                                                trumbowyg.lang.errInvalidVideo
                                             );
                                         }
                                     };
@@ -81,8 +85,7 @@
                             });
                         }
                     };
-
-                    trumbowyg.addBtnDef('insertAudio', btnDef);
+                    trumbowyg.addBtnDef('insertVideo', btnDef);
                 }
             }
         }
