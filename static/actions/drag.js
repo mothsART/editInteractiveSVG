@@ -37,11 +37,17 @@ var dragAndDrop = {
     },
     eventListeners: function () {
         "use strict";
+        this.dragula.on('drag', this.drag.bind(this));
         this.dragula.on('drop', this.dropped.bind(this));
+        this.dragula.on('dragend', this.dragend.bind(this));
     },
     dragula: function () {
         "use strict";
         this.dragula = dragula([document.querySelector('#list-of-legend tbody')]);
+    },
+    drag: function (el) {
+        "use strict";
+        disable_interface();
     },
     dropped: function (el) {
         "use strict";
@@ -59,6 +65,10 @@ var dragAndDrop = {
             },
             { 'old_index': old_index, 'new_index': new_index }
         );
+    },
+    dragend: function (el) {
+        "use strict";
+        enable_interface();
     }
 };
 
@@ -68,6 +78,24 @@ dragAndDrop.init();
 let is_moving = false;
 let old_x = 0;
 let old_y = 0;
+
+function disable_interface() {
+    edit_menu_el.classList.add('disabled');
+    add_and_delete_legend_el.classList.add('disabled');
+    source_file_zone_el.classList.add('disabled');
+    edit_zone_el.classList.add('disabled');
+    delete_svg_el.classList.add('disabled');
+    update_svg_el.classList.add('disabled');
+}
+
+function enable_interface() {
+    edit_menu_el.classList.remove('disabled');
+    add_and_delete_legend_el.classList.remove('disabled');
+    source_file_zone_el.classList.remove('disabled');
+    edit_zone_el.classList.remove('disabled');
+    delete_svg_el.classList.remove('disabled');
+    update_svg_el.classList.remove('disabled');
+}
 
 function Grab(e) {
     "use strict";

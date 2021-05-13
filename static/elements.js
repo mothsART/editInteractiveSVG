@@ -1,3 +1,10 @@
+const edit_menu_el = document.getElementById('edit-menu');
+const add_and_delete_legend_el = document.getElementById('add-and-delete-legend');
+const source_file_zone_el = document.getElementById('source-file-zone');
+const edit_zone_el = document.getElementById('svg');
+const delete_svg_el = document.getElementById('delete-svg');
+const update_svg_el = document.getElementById('update-svg');
+
 const elements = {
     'description': {
         get: function(_index) {
