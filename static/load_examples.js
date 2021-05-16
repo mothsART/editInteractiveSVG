@@ -2,7 +2,7 @@ function replace_with_example(_id) {
     "use strict";
     var modal = $('#load-picture-modal');
     $('#load-picture-modal').modal('hide');
-    delete_pic(true);
+    delete_pic();
     load_example(
         document.getElementById(_id),
         modal.data('url'),
@@ -67,8 +67,6 @@ function add_indices_and_details(indices) {
 
 function add_indices_to_svg(indices) {
     "use strict";
-    if (!indices)
-        return;
     var root_svg = document.getElementById('root-svg');
     for (var i = 0; i < indices.length; i++) {
         root_svg.appendChild(indices[i].cloneNode(true));
@@ -97,7 +95,8 @@ function load_file(stream) {
         Errors.new("error-file-not-supported");
         return;
     }
-    var indices = null;
+
+    let indices = null;
     if (svg) {
         indices = svg.getElementsByClassName('indice');
         svg.remove();
@@ -119,18 +118,15 @@ function load_file(stream) {
     document.getElementById('content').setAttribute('data-full', true);
     $("#upload-zone, #error-zone").addClass('hidden');
     $("#edit-zone").removeClass('hidden');
-    $("#save-form, #nav-right").removeClass('disabled');
+    $("#new-svg, #save-form, #nav-right").removeClass('disabled');
     $("#delete-legend-button").addClass('disabled');
     createForeignObject();
-    // clone legend on view mode
     var real_legend = $(el).find('#real-legend');
     if (real_legend.length === 0) {
         $('#upload-zone form').removeClass('is-uploading');
-        if (document.getElementsByTagName('body')[0].classList.contains('update-svg')) {
-            add_indices_to_svg(indices);
-            $('#update-picture-modal').modal('hide');
-        }
+        add_indices_to_svg(indices);
         document.getElementsByTagName('body')[0].classList.remove('update-svg');
+        $('#new-picture-modal, #update-picture-modal').modal('hide');
         return;
     }
     $('#real-legend').html(real_legend.clone().html());
@@ -145,16 +141,15 @@ function load_file(stream) {
     // clone copyrights
     var copyright = null;
     var copyright_content = $(el).find('#copyright-content')[0];
-    if (copyright_content) {
+    if (copyright_content)
         copyright= copyright_content.innerHTML.trim();
-    }
     if (copyright) {
         document.getElementById('edit-copyright').innerHTML = copyright;
         document.getElementById('copyright-content')
                  .innerHTML = add_blank(copyright);
-       }
+    }
     $('#upload-zone form').removeClass('is-uploading');
-    $('#update-picture-modal').modal('hide');
+    $('#new-picture-modal, #update-picture-modal').modal('hide');
 }
 
 function update_name() {
@@ -199,7 +194,7 @@ function load_example(el, url, name) {
             document.getElementById('content').setAttribute('data-full', true);
             $("#upload-zone, #error-zone").addClass('hidden');
             $("#edit-zone").removeClass('hidden');
-            $("#save-form, #nav-right").removeClass('disabled');
+            $("#new-svg, #save-form, #nav-right").removeClass('disabled');
             $("#delete-legend-button").addClass('disabled');
             createForeignObject();
             populate_without_action(10);

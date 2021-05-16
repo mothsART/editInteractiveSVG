@@ -14,14 +14,14 @@
     }();
     // applying the effect for every form
     var forms = document.querySelectorAll('.box');
-    Array.prototype.forEach.call( forms, function(form)
+    Array.prototype.forEach.call(forms, function(form)
     {
-        var input        = form.querySelector('input[type="file"]'),
-            label        = form.querySelector('#upload-text'),
-            errorMsg     = form.querySelector('.box__error span'),
-            restart      = form.querySelectorAll('.box__restart'),
+        var input = form.querySelector('input[type="file"]'),
+            label = form.querySelector('#upload-text'),
+            errorMsg = form.querySelector('.box__error span'),
+            restart = form.querySelectorAll('.box__restart'),
             droppedFiles = false,
-            showFiles    = function(files)
+            showFiles = function(files)
             {
                 $("#choose-file").addClass("hidden");
                 $("#upload-text").removeClass("hidden");
@@ -83,7 +83,7 @@
         form.addEventListener('submit', function(e)
         {
             if ($(form).hasClass('is-uploading'))
-              return false;
+                return false;
             form.classList.add('is-uploading');
             form.classList.remove('is-error');
             if(window.FileReader)
@@ -96,7 +96,9 @@
                         reader.readAsText(file);
                         reader.onload = function(e) {
                             "using strict";
-                            delete_pic(true);
+                            let active_modal = document.querySelector('.modal.in');
+                            if (active_modal.id != 'update-picture-modal')
+                                delete_pic();
                             load_file(reader.result);
                             translateExportInterface(Editor.local);
                         }

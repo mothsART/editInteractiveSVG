@@ -126,6 +126,12 @@
             </div>
         </li>
         <li>
+            <button id="new-svg" type="button" class="btn btn-success btn-xs disabled" data-toggle="modal" data-target=".bs-load-new-pic-modal-sm">
+                <span class="i18n" data-i18n="_new">New</span>
+                <span class="glyphicon  glyphicon-plus" aria-hidden="true"></span>
+            </button>
+        </li>
+        <li>
     <button id="undo-button"
             onclick="undo(this);"
             class="btn btn-default btn-xs disabled">
@@ -286,7 +292,7 @@
     </button>
     <button id="update-svg" type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target=".bs-update-picture-modal-sm">
         <span class="glyphicon  glyphicon-refresh" aria-hidden="true"></span>
-        <span class="i18n" data-i18n="_new"></span>
+        <span class="i18n" data-i18n="_update"></span>
     </button>
     <div id="content" data-full="false">
         <button id="help-button" class="hidden" onclick="show_help()" title="Aide">?</button>
@@ -636,16 +642,38 @@
     </div>
 </div>
 
-            <div id="delete-picture-modal" class="modal fade bs-delete-picture-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+            <div id="new-picture-modal" class="modal fade bs-load-new-pic-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
     <div class="modal-dialog modal-md" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title i18n" id="myModalLabel" data-i18n="delete_pic_ans"></h4>
+                <h4 class="modal-title i18n" id="myModalLabel" data-i18n="new_pic"></h4>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default btn-xs i18n" data-dismiss="modal" data-i18n="no"></button>
-                <button type="button" onclick="delete_pic();" class="btn btn-primary btn-xs i18n" data-i18n="yes"></button>
+                <div id="upload-svg-zone" class="container">
+                    <form id="new-pic-form" method="post" action="." enctype="multipart/form-data" novalidate="" class="box has-advanced-upload">
+                        <div class="box__input">
+                            <div id="download-pic" class="glyphicon glyphicon-download-alt" aria-hidden="true">
+                            </div>
+                            <input type="file" name="files[]" id="file" class="box__file">
+                            <label id="choose-file" for="file">
+                                <div id="choose-file-zone">
+                                    <div>
+                                        <strong class="i18n" data-i18n="choose_a_file">
+                                        </strong>
+                                        <span class="box__dragndrop i18n" data-i18n="drag_it_here">
+                                        </span>
+                                    </div>
+                                </div>
+                            </label>
+                            <label id="upload-text" class="hidden" for="file"></label>
+                            <button type="submit" class="box__button i18n" data-i18n="upload">
+                            </button>
+                        </div>
+                        <div class="box__error i18n" data-i18n="error_try_again">
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
@@ -660,7 +688,7 @@
             </div>
             <div class="modal-footer">
                 <div id="upload-svg-zone" class="container">
-                    <form method="post" action="." enctype="multipart/form-data" novalidate="" class="box has-advanced-upload">
+                    <form id="update-pic-form" method="post" action="." enctype="multipart/form-data" novalidate="" class="box has-advanced-upload">
                         <div class="box__input">
                             <div id="download-pic" class="glyphicon glyphicon-download-alt" aria-hidden="true">
                             </div>

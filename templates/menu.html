@@ -11,6 +11,12 @@
             {% include "examples.html" %}
             </div>
         </li>
+        <li>
+            <button id="new-svg" type="button" class="btn btn-success btn-xs disabled" data-toggle="modal" data-target=".bs-load-new-pic-modal-sm">
+                <span class="i18n" data-i18n="_new">New</span>
+                <span class="glyphicon  glyphicon-plus" aria-hidden="true"></span>
+            </button>
+        </li>
         {% include "history.html" %}
         <li>
             <button onclick="export_html(this);" id="save-form" class="btn btn-default btn-xs disabled">

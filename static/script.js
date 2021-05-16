@@ -222,13 +222,14 @@ function return_to_edit() {
 }
 
 function disabledClass(class_name) {
+    "use strict";
     var els = document.getElementsByClassName(class_name);
     for (var i = 0; i < els.length; i++) {
         els[i].removeAttribute('disabled');
     }
 }
 
-function delete_pic(replace) {
+function delete_pic() {
     "use strict";
     checked_all();
     delete_selected_legend();
@@ -238,11 +239,9 @@ function delete_pic(replace) {
     document.getElementById('source-file').setAttribute('data-title', '');
     $("#svg svg").remove();
     document.getElementById('content').setAttribute('data-full', false);
-    if (!replace) {
-        $("#edit-zone, #upload-text").addClass("hidden");
-        $("#upload-zone, #choose-file").removeClass("hidden");
-        $("#delete-picture-modal").modal('hide');
-    }
+    $("#edit-zone, #upload-text").addClass("hidden");
+    $("#upload-zone, #choose-file").removeClass("hidden");
+    $("#delete-picture-modal").modal('hide');
     Warnings.clear();
     history.clear();
 }
