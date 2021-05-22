@@ -1,3 +1,10 @@
+edit-interactive-svg (1.2.0) xenial; urgency=medium
+  * feature : Undo/Redo and history changes
+  * feature : Open (or drag and drop) picture's files : png and jpg files
+  * feature : Use video and sound on comments
+
+ -- Jérémie Ferry <jerem.ferry@gmail.com>  Fri, 21 May 2021 20:06:10 +0100
+
 edit-interactive-svg (1.1.4.1) xenial; urgency=medium
   * bug fix : postinstall not detected on raspbian
 
