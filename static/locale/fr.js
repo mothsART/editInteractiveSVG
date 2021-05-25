@@ -171,7 +171,7 @@ const en_messages = {
     fit_page_to_drawing:       'Fit page to drawing',
     _new:                      'New',
     _update:                   'Update',
-    new_pic:                   'Would you like to create a new project ? Attention : all active stuff will be erase.',
+    new_pic:                   'Would you like to create a new project ? Attention : all active stuff will be erased.',
     update_pic:                'Would you like replacing this picture ?',
     edit_copyright:            'Edit copyright',
     example:                   'example',
