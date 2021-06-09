@@ -1,0 +1,84 @@
+#!/usr/bin/env python3
+
+import os
+import socket
+import socketserver
+import threading
+import http.server
+from random import randint
+
+import dbus
+import dbus.service
+import dbus.mainloop.glib
+from gi.repository import GLib
+
+BUS_NAME = 'org.editInteractiveSVG.server'
+PORT_FILE = "/etc/editInteractiveSVG/port.conf"
+HTML_INDEX = "/usr/share/applications/edit-interactive-svg/index.html"
+
+def rand_port():
+    return int("%s%s%s%s" % (
+        randint(1, 9),
+        randint(0, 9),
+        randint(0, 9),
+        randint(0, 9)
+    ))
+
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+def get_port(nb_attemps=0):
+    if nb_attemps >= 3:
+        print("Nb of attemps to launch EditInteractiveSVG exceeded.")
+        exit(os.EX_USAGE)
+    port = rand_port()
+    port_file_exist = False
+    if nb_attemps == 0:
+        try:
+            with open(PORT_FILE, 'r') as f:
+                port = int(f.read())
+            port_file_exist = True
+        except:
+            pass
+    try:
+        s.bind(("127.0.0.1", port))
+        s.close()
+    except:
+        return get_port(nb_attemps + 1)
+    if not port_file_exist:
+        os.makedirs(os.path.dirname(PORT_FILE), exist_ok=True)
+        try:
+            with open(PORT_FILE, 'w') as f:
+                f.write(str(port))
+        except:
+            pass
+    return port
+
+
+class Server(dbus.service.Object):
+    @dbus.service.method(BUS_NAME, in_signature='', out_signature='s')
+    def Url(self):
+        return "http://127.0.0.1:%s" % str(self.port)
+
+def dbus_loop(port):
+    dbus.mainloop.glib.DBusGMainLoop(set_as_default=True)
+    mainloop = GLib.MainLoop()
+    session_bus = dbus.SystemBus()
+    name = dbus.service.BusName(BUS_NAME, session_bus)
+    o = Server(session_bus, '/Server')
+    o.port = port
+    mainloop.run()
+
+if __name__ == '__main__':    
+    os.chdir(os.path.dirname(HTML_INDEX))
+    port = get_port()
+    print("Launch EditInteractiveSVG on http://127.0.0.1:%s" % str(port))
+
+    Handler = http.server.SimpleHTTPRequestHandler
+    httpd = socketserver.TCPServer(("", port), Handler)
+    t = threading.Thread(None, httpd.serve_forever)
+    t.daemon = True
+    t.start()
+    
+    dbus_loop(port)
+
+    print(BUS_NAME, port)

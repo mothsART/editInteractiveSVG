@@ -1,0 +1,15 @@
+[Unit]
+Description=EditInteractiveSVG server
+
+[Service]
+Environment=PYTHONUNBUFFERED=true
+Type=dbus
+BusName=org.editInteractiveSVG.server
+ExecStart=/usr/bin/edit-interactive-svg-server
+#Environment=DBUS_SESSION_BUS_ADDRESS=unix:path=/run/dbus/system_bus_socket
+
+# Restart the service on non-zero exit code when terminated by a signal other than SIGHUP, SIGINT, SIGTERM or SIGPIPE
+Restart=on-failure
+
+[Install]
+WantedBy=default.target

@@ -1,4 +1,4 @@
-debian/edit-interactive-svg.desktop  usr/share/applications
+edit-interactive-svg.desktop         usr/share/applications
 edit-interactive-svg                 usr/bin/
 favicon.png                          usr/share/applications/edit-interactive-svg
 index.html                           usr/share/applications/edit-interactive-svg
@@ -10,3 +10,5 @@ examples/les-saisons.html            usr/share/applications/edit-interactive-svg
 examples/etats-de-la-matiere.html    usr/share/applications/edit-interactive-svg/examples
 examples/le-systeme-solaire.html     usr/share/applications/edit-interactive-svg/examples
 static/*                             usr/share/applications/edit-interactive-svg/static
+editInteractiveSVG_server            usr/bin/editInteractiveSVG_server
+systemd/editInteractiveSVG.service   etc/systemd/system

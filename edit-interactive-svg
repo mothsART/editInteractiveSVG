@@ -1,5 +1,40 @@
-#!/bin/sh
+#!/usr/bin/env python3
+import os
+import time
+from traceback import print_exc
+import subprocess
+from subprocess import Popen
 
-set -e
+import dbus
+from gi.repository import GLib
+from dbus.mainloop.glib import DBusGMainLoop
 
-/usr/bin/firefox file:///usr/share/applications/edit-interactive-svg/index.html
+BUS_NAME = 'org.editInteractiveSVG.server'
+SYSTEMD_SERVICE = 'editInteractiveSVG.service'
+
+def get_url():
+    bus = dbus.SystemBus()
+    try:
+        o = bus.get_object(
+            BUS_NAME,
+            "/Server"
+        )
+    except dbus.DBusException:
+        print_exc()
+        exit(1)
+        
+    i = dbus.Interface(o, BUS_NAME)
+    return i.Url()
+
+if __name__ == '__main__':
+    status = int(os.system(
+        'systemctl is-active --quiet %s' % SYSTEMD_SERVICE
+    ))
+    if status != 0:
+        print('systemd service "%s" is not started' % SYSTEMD_SERVICE)
+
+    dbus.mainloop.glib.DBusGMainLoop(set_as_default=True)
+    loop = GLib.MainLoop()
+    Popen(["firefox", get_url()])
+    exit(0)
+    loop.run()
