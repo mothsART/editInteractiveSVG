@@ -5,6 +5,12 @@
 
 Because SVG illustration designed to **educative programs** is really better when it's interactive!
 
+## Last stable version
+
+[![Packaging status](https://repology.org/badge/vertical-allrepos/editinteractivesvg.svg)](https://repology.org/project/gspeech/versions)
+
+Ubuntu : [PPA](https://launchpad.net/~jerem-ferry/+archive/ubuntu/app-illustration)
+
 ## Goals (1.2)
 
 - [x] Undo/Redo and history changes
@@ -85,3 +91,7 @@ make test
 ```sh
 make upgrade
 ```
+
+## Launch systemd service
+
+
