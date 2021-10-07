@@ -7,7 +7,7 @@ Because SVG illustration designed to **educative programs** is really better whe
 
 ## Last stable version
 
-[![Packaging status](https://repology.org/badge/vertical-allrepos/editinteractivesvg.svg)](https://repology.org/project/gspeech/versions)
+[![Packaging status](https://repology.org/badge/vertical-allrepos/editinteractivesvg.svg)](https://repology.org/project/editinteractivesvg/versions)
 
 Ubuntu : [PPA](https://launchpad.net/~jerem-ferry/+archive/ubuntu/app-illustration)
 
