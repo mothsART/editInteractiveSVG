@@ -1,3 +1,8 @@
+edit-interactive-svg (1.2.1) xenial; urgency=medium
+  * bug fix : first svg upload failed.
+
+ -- Jérémie Ferry <jerem.ferry@gmail.com>  Sun, 16 Mar 2025 11:14:10 +0100
+
 edit-interactive-svg (1.2.0) xenial; urgency=medium
   * feature : Undo/Redo and history changes
   * feature : Open (or drag and drop) picture's files : png and jpg files
