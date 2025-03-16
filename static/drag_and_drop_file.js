@@ -97,7 +97,7 @@
                         reader.onload = function(e) {
                             "using strict";
                             let active_modal = document.querySelector('.modal.in');
-                            if (active_modal.id != 'update-picture-modal')
+                            if (active_modal && active_modal.id != 'update-picture-modal')
                                 delete_pic();
                             load_file(reader.result);
                             translateExportInterface(Editor.local);
